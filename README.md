@@ -1,0 +1,1 @@
+# pixi-typescript-boilerplate-model
