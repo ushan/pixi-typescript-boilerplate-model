@@ -3,7 +3,10 @@ import SpriteCommon from "../../components/common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
 import Pseudo3DSprite from '../Pseudo3DSprite';
+import { AppConfig } from '../../config';
 
+const {gameWidth, gameHeight} = AppConfig.settings;
+const {animationSpped} = AppConfig.settings3D;
 
 class GameScreen extends PIXI.Container {
     // region #Resources
@@ -35,7 +38,7 @@ class GameScreen extends PIXI.Container {
         this.app.ticker.add((delta) =>
         {
             this.t += delta;
-            this.items.forEach(c => {c.point3D.z += (delta / 100)})
+            this.items.forEach(c => {c.point3D.z += (delta / animationSpped)})
         });
 
         
@@ -74,8 +77,8 @@ class GameScreen extends PIXI.Container {
         const {app} = this;
 
         // Bg
-        this.bg.width = 800;    
-        this.bg.height = 600;  
+        this.bg.width = gameWidth;    
+        this.bg.height = gameHeight;  
 
         this.items.forEach((item,i) => {
 
