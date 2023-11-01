@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
-import ResourceService from "../resources/ResourceService";
-import SpriteCommon from '../components/common/SpriteCommon';
-import Point3D from '../model/pseudo3ds/Point3D';
-import { AppConfig } from '../config';
+import ResourceService from "../../resources/ResourceService";
+import SpriteCommon from './SpriteCommon';
+import Point3D from '../../model/pseudo3ds/Point3D';
+import { AppConfig } from '../../config';
 
 const {
     gameWidth, 
