@@ -18,6 +18,13 @@ class Point3D {
     public get z()      :number {return this._z;}
     public set z(value  :number) {this._z = value; this.update();}
 
+    public setPositions (x:number, y:number, z:number) {
+        this._x = x;
+        this._y = y;
+        this._z = z;
+        this.update();
+    }
+
     update() {
         if (this.onUpdate) {
             this.onUpdate();
