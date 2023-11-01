@@ -6,13 +6,12 @@ import Pseudo3DSprite from '../Pseudo3DSprite';
 import { AppConfig } from '../../config';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
-const {animationSpped} = AppConfig.settings3D;
+const {animationSpped, worldSize, convayorY, convayorWidth} = AppConfig.settings3D;
 
 class GameScreen extends PIXI.Container {
     // region #Resources
-    private readonly bg: SpriteCommon = new SpriteCommon(ResourceList.BG);
-    private readonly items: Pseudo3DSprite[] = [];
-
+    private readonly bg     :SpriteCommon = new SpriteCommon(ResourceList.BG);
+    private readonly items  :Pseudo3DSprite[] = [];
 
     // endregion
 
@@ -41,6 +40,10 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => {c.point3D.z += (delta / animationSpped)})
         });
 
+        const newItemInterval = setInterval(() => {
+            this.addRandomItem();
+        }, 1000);
+
         
     }
 
@@ -62,14 +65,17 @@ class GameScreen extends PIXI.Container {
     private addElements = () => {
         this.addChild(this.bg);
 
-        this.items.forEach(card => this.addChild(card));
+        // this.items.forEach(item => this.addChild(item));
+        console.log("hhh");
     }
 
     private  addRandomItem = () => {
         const item = new Pseudo3DSprite(ResourceList.CARD);
-        const w = 800;
-        const h = 600;
-        item.point3D.setPositions(Math.random() * 800, 280, -100);
+        const xPosOnConvayor = Math.random () * convayorWidth * worldSize - convayorWidth / 2;
+        const yPosOnConvayor = convayorY * worldSize;
+        item.point3D.setPositions(xPosOnConvayor, yPosOnConvayor, 0);
+        this.addChild(item);
+        this.items.push(item);
 
     }
 
@@ -83,8 +89,8 @@ class GameScreen extends PIXI.Container {
         this.items.forEach((item,i) => {
 
             item.anchor.set(0.5,1);
-            item.point3D.x = Math.random () * 2000 - 1000;
-            item.point3D.y = 6000;
+            item.point3D.x = Math.random () * convayorWidth * worldSize - convayorWidth / 2;
+            item.point3D.y = convayorY * worldSize;
             const n = this.items.length - i;
             item.point3D.z = n * 20 - 19;
             item.alpha = 1;

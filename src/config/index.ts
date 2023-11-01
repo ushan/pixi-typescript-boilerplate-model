@@ -9,6 +9,9 @@ export namespace AppConfig {
     focalLength     :10,
     scaleZoom       :4,
     horyzontPos     :0.2, //0 .. 1 Position of horizont that devides view to parts with corresponed ratio
-    animationSpped  :5
+    animationSpped  :5,
+    worldSize       :1000,
+    convayorY       :6,
+    convayorWidth   :2
   };
 }
