@@ -9,17 +9,21 @@ import GameModel from '../../model/GameModel';
 import ItemModel from '../../model/goods/ItemModel';
 import ItemSprite from '../../components/goods/ItemSprite';
 import Cart from '../../components/common/Cart';
+import ProgressBar from '../../components/ProgressBar';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
 const {animationSpped, worldSize, convayorY, convayorWidth} = AppConfig.settings3D;
+const {levelMaxScores} = AppConfig.gameSettings;
 
 class GameScreen extends PIXI.Container {
     // region #Resources
     private readonly bg         :SpriteCommon = new SpriteCommon(ResourceList.BG);
     private readonly items      :Pseudo3DSprite[] = [];
     private readonly itemsCont  :PIXI.Container = new PIXI.Container;
-    public scoresText?          :Text;
-    public cart                 :Cart = new Cart();
+    private scores              :PIXI.Container = new PIXI.Container;
+    private scoresText?         :Text;
+    private cart                :Cart = new Cart();
+    private progressBar         :ProgressBar = new ProgressBar(120, 4);
 
 
     // endregion
@@ -81,16 +85,20 @@ class GameScreen extends PIXI.Container {
 
         this.addChild(this.itemsCont);
 
-        this.scoresText = new Text('Scores: 200', {
+        this.addChild(this.scores);
+        this.scoresText = new Text('0/0', {
             fontFamily: 'Arial',
             fontSize: 24,
             fill: 0xff1010,
-            align: 'left',
+            align: 'center'
         });
-        this.addChild(this.scoresText);
-        this.scoresText.x = 10;
-        this.scoresText.y = 10;
+        this.scores.addChild(this.scoresText);
+        this.scores.addChild(this.progressBar);
+        this.scores.x = 10;
+        this.scores.y = 10;
+        this.progressBar.y = 30;
 
+        this.updateScores();
         // this.items.forEach(item => this.addChild(item));
   
     }
@@ -153,7 +161,10 @@ class GameScreen extends PIXI.Container {
 
     private updateScores = () => {
         if (this.scoresText){
-            this.scoresText.text = `Scores: ${this.gameModel.scores}`;
+            this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
+            this.progressBar.progress = this.gameModel.scores / levelMaxScores;
+            // this.progressBar.progress = 0.5;
+            this.scoresText.x = (this.progressBar.width - this.scoresText.width) / 2;
         } 
         
     }

@@ -14,4 +14,7 @@ export namespace AppConfig {
     convayorY       :6,
     convayorWidth   :6
   };
+  export const gameSettings = {
+    levelMaxScores    :1000,
+  };
 }
