@@ -16,8 +16,10 @@ const {
 } = AppConfig.settings3D;
 
 class Pseudo3DSprite extends SpriteCommon {
+    // public onUpdate : () => void;
     public point3D:Point3D = new Point3D(() => this.updatePosByPoint3D());
-    constructor(resourceName: string) {
+    public outOfBoundsCallback?    :(item:Pseudo3DSprite) => void
+    constructor(resourceName :string) {
         super(resourceName);
     }
 
@@ -28,6 +30,10 @@ class Pseudo3DSprite extends SpriteCommon {
         this.y = h * horyzontPos + this.point3D.y / (this.point3D.z + focalLength);
         const sc:number =  scaleZoom * 1 / (this.point3D.z + focalLength);
         this.scale.set(sc, sc);
+
+        if (this.point3D.z < 0 && this.outOfBoundsCallback){
+            this.outOfBoundsCallback(this);
+        }
     }
 
 
