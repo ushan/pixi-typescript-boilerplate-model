@@ -12,6 +12,6 @@ export namespace AppConfig {
     animationSpped  :5,
     worldSize       :1000,
     convayorY       :6,
-    convayorWidth   :2
+    convayorWidth   :6
   };
 }

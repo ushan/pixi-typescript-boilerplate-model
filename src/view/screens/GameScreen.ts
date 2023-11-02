@@ -61,17 +61,17 @@ class GameScreen extends PIXI.Container {
         console.log("hhh");
     }
 
-    private n:number = 1;
+    private count:number = 1;
     private  addRandomItem = () => {
         const item = new Pseudo3DSprite(ResourceList.CARD);
         item.outOfBoundsCallback = () =>  this.onItemOutOfBounds(item);
-        const xPosOnConvayor = Math.random () * convayorWidth * worldSize - convayorWidth / 2;
+        const xPosOnConvayor = Math.random () * convayorWidth * worldSize - worldSize * convayorWidth / 2;
         const yPosOnConvayor = convayorY * worldSize;
         item.point3D.setPositions(xPosOnConvayor, yPosOnConvayor, 100);
         this.itemsCont.addChild(item);
         this.items.push(item);
-        this.n++;
-        item.zIndex = 0xffffff - this.n;
+        this.count++;
+        item.zIndex = 0xffffff - this.count;
         this.itemsCont.sortChildren();
 
     }
