@@ -1,8 +1,10 @@
 import { resources } from "pixi.js";
 import ResourceList from "../resources/ResourceList";
 import ItemModel from "./goods/ItemModel";
+import { MiniSignal } from "mini-signals";
 
 class GameModel {
+    readonly scoreUpdated:MiniSignal = new MiniSignal();
     readonly itemModels:ItemModel[] = this.createItemModels();
 /*     readonly itemTypes:string [] = [
         "good_1",
@@ -12,16 +14,20 @@ class GameModel {
         "good_5",
     ] */
     constructor (){
-        this.createItemModels();
+        this.init();
     }
 
     public get scores()      :number {return this._scores;}
-    public set scores(value  :number) {this._scores = value; this.update();}
+    public set scores(value  :number) {this._scores = value; this.scoreUpdated.dispatch();}
     private _scores          :number = 0;
 
     public getNextItemModel ():ItemModel {
         const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
         return itemModel
+    }
+
+    private init():void {
+        this.createItemModels();
     }
 
     private createItemModels():ItemModel[]{

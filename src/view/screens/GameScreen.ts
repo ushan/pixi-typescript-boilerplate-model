@@ -34,7 +34,7 @@ class GameScreen extends PIXI.Container {
             return card;
         }); */
 
-
+        this.gameModel.scoreUpdated.add(this.updateScores);
         this.start();
     }
 
@@ -96,6 +96,7 @@ class GameScreen extends PIXI.Container {
     }
 
     private count:number = 1;
+
     private  addRandomItem = () => {
         const itemModel:ItemModel = this.gameModel.getNextItemModel();
         const item = new ItemSprite(itemModel);
@@ -111,6 +112,8 @@ class GameScreen extends PIXI.Container {
         this.itemsCont.sortChildren();
         item.alpha = 0;
         gsap.to(item, {alpha: 1, duration: 1, onComplete: () => {item.alpha = 1} });
+
+        this.gameModel.scores += itemModel.scores;
     }
 
     private onItemOutOfBounds (item:Pseudo3DSprite):void {
@@ -147,6 +150,13 @@ class GameScreen extends PIXI.Container {
 
     }
     // endregion
+
+    private updateScores = () => {
+        if (this.scoresText){
+            this.scoresText.text = `Scores: ${this.gameModel.scores}`;
+        } 
+        
+    }
 }
 
 export default GameScreen;
