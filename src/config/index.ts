@@ -16,5 +16,6 @@ export namespace AppConfig {
   };
   export const gameSettings = {
     levelMaxScores    :1000,
+    cartWidth         :20,
   };
 }

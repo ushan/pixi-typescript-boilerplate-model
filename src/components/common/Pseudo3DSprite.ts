@@ -23,7 +23,7 @@ class Pseudo3DSprite extends SpriteCommon {
         super(resourceName);
     }
 
-    updatePosByPoint3D(){
+    protected updatePosByPoint3D(){
         const w = gameWidth;
         const h = gameHeight;
         this.x = w / 2 + this.point3D.x / (this.point3D.z + focalLength);
@@ -34,7 +34,6 @@ class Pseudo3DSprite extends SpriteCommon {
         if (this.point3D.z < -20 && this.outOfBoundsCallback){
             this.outOfBoundsCallback(this);
         }
-        
     }
 
 

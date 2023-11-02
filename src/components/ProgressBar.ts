@@ -33,7 +33,11 @@ class ProgressBar extends PIXI.Container {
   drawProgress(value:number) {
     this.clear();
     this.bar.beginFill(this.color);
-    this.bar.drawRect(1, 1, (this.w * value) - 2, this.h - 2);
+    let limitedValue = value;
+    if (value > 1) limitedValue = 1;
+    if (value < 0) limitedValue = 0;
+    
+    this.bar.drawRect(1, 1, (this.w * limitedValue) - 2, this.h - 2);
   }
 
   set progress(value:number) {

@@ -17,12 +17,12 @@ const {levelMaxScores} = AppConfig.gameSettings;
 
 class GameScreen extends PIXI.Container {
     // region #Resources
-    private readonly bg         :SpriteCommon = new SpriteCommon(ResourceList.BG);
-    private readonly items      :Pseudo3DSprite[] = [];
-    private readonly itemsCont  :PIXI.Container = new PIXI.Container;
+    readonly bg         :SpriteCommon = new SpriteCommon(ResourceList.BG);
+    readonly items      :Pseudo3DSprite[] = [];
+    readonly itemsCont  :PIXI.Container = new PIXI.Container;
+    readonly cart       :Cart = new Cart();
     private scores              :PIXI.Container = new PIXI.Container;
     private scoresText?         :Text;
-    private cart                :Cart = new Cart();
     private progressBar         :ProgressBar = new ProgressBar(120, 4);
 
 
@@ -107,7 +107,7 @@ class GameScreen extends PIXI.Container {
 
     private  addRandomItem = () => {
         const itemModel:ItemModel = this.gameModel.getNextItemModel();
-        const item = new ItemSprite(itemModel);
+        const item = new ItemSprite(itemModel, this.gameModel, this);
         item.anchor.set(0.5,1);
         item.outOfBoundsCallback = () =>  this.onItemOutOfBounds(item);
         const xPosOnConvayor = Math.random () * convayorWidth * worldSize - worldSize * convayorWidth / 2;
@@ -121,7 +121,7 @@ class GameScreen extends PIXI.Container {
         item.alpha = 0;
         gsap.to(item, {alpha: 1, duration: 1, onComplete: () => {item.alpha = 1} });
 
-        this.gameModel.scores += itemModel.scores;
+        // this.gameModel.scores += itemModel.scores;
     }
 
     private onItemOutOfBounds (item:Pseudo3DSprite):void {

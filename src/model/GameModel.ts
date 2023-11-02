@@ -2,6 +2,8 @@ import { resources } from "pixi.js";
 import ResourceList from "../resources/ResourceList";
 import ItemModel from "./goods/ItemModel";
 import { MiniSignal } from "mini-signals";
+import { AppConfig } from "../config";
+
 
 class GameModel {
     readonly scoreUpdated:MiniSignal = new MiniSignal();
@@ -24,6 +26,14 @@ class GameModel {
     public getNextItemModel ():ItemModel {
         const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
         return itemModel
+    }
+
+    public registerAchiveBorder(item:ItemModel, inCart:boolean):void {
+        if (inCart) {
+            this.scores += item.scores;
+        } else {
+            this.scores -= 1;
+        }
     }
 
     private init():void {
