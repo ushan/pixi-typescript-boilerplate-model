@@ -4,6 +4,9 @@ import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
 import Pseudo3DSprite from '../../components/common/Pseudo3DSprite';
 import { AppConfig } from '../../config';
+import GameModel from '../../model/GameModel';
+import ItemModel from '../../model/goods/ItemModel';
+import ItemSprite from '../../components/goods/ItemSprite';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
 const {animationSpped, worldSize, convayorY, convayorWidth} = AppConfig.settings3D;
@@ -16,7 +19,7 @@ class GameScreen extends PIXI.Container {
 
     // endregion
 
-    constructor(private app: PIXI.Application) {
+    constructor(private app:PIXI.Application, private gameModel:GameModel) {
         super();
         this.items = [];
 
@@ -71,7 +74,8 @@ class GameScreen extends PIXI.Container {
 
     private count:number = 1;
     private  addRandomItem = () => {
-        const item = new Pseudo3DSprite(ResourceList.CARD);
+        const itemModel:ItemModel = this.gameModel.getNextItemModel();
+        const item = new ItemSprite(itemModel);
         item.anchor.set(0.5,1);
         item.outOfBoundsCallback = () =>  this.onItemOutOfBounds(item);
         const xPosOnConvayor = Math.random () * convayorWidth * worldSize - worldSize * convayorWidth / 2;

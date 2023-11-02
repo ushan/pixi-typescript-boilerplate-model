@@ -1,10 +1,12 @@
 import * as PIXI from 'pixi.js';
 import GameScreen from "./view/screens/GameScreen";
 import ResourceService from "./resources/ResourceService";
+import GameModel from './model/GameModel';
 
 class Game extends PIXI.Container {
 
-    private gameScreen: GameScreen | undefined;
+    readonly gameModel  :GameModel = new GameModel();
+    private gameScreen  :GameScreen | undefined;
 
     constructor(private app: PIXI.Application) {
         super();
@@ -18,7 +20,7 @@ class Game extends PIXI.Container {
     startGame = () => {
         this.cleanUp();
 
-        this.gameScreen = new GameScreen(this.app);
+        this.gameScreen = new GameScreen(this.app, this.gameModel);
         this.addChild(this.gameScreen);
     }
 

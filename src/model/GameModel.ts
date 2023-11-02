@@ -4,13 +4,13 @@ import ItemModel from "./goods/ItemModel";
 
 class GameModel {
     readonly itemModels:ItemModel[] = this.createItemModels();
-    readonly itemTypes:string [] = [
+/*     readonly itemTypes:string [] = [
         "good_1",
         "good_2",
         "good_3",
         "good_4",
         "good_5",
-    ]
+    ] */
     constructor (){
         this.createItemModels();
     }
@@ -32,7 +32,7 @@ class GameModel {
             const itemModel = new ItemModel(resource)
             itemModel.scores = itemScores;
             itemScores *= 2;
-            this.itemModels.push(itemModel);
+            arr.push(itemModel);
         });
 
         return arr

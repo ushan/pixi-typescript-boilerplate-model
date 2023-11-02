@@ -31,7 +31,7 @@ class Pseudo3DSprite extends SpriteCommon {
         const sc:number =  scaleZoom * 1 / (this.point3D.z + focalLength);
         this.scale.set(sc, sc);
         // this.rotation = this.point3D.z;
-        if (this.point3D.z < 0 && this.outOfBoundsCallback){
+        if (this.point3D.z < -20 && this.outOfBoundsCallback){
             this.outOfBoundsCallback(this);
         }
         
