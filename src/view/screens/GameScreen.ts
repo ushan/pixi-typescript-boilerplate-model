@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import { Text } from 'pixi.js';
 import SpriteCommon from "../../components/common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
@@ -7,6 +8,7 @@ import { AppConfig } from '../../config';
 import GameModel from '../../model/GameModel';
 import ItemModel from '../../model/goods/ItemModel';
 import ItemSprite from '../../components/goods/ItemSprite';
+import Cart from '../../components/common/Cart';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
 const {animationSpped, worldSize, convayorY, convayorWidth} = AppConfig.settings3D;
@@ -16,6 +18,9 @@ class GameScreen extends PIXI.Container {
     private readonly bg         :SpriteCommon = new SpriteCommon(ResourceList.BG);
     private readonly items      :Pseudo3DSprite[] = [];
     private readonly itemsCont  :PIXI.Container = new PIXI.Container;
+    public scoresText?          :Text;
+    public cart                 :Cart = new Cart();
+
 
     // endregion
 
@@ -44,7 +49,10 @@ class GameScreen extends PIXI.Container {
             this.t += delta;
             this.items.forEach(c => {c.point3D.z -= (delta / animationSpped)})
         });
-
+        this.bg.on("pointermove", (e:any) => {
+            console.log('X', e.data.global.x, 'Y', e.data.global.y);
+            this.cart.x = e.data.global.x;
+        });
         const newItemInterval = setInterval(() => {
             this.addRandomItem();
         }, 1000);        
@@ -66,10 +74,25 @@ class GameScreen extends PIXI.Container {
 
     private addElements = () => {
         this.addChild(this.bg);
+        this.addChild (this.cart);
+        this.cart.scale.set(0.5);
+        this.cart.anchor.set(0.5, 1);
+        this.cart.y = gameHeight;
+
         this.addChild(this.itemsCont);
 
+        this.scoresText = new Text('Scores: 200', {
+            fontFamily: 'Arial',
+            fontSize: 24,
+            fill: 0xff1010,
+            align: 'left',
+        });
+        this.addChild(this.scoresText);
+        this.scoresText.x = 10;
+        this.scoresText.y = 10;
+
         // this.items.forEach(item => this.addChild(item));
-        console.log("hhh");
+  
     }
 
     private count:number = 1;
