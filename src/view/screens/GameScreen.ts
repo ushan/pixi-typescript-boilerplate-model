@@ -44,9 +44,17 @@ class GameScreen extends PIXI.Container {
 
         const newItemInterval = setInterval(() => {
             this.addRandomItem();
-        }, 1000);
+        }, 1000);        
+    }
 
-        
+    private do(item: Pseudo3DSprite) {
+        const {x,y, defaultX, defaultY} = item;
+
+        if (x !== defaultX || y !== defaultY) {
+            this.items.forEach(c => gsap.to(c, {x: c.defaultX, y: c.defaultY, rotation: 0, duration: .3}));
+        } else {
+            gsap.to(item, {y:100, rotation: 6.28, duration: 1, onComplete: () => {item.rotation = 0} });
+        }
     }
 
     public animate = (delta: number = 0) => {
@@ -64,6 +72,7 @@ class GameScreen extends PIXI.Container {
     private count:number = 1;
     private  addRandomItem = () => {
         const item = new Pseudo3DSprite(ResourceList.CARD);
+        item.anchor.set(0.5,1);
         item.outOfBoundsCallback = () =>  this.onItemOutOfBounds(item);
         const xPosOnConvayor = Math.random () * convayorWidth * worldSize - worldSize * convayorWidth / 2;
         const yPosOnConvayor = convayorY * worldSize;
@@ -73,7 +82,8 @@ class GameScreen extends PIXI.Container {
         this.count++;
         item.zIndex = 0xffffff - this.count;
         this.itemsCont.sortChildren();
-
+        item.alpha = 0;
+        gsap.to(item, {alpha: 1, duration: 1, onComplete: () => {item.alpha = 1} });
     }
 
     private onItemOutOfBounds (item:Pseudo3DSprite):void {
