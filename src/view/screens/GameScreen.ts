@@ -32,6 +32,7 @@ class GameScreen extends PIXI.Container {
     constructor(private app:PIXI.Application, private gameModel:GameModel) {
         super();
         this.items = [];
+        this.interactive = true;
 
  /*       this.items = new Array(6).fill(1).map((v,i) => {
             const card = new Pseudo3DSprite(ResourceList.CARD);
@@ -54,10 +55,19 @@ class GameScreen extends PIXI.Container {
             this.t += delta;
             this.items.forEach(c => {c.point3D.z -= (delta / animationSpped)})
         });
-        this.bg.on("pointermove", (e:any) => {
+        this.on("pointermove", (e:any) => {
             // console.log('X', e.data.global.x, 'Y', e.data.global.y);
             this.cart.x = e.data.global.x;
         });
+
+/*         this.on('mouseover', (event) => {
+            app.on('mousemove', (event) => {
+                // Handle mousemove event here
+                console.log('Mouse X:', event.data.global.x);
+                console.log('Mouse Y:', event.data.global.y);
+            });
+        }); */
+
         const newItemInterval = setInterval(() => {
             this.addRandomItem();
         }, 1000);        
