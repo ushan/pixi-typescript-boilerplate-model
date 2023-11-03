@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "pixi-typescript-boilerplate",
   "scripts": {
+    "clear": "rm -rf dist/* && rm -rf .parcel-cache/*",
     "start": "parcel src/index.html",
-    "build": "rm -rf dist/* && parcel build src/index.html"
+    "build": "parcel build src/index.html --public-url ./"
   },
   "author": "ushan",
   "license": "MIT",
