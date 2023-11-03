@@ -28,11 +28,13 @@ class GameModel {
         return itemModel
     }
 
-    public registerAchiveBorder(item:ItemModel, inCart:boolean):void {
+    public registerAchiveBorder(item:ItemModel, inCart:boolean):boolean {
         if (inCart) {
             this.scores += item.scores;
+            return true
         } else {
             this.scores -= 1;
+            return false
         }
     }
 

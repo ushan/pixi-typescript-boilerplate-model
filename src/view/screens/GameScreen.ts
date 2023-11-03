@@ -156,19 +156,7 @@ class GameScreen extends PIXI.Container {
         this.bg.width = gameWidth;    
         this.bg.height = gameHeight;  
 
- /*       this.items.forEach((item,i) => {
-
-            item.anchor.set(0.5,1);
-            item.point3D.x = Math.random () * convayorWidth * worldSize - convayorWidth / 2;
-            item.point3D.y = convayorY * worldSize;
-            const n = this.items.length - i;
-            item.point3D.z = n * 20 - 19;
-            item.alpha = 1;
-        });
-*/
-
     }
-    // endregion
 
     private updateScores = () => {
         if (this.scoresText){

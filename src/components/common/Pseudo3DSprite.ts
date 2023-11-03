@@ -17,6 +17,7 @@ const {
 } = AppConfig.settings3D;
 
 class Pseudo3DSprite extends SpriteCommon {
+    public listen3D:boolean = true;
     // public onUpdate : () => void;
     public point3D:Point3D = new Point3D(() => this.updatePosByPoint3D());
     public outOfBoundsCallback?    :(item:Pseudo3DSprite) => void
@@ -25,6 +26,7 @@ class Pseudo3DSprite extends SpriteCommon {
     }
 
     protected updatePosByPoint3D(){
+        if (!this.listen3D) return
         const w = gameWidth;
         const h = gameHeight;
         const centrX = w / 2;
