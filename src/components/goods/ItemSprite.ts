@@ -16,7 +16,7 @@ class ItemSprite extends Pseudo3DSprite {
         protected gameModel :GameModel,
         protected gameScreen:GameScreen
         ) {
-        super(itemModel.resource);
+        super(gameScreen, itemModel.resource);
         //this.createShadow();
     }
 

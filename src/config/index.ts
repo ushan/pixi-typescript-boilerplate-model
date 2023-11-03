@@ -12,7 +12,7 @@ export namespace AppConfig {
     animationSpped  :5,
     worldSize       :1000,
     convayorY       :6,
-    convayorWidth   :6
+    convayorWidth   :11
   };
   export const gameSettings = {
     levelMaxScores    :1000,

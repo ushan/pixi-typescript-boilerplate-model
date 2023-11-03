@@ -21,6 +21,7 @@ class GameScreen extends PIXI.Container {
     readonly items      :Pseudo3DSprite[] = [];
     readonly itemsCont  :PIXI.Container = new PIXI.Container;
     readonly cart       :Cart = new Cart();
+
     private scores              :PIXI.Container = new PIXI.Container;
     private scoresText?         :Text;
     private progressBar         :ProgressBar = new ProgressBar(120, 4);
@@ -54,7 +55,7 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => {c.point3D.z -= (delta / animationSpped)})
         });
         this.bg.on("pointermove", (e:any) => {
-            console.log('X', e.data.global.x, 'Y', e.data.global.y);
+            // console.log('X', e.data.global.x, 'Y', e.data.global.y);
             this.cart.x = e.data.global.x;
         });
         const newItemInterval = setInterval(() => {

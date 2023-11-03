@@ -46,9 +46,7 @@ class ProgressBar extends PIXI.Container {
 
     if (value > 0) {
       this.drawProgress(value);
-      this.alpha = 1;
     } else {
-      this.alpha = 0;
       this.bar.clear();
     }
   }
