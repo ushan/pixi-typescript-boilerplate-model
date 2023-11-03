@@ -5,11 +5,10 @@ class SpriteCommon extends PIXI.Sprite {
     public defaultX: number = 0;
     public defaultY: number = 0;
 
-    constructor(protected resourceName: string) {
+    constructor(resourceName: string) {
         super();
 
-        this.interactive = true;
-        this.buttonMode = true;
+        this.eventMode = 'dynamic';
 
         this.texture = ResourceService.getTexture(resourceName);
     }

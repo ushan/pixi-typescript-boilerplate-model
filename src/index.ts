@@ -1,19 +1,15 @@
 import * as PIXI from 'pixi.js';
 import Game from "./Game";
-import { AppConfig } from './config';
 
-
-const {gameWidth, gameHeight} = AppConfig.settings;
 const options: object = {
-  width: gameWidth,
-  height: gameHeight,
+  width: 800,
+  height: 600,
   background: 0x223388,
   antialias: true,
   transparent: true,
 };
 
-
-const app: PIXI.Application = new PIXI.Application(options);
+const app= new PIXI.Application<HTMLCanvasElement>(options);
 
 (window as any)['globalThis']['__PIXI_APP__'] = app;
 

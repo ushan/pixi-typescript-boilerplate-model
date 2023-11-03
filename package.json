@@ -6,13 +6,12 @@
     "start": "parcel src/index.html",
     "build": "rm -rf dist/* && parcel build src/index.html"
   },
-  "author": "strangedk",
+  "author": "ushan",
   "license": "MIT",
   "dependencies": {
     "gsap": "^3.6.1",
     "mini-signals": "^2.0.0",
-    "pixi.js": "^5.3.3",
-    "signals": "^1.0.0"
+    "pixi.js": "^7.3.2"
   },
   "devDependencies": {
     "@parcel/config-default": "2.9.2",
@@ -20,6 +19,8 @@
     "parcel": "^2.10.1",
     "parcel-plugin-static-files-copy": "file:../..",
     "parcel-reporter-static-files-copy": "^1.5.3",
+    "punycode": "^1.4.1",
+    "querystring-es3": "^0.2.1",
     "ts-loader": "^8.0.11",
     "typescript": "^4.0.5"
   },
