@@ -1,5 +1,3 @@
-// import { ConfigInterface } from './ConfigInterface';
-
 export namespace AppConfig {
   export const settings = {
     gameWidth   :800,
