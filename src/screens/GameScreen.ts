@@ -1,11 +1,8 @@
 import * as PIXI from 'pixi.js';
-import SpriteCommon from "../components/common/SpriteCommon";
-import ResourceList from "../resources/ResourceList";
-import gsap from "gsap";
+
 
 class GameScreen extends PIXI.Container {
     // region #Resources
-    private readonly bg     :SpriteCommon = new SpriteCommon(ResourceList.BG);
     private readonly dots   :PIXI.Graphics[] = [];
     private readonly sphere :PIXI.Graphics[] = [];
 
@@ -65,10 +62,6 @@ class GameScreen extends PIXI.Container {
             
         }
     }
-
-
-
- 
 }
 
 export default GameScreen;
