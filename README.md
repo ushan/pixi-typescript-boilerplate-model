@@ -1,7 +1,7 @@
 # the parametric equation of a sphere
 
 There are two principal ways of defining of a spher
-in Decard corrdinates:
+in Decard coordinates:
 x2 + y2 + z2 = R2
 
 and parametric:
