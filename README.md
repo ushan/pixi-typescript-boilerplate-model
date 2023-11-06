@@ -1,11 +1,11 @@
-# pixi-typescript-boilerplate
+# the parametric equation of a sphere
 
 There are two principal ways of defining of a spher
 in Decard corrdinates:
 x2 + y2 + z2 = R2
 
 and parametric:
-parametric defentions of a sphere
+parametric defention of a sphere
 
 x = x0 + R · sin θ · cos φ
 y = y0 + R · sin θ · sin φ
