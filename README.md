@@ -1,14 +1,17 @@
 # pixi-typescript-boilerplate
 
-Based on webpack-starter-kit-pixijs
-https://github.com/jasesnider/webpack-starter-kit-pixijs
-https://github.com/strangedk/pixi-typescript-boilerplate/tree/v5
+There are two principal ways of defining of a spher
+in Decard corrdinates:
+x2 + y2 + z2 = R2
 
-Webpack here is supports hot reloading and typescript
+and parametric:
+parametric defentions of a sphere
 
-If you got an error about 'module not found', please check *@types* for this module
-
-Also don't forget to add unusable file types into the *.gitignore*
+x = x0 + R · sin θ · cos φ
+y = y0 + R · sin θ · sin φ
+z = z0 + R · cos θ
+ 
+whre θ ϵ [0,π], φ ϵ [0,2π].
 
 Steps:
 1. npm i

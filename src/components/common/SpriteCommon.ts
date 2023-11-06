@@ -5,7 +5,7 @@ class SpriteCommon extends PIXI.Sprite {
     public defaultX: number = 0;
     public defaultY: number = 0;
 
-    constructor(readonly resourceName: string) {
+    constructor(resourceName: string) {
         super();
 
         this.eventMode = 'dynamic';
