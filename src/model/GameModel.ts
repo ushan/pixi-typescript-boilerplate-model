@@ -1,4 +1,3 @@
-import { resources } from "pixi.js";
 import ResourceList from "../resources/ResourceList";
 import ItemModel from "./goods/ItemModel";
 import { MiniSignal } from "mini-signals";

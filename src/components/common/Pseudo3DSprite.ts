@@ -36,8 +36,12 @@ class Pseudo3DSprite extends SpriteCommon {
         this.scale.set(sc, sc);
         // this.rotation = this.point3D.z;
         if (this.point3D.z < -20 && this.outOfBoundsCallback){
-            this.outOfBoundsCallback(this);
+            this.dispatchOutOfBounds();
         }
+    }
+
+    protected dispatchOutOfBounds():void{
+        if (this.outOfBoundsCallback) this.outOfBoundsCallback(this);
     }
 
 

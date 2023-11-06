@@ -21,7 +21,7 @@ class ItemSprite extends Pseudo3DSprite {
         //this.createShadow();
     }
 
-    public updateSleeping()
+    // public updateSleeping()
 
     protected override updatePosByPoint3D(){
         super.updatePosByPoint3D();
@@ -31,7 +31,10 @@ class ItemSprite extends Pseudo3DSprite {
             this.listen3D = false;
             this.hasAchivedBorder = true;
 
-            gsap.to(this, {x: this.gameScreen.cart.x, y: this.gameScreen.cart.y + 150, duration: .3});
+            //gsap.to(this, {x: this.gameScreen.cart.x, y: this.gameScreen.cart.y + 150, duration: 2.3});
+            this.gameScreen.moveToCart(this);
+            this.dispatchOutOfBounds();
+
         }
     }
 

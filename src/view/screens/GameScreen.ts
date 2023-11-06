@@ -13,7 +13,7 @@ import ProgressBar from '../../components/ProgressBar';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
 const {animationSpped, worldSize, convayorY, convayorWidth} = AppConfig.settings3D;
-const {levelMaxScores} = AppConfig.gameSettings;
+const {levelMaxScores, newItemDelay} = AppConfig.gameSettings;
 
 class GameScreen extends PIXI.Container {
     // region #Resources
@@ -57,20 +57,12 @@ class GameScreen extends PIXI.Container {
         });
         this.on("pointermove", (e:any) => {
             // console.log('X', e.data.global.x, 'Y', e.data.global.y);
-            this.cart.x = e.data.global.x;
+            // this.cart.x = e.data.global.x;
         });
-
-/*         this.on('mouseover', (event) => {
-            app.on('mousemove', (event) => {
-                // Handle mousemove event here
-                console.log('Mouse X:', event.data.global.x);
-                console.log('Mouse Y:', event.data.global.y);
-            });
-        }); */
 
         const newItemInterval = setInterval(() => {
             this.addRandomItem();
-        }, 1000);        
+        }, newItemDelay);        
     }
 
     private do(item: Pseudo3DSprite) {
@@ -83,6 +75,10 @@ class GameScreen extends PIXI.Container {
         }
     }
 
+    public moveToCart = (item:ItemSprite) =>{
+        this.cart.cloneItem(item);
+    }
+
     public animate = (delta: number = 0) => {
     }
 
@@ -90,9 +86,10 @@ class GameScreen extends PIXI.Container {
     private addElements = () => {
         this.addChild(this.bg);
         this.addChild (this.cart);
-        this.cart.scale.set(0.5);
-        this.cart.anchor.set(0.5, 1);
-        this.cart.y = gameHeight;
+        // this.cart.scale.set(0.5);
+        // this.cart.anchor.set(0.5, 1);
+        this.cart.y = 0;
+        this.cart.x = 0;
 
         this.addChild(this.itemsCont);
 
