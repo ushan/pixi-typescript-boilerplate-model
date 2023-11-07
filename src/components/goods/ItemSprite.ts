@@ -28,13 +28,25 @@ class ItemSprite extends Pseudo3DSprite {
         super.updatePosByPoint3D();
         if (this.point3D.z < 6 && !this.hasAchivedBorder){
             const isInCart:boolean = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
-            let isSuccess:boolean = this.gameModel.registerAchiveBorder(this.itemModel, isInCart);
+            const isSuccess:boolean = this.gameModel.registerAchiveBorder(this.itemModel, isInCart);
             this.listen3D = false;
             this.hasAchivedBorder = true;
 
             //gsap.to(this, {x: this.gameScreen.cart.x, y: this.gameScreen.cart.y + 150, duration: 2.3});
-            this.gameScreen.moveToCart(this);
-            this.dispatchOutOfBounds();
+            if (isSuccess)
+            {
+                this.gameScreen.moveToCart(this);
+                this.dispatchOutOfBounds();
+            } else {
+                gsap.to(this, {
+                    x: 1000, 
+                    y: 200, 
+                    rotation:Math.PI/4,
+                    onComplete:() => {this.dispatchOutOfBounds();},
+                    ease        :"power2.out",
+                    duration: 0.9});
+            }
+
 
         }
     }

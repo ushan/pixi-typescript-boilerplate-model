@@ -14,7 +14,7 @@ export namespace AppConfig {
   };
   export const gameSettings = {
     levelMaxScores    :1000,
-    cartWidth         :20,
+    cartWidth         :50,
     newItemDelay      :1 * 1000
   };
   export const animationSettings = {
