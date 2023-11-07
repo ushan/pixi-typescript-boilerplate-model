@@ -7,7 +7,7 @@ export namespace AppConfig {
     focalLength     :10,
     scaleZoom       :4,
     horyzontPos     :0.2, //0 .. 1 Position of horizont that devides view to parts with corresponed ratio
-    animationSpped  :5 * 5,
+    animationSpped  :2 * 5,
     worldSize       :1000,
     convayorY       :6,
     convayorWidth   :11
@@ -15,6 +15,6 @@ export namespace AppConfig {
   export const gameSettings = {
     levelMaxScores    :1000,
     cartWidth         :20,
-    newItemDelay      :5 * 1000
+    newItemDelay      :2 * 1000
   };
 }

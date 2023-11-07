@@ -57,7 +57,7 @@ class GameScreen extends PIXI.Container {
         });
         this.on("pointermove", (e:any) => {
             // console.log('X', e.data.global.x, 'Y', e.data.global.y);
-            // this.cart.x = e.data.global.x;
+            this.cart.x = e.data.global.x;
         });
 
         const newItemInterval = setInterval(() => {
@@ -86,9 +86,9 @@ class GameScreen extends PIXI.Container {
     private addElements = () => {
         this.addChild(this.bg);
         this.addChild (this.cart);
-        // this.cart.scale.set(0.5);
-        // this.cart.anchor.set(0.5, 1);
-        this.cart.y = 0;
+        this.cart.scale.set(0.5);
+        this.cart.anchor.set(0.5, 1);
+        this.cart.y = gameHeight;
         this.cart.x = 0;
 
         this.addChild(this.itemsCont);
@@ -159,7 +159,6 @@ class GameScreen extends PIXI.Container {
         if (this.scoresText){
             this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
             this.progressBar.progress = this.gameModel.scores / levelMaxScores;
-            // this.progressBar.progress = 0.5;
             this.scoresText.x = (this.progressBar.width - this.scoresText.width) / 2;
         } 
         
