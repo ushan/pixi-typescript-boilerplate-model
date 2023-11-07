@@ -9,11 +9,13 @@ import { AppConfig } from "../../config";
 
 const {itemJumpDuration, itemDropDuration} = AppConfig.animationSettings;
 
-class Cart extends SpriteCommon{
+export class Cart extends SpriteCommon{
     private cartGraph?:SpriteCommon;
+    private itemsCont :Container = new Container();
     constructor(){
         super(ResourceList.CART);
         gsap.registerPlugin(PixiPlugin);
+        this.addChild(this.itemsCont);
     }
 
     private cloneItemV2(item:ItemSprite):void {
@@ -113,7 +115,9 @@ class Cart extends SpriteCommon{
     
         sourceMatrix.prepend(reverseTransformMatrix);
         clone.transform.setFromMatrix(sourceMatrix);
-        destinationContainer.addChild(clone);
+
+        // destinationContainer.addChild(clone);
+        this.itemsCont.addChild(clone);
         
         this.anymateInCartStart(clone);
         this.anymateInCartFinish(clone);
@@ -146,11 +150,14 @@ class Cart extends SpriteCommon{
             ease        :"power2.in",
             delay       :itemJumpDuration,
             duration    :itemDropDuration});
-    }
-    
-    
-
-    
+    } 
 }
 
-export default Cart
+export class CartOver extends SpriteCommon{
+    constructor(){
+        super(ResourceList.CART_OVER);
+    }
+}
+
+
+

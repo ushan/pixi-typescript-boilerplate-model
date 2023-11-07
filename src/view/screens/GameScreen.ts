@@ -8,7 +8,7 @@ import { AppConfig } from '../../config';
 import GameModel from '../../model/GameModel';
 import ItemModel from '../../model/goods/ItemModel';
 import ItemSprite from '../../components/goods/ItemSprite';
-import Cart from '../../components/goods/Cart';
+import {Cart, CartOver} from '../../components/goods/Cart';
 import ProgressBar from '../../components/ProgressBar';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
@@ -21,6 +21,7 @@ class GameScreen extends PIXI.Container {
     readonly items      :Pseudo3DSprite[] = [];
     readonly itemsCont  :PIXI.Container = new PIXI.Container;
     readonly cart       :Cart = new Cart();
+    readonly cartOver   :CartOver = new CartOver();
 
     private scores              :PIXI.Container = new PIXI.Container;
     private scoresText?         :Text;
@@ -58,6 +59,7 @@ class GameScreen extends PIXI.Container {
         this.on("pointermove", (e:any) => {
             // console.log('X', e.data.global.x, 'Y', e.data.global.y);
             this.cart.x = e.data.global.x;
+            this.cartOver.x = e.data.global.x;
         });
 
         const newItemInterval = setInterval(() => {
@@ -85,13 +87,20 @@ class GameScreen extends PIXI.Container {
 
     private addElements = () => {
         this.addChild(this.bg);
+
+        this.addChild(this.itemsCont);
+
         this.addChild (this.cart);
         this.cart.scale.set(0.5);
         this.cart.anchor.set(0.5, 1);
         this.cart.y = gameHeight;
         this.cart.x = 0;
 
-        this.addChild(this.itemsCont);
+        this.addChild (this.cartOver);
+        this.cartOver.scale.set(0.5);
+        this.cartOver.anchor.set(0.5, 1);
+        this.cartOver.y = gameHeight;
+        this.cartOver.x = 0;
 
         this.addChild(this.scores);
         this.scoresText = new Text('0/0', {
