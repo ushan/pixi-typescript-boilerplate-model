@@ -8,7 +8,7 @@ import { AppConfig } from '../../config';
 import GameModel from '../../model/GameModel';
 import ItemModel from '../../model/goods/ItemModel';
 import ItemSprite from '../../components/goods/ItemSprite';
-import Cart from '../../components/common/Cart';
+import Cart from '../../components/goods/Cart';
 import ProgressBar from '../../components/ProgressBar';
 
 const {gameWidth, gameHeight} = AppConfig.settings;

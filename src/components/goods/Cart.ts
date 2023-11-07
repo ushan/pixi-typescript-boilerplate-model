@@ -1,13 +1,19 @@
-import SpriteCommon from "./SpriteCommon";
+import SpriteCommon from "../common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
-import ItemSprite from "../goods/ItemSprite";
-import { Container, Matrix } from "pixi.js";
+import ItemSprite from "./ItemSprite";
+import { Container, IPoint, IPointData, Matrix, ObservablePoint, Point } from "pixi.js";
 import gsap from "gsap";
+import { PixiPlugin } from "gsap/PixiPlugin";
+import ClonedItemSprite from "./ClonedItemSprite";
+import { AppConfig } from "../../config";
+
+const {itemJumpDuration, itemDropDuration} = AppConfig.animationSettings;
 
 class Cart extends SpriteCommon{
     private cartGraph?:SpriteCommon;
     constructor(){
         super(ResourceList.CART);
+        gsap.registerPlugin(PixiPlugin);
     }
 
     private cloneItemV2(item:ItemSprite):void {
@@ -90,18 +96,14 @@ class Cart extends SpriteCommon{
     }
 
     public cloneItem(item: ItemSprite): void {
-
         const destinationContainer = this as Container;
-        
-        const clone = new SpriteCommon(item.resourceName);
+        const inCartPoint = this.getTargetPoint();
+        const clone = new ClonedItemSprite(item.resourceName, inCartPoint);
         const sourceMatrix = item.transform.worldTransform.clone();
-    
-        // Clone the anchor point as well
+
         clone.anchor.set(item.anchor.x, item.anchor.y);
-    
-        // Calculate the reverse transformation matrix based on the transformations of the destination container
+
         let reverseTransformMatrix = new Matrix();
-    
         let currentContainer = destinationContainer;
         while (currentContainer) {
             // Apply the inverse of the current container's transformation to the reverseTransformMatrix
@@ -109,24 +111,41 @@ class Cart extends SpriteCommon{
             currentContainer = currentContainer.parent as Container;
         }
     
-        // Apply the reverse transformation matrix to the source matrix
         sourceMatrix.prepend(reverseTransformMatrix);
-    
-        // Apply the modified source matrix to the cloned sprite
         clone.transform.setFromMatrix(sourceMatrix);
-    
-        // Add the cloned sprite to the destination container
         destinationContainer.addChild(clone);
-        this.anymateInCart(clone)
+        
+        this.anymateInCartStart(clone);
+        this.anymateInCartFinish(clone);
 
     }
 
-    private anymateInCart(clone:SpriteCommon):void {
+    private getTargetPoint():Point
+    {
+        const p = new Point();
+        p.x = Math.random() * 80 - 40;
+        p.y = Math.random() * 100 - 50;
+        return p
+    }
+
+    private anymateInCartStart = (clone:ClonedItemSprite):void => {
         gsap.to(clone, {
-            x           :Math.random() * 80 - 40, 
-            y           :Math.random() * 100 - 50, 
+            x           :0,
+            y           :-800, 
+            rotation    :0,
+            onComplete  :this.anymateInCartFinish,
+            ease        : "power2.out",
+            duration    :itemJumpDuration});
+    }
+
+    private anymateInCartFinish = (clone:ClonedItemSprite):void  => {
+        gsap.to(clone, {
+            x           :clone.inCartPoint.x, 
+            y           :clone.inCartPoint.y, 
             rotation    :Math.random() * Math.PI / 4 - Math.PI / 8,
-            duration    :0.6});
+            ease        :"power2.in",
+            delay       :itemJumpDuration,
+            duration    :itemDropDuration});
     }
     
     

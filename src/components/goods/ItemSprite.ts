@@ -10,8 +10,9 @@ import gsap from "gsap";
 
 const {cartWidth} = AppConfig.gameSettings;
 class ItemSprite extends Pseudo3DSprite {
-    protected hasAchivedBorder:boolean = false;
-    private shadow?:SpriteCommon;
+    protected hasAchivedBorder  :boolean = false;
+    private shadow?             :SpriteCommon;
+    public inCartPoint?         :PIXI.Point;      
     constructor(
         readonly itemModel  :ItemModel,
         protected gameModel :GameModel,
