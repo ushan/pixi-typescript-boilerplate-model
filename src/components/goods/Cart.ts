@@ -7,7 +7,7 @@ import { PixiPlugin } from "gsap/PixiPlugin";
 import ClonedItemSprite from "./ClonedItemSprite";
 import { AppConfig } from "../../config";
 
-const {itemJumpDuration, itemDropDuration} = AppConfig.animationSettings;
+const {itemJumpDuration, itemDropDuration, displayItemsInCart} = AppConfig.animationSettings;
 
 export class Cart extends SpriteCommon{
     private cartGraph?:SpriteCommon;
@@ -122,14 +122,24 @@ export class Cart extends SpriteCommon{
         this.anymateInCartStart(clone);
         this.anymateInCartFinish(clone);
 
+        this.removeExtraItems();
+
     }
 
     private getTargetPoint():Point
     {
         const p = new Point();
-        p.x = Math.random() * 80 - 40;
-        p.y = Math.random() * 100 - 50;
+        p.x = Math.random() * 120 - 60;
+        p.y = Math.random() * 140 - 70;
         return p
+    }
+
+    
+    private removeExtraItems (){
+        while (this.itemsCont.children.length > displayItemsInCart)
+        {
+            this.itemsCont.removeChildAt(0);
+        }
     }
 
     private anymateInCartStart = (clone:ClonedItemSprite):void => {
@@ -146,11 +156,12 @@ export class Cart extends SpriteCommon{
         gsap.to(clone, {
             x           :clone.inCartPoint.x, 
             y           :clone.inCartPoint.y, 
-            rotation    :Math.random() * Math.PI / 4 - Math.PI / 8,
+            rotation    :Math.random() * Math.PI / 2 - Math.PI / 4,
             ease        :"power2.in",
             delay       :itemJumpDuration,
             duration    :itemDropDuration});
     } 
+
 }
 
 export class CartOver extends SpriteCommon{

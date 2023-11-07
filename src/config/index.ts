@@ -18,7 +18,8 @@ export namespace AppConfig {
     newItemDelay      :1 * 1000
   };
   export const animationSettings = {
-    itemJumpDuration  :0.3,
-    itemDropDuration  :0.2
+    itemJumpDuration    :0.3,
+    itemDropDuration    :0.2,
+    displayItemsInCart  :10
   };
 }
