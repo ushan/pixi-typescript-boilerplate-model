@@ -1,27 +1,51 @@
-import {Assets, Sprite } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 import ResourceList from "./ResourceList";
+import { ISkeletonData, Spine } from 'pixi-spine';
+
+
 
 class ResourceService {
     static init = (onSuccess: () => void) => {
-        // The hard way
-        // const bundle = ResourceList.LIST
-        //     .map(name => ({ [name]: name }))
-        //     .reduce((acc, elem) => ({...acc, ...elem}), {})
-        //
-        // Assets.addBundle('assets', bundle);
-        // Assets.loadBundle('assets').then(() => onSuccess());
+        const {shared} = PIXI.Loader;
 
-        // Or the easier, but the same
-        Assets.load(ResourceList.LIST).then(() => onSuccess());
+        ResourceList.LIST.forEach(resource => {
+            shared.add(resource)
+        }
+        );
+
+        shared.load(onSuccess);
     }
 
     static getTexture = (resourceName: string)  => {
-        return Assets.get(resourceName);
+        return PIXI.Loader.shared.resources[resourceName]?.texture;
     }
 
     static getSprite = (resourceName: string) => {
-        return new Sprite(ResourceService.getTexture(resourceName));
+        return new PIXI.Sprite(ResourceService.getTexture(resourceName));
+    }
+
+    static getSpineData = (resourceName: string):ISkeletonData  => {
+        const res = PIXI.Loader.shared.resources[resourceName];
+        if (res.data.version == undefined) res.data.version = "0"; //UNKNOWN version
+        if (res.data.bones){
+            res.data.bones.forEach(bone => {
+                if (bone.parent === "root"){
+                    bone.parent.index = 0;
+                };
+            }
+            );
+            res.data.bones[0].parent = null;
+        }
+        return res?.data;
+    }
+
+    static getSpine = (resourceName: string):Spine => {
+        return new Spine(ResourceService.getSpineData(resourceName));
     }
 }
 
 export default ResourceService;
+
+
+
+

@@ -2,6 +2,8 @@ import * as PIXI from 'pixi.js';
 import SpriteCommon from "../components/common/SpriteCommon";
 import ResourceList from "../resources/ResourceList";
 import gsap from "gsap";
+import {Spine} from "pixi-spine";
+import ResourceService from '../resources/ResourceService';
 
 class GameScreen extends PIXI.Container {
     // region #Resources
@@ -14,9 +16,11 @@ class GameScreen extends PIXI.Container {
     constructor(private app: PIXI.Application) {
         super();
         this.drawCircle();
-        this.drawSphere();
 
         // this.start();
+
+        const spine = ResourceService.getSpine(ResourceList.EXPLOSION_ANIM) as any;
+        this.addChild(spine  as PIXI.Container);
     }
     private drawCircle = () => {
         let t = 0; //phase of angle in radians in the circle. 0.. Math.PI * 2
@@ -37,34 +41,7 @@ class GameScreen extends PIXI.Container {
         }
     }
 
-    private  drawSphere = () => {
-        let t = 0; //phase of angle in radians in the circle. 0 .. Math.PI
-        let p = 0; //phase of angle in radians in the circle. 0 .. Math.PI * 2
-        const dotsNumX = 12;
-        const dotsNumY = 12;
-        const tStep = Math.PI / dotsNumX; //angle in radians between dots
-        const pStep = 2 * Math.PI / dotsNumY; //angle in radians between dots
-        for (let i = 0; i < dotsNumX; i++) {
-            t += tStep
-             for (let j = 0; j < dotsNumY; j++) {
-                p += pStep;
-                const dot = new PIXI.Graphics();
-                const centerX = this.app.view.width * 0.65;
-                const centerY = this.app.view.height / 2;
-                const radius = 220;
-                dot.x = centerX + radius * Math.sin(t) * Math.cos(p);
-                dot.y = centerY + radius * Math.sin(t) * Math.sin(p);
-                const posZ = radius * Math.cos(t)
-                dot.beginFill(0xff0000);
-                dot.drawCircle(0, 0, 2 + posZ / 20);
-                dot.alpha = 0.3;
-                dot.endFill();
-                this.addChild(dot);
-                
-             }
-            
-        }
-    }
+
 
 
 

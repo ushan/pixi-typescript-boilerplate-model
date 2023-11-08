@@ -1,0 +1,818 @@
+{
+  "skeleton": {
+    "hash": "bjSSpLTY+2xUF2q5bYL1RVHEvhE",
+    "spine": "3.8.95",
+    "x": -101.77,
+    "y": -280.77,
+    "width": 444,
+    "height": 841.47,
+    "images": "./images/",
+    "audio": ""
+  },
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "Saber",
+      "parent": "root",
+      "x": 117.52,
+      "y": 199.21,
+      "scaleX": 1.5,
+      "scaleY": 1.5
+    },
+    {
+      "name": "explosion_2.0",
+      "parent": "root",
+      "x": 120.23,
+      "y": -68.76
+    }
+  ],
+  "slots": [
+    {
+      "name": "Saber",
+      "bone": "Saber",
+      "attachment": "Explosion/Saber_00",
+      "blend": "additive"
+    },
+    {
+      "name": "Explosion_2.0",
+      "bone": "explosion_2.0",
+      "attachment": "Explosion_2.0/explos_2.0_273"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "Explosion_2.0": {
+          "Explosion_2.0/explos_2.0_242": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_243": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_244": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_245": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_246": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_247": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_248": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_249": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_250": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_251": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_252": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_253": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_254": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_255": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_256": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_257": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_258": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_259": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_260": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_261": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_262": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_263": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_264": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_265": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_266": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_267": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_268": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_269": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_270": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_271": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_272": {
+            "width": 444,
+            "height": 424
+          },
+          "Explosion_2.0/explos_2.0_273": {
+            "width": 444,
+            "height": 424
+          }
+        },
+        "Saber": {
+          "Explosion/Saber_00": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_01": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_02": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_03": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_04": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_05": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_06": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_07": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_08": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_09": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_10": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_11": {
+            "x": 0.38,
+            "width": 143,
+            "height": 482
+          },
+          "Explosion/Saber_12": {
+            "x": 0.38,
+            "y": 3.01,
+            "width": 143,
+            "height": 482
+          }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "ExplosionAnim": {
+      "slots": {
+        "Explosion_2.0": {
+          "color": [
+            {
+              "color": "ffffff00",
+              "curve": "stepped"
+            },
+            {
+              "time": 0.0667,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.1,
+              "color": "ffffffff",
+              "curve": "stepped"
+            },
+            {
+              "time": 1.0333,
+              "color": "ffffffff"
+            },
+            {
+              "time": 1.1667,
+              "color": "ffffff00"
+            }
+          ],
+          "attachment": [
+            {
+              "name": "Explosion_2.0/explos_2.0_242"
+            },
+            {
+              "time": 0.0667,
+              "name": "Explosion_2.0/explos_2.0_273"
+            },
+            {
+              "time": 0.1,
+              "name": "Explosion_2.0/explos_2.0_242"
+            },
+            {
+              "time": 0.1333,
+              "name": "Explosion_2.0/explos_2.0_243"
+            },
+            {
+              "time": 0.1667,
+              "name": "Explosion_2.0/explos_2.0_244"
+            },
+            {
+              "time": 0.2,
+              "name": "Explosion_2.0/explos_2.0_245"
+            },
+            {
+              "time": 0.2333,
+              "name": "Explosion_2.0/explos_2.0_246"
+            },
+            {
+              "time": 0.2667,
+              "name": "Explosion_2.0/explos_2.0_247"
+            },
+            {
+              "time": 0.3,
+              "name": "Explosion_2.0/explos_2.0_248"
+            },
+            {
+              "time": 0.3333,
+              "name": "Explosion_2.0/explos_2.0_249"
+            },
+            {
+              "time": 0.3667,
+              "name": "Explosion_2.0/explos_2.0_250"
+            },
+            {
+              "time": 0.4,
+              "name": "Explosion_2.0/explos_2.0_251"
+            },
+            {
+              "time": 0.4333,
+              "name": "Explosion_2.0/explos_2.0_252"
+            },
+            {
+              "time": 0.4667,
+              "name": "Explosion_2.0/explos_2.0_253"
+            },
+            {
+              "time": 0.5,
+              "name": "Explosion_2.0/explos_2.0_254"
+            },
+            {
+              "time": 0.5333,
+              "name": "Explosion_2.0/explos_2.0_255"
+            },
+            {
+              "time": 0.5667,
+              "name": "Explosion_2.0/explos_2.0_256"
+            },
+            {
+              "time": 0.6,
+              "name": "Explosion_2.0/explos_2.0_257"
+            },
+            {
+              "time": 0.6333,
+              "name": "Explosion_2.0/explos_2.0_258"
+            },
+            {
+              "time": 0.6667,
+              "name": "Explosion_2.0/explos_2.0_259"
+            },
+            {
+              "time": 0.7,
+              "name": "Explosion_2.0/explos_2.0_260"
+            },
+            {
+              "time": 0.7667,
+              "name": "Explosion_2.0/explos_2.0_261"
+            },
+            {
+              "time": 0.8,
+              "name": "Explosion_2.0/explos_2.0_262"
+            },
+            {
+              "time": 0.8333,
+              "name": "Explosion_2.0/explos_2.0_263"
+            },
+            {
+              "time": 0.8667,
+              "name": "Explosion_2.0/explos_2.0_264"
+            },
+            {
+              "time": 0.9,
+              "name": "Explosion_2.0/explos_2.0_265"
+            },
+            {
+              "time": 0.9333,
+              "name": "Explosion_2.0/explos_2.0_266"
+            },
+            {
+              "time": 0.9667,
+              "name": "Explosion_2.0/explos_2.0_267"
+            },
+            {
+              "time": 1,
+              "name": "Explosion_2.0/explos_2.0_268"
+            },
+            {
+              "time": 1.0333,
+              "name": "Explosion_2.0/explos_2.0_269"
+            },
+            {
+              "time": 1.0667,
+              "name": "Explosion_2.0/explos_2.0_270"
+            },
+            {
+              "time": 1.1,
+              "name": "Explosion_2.0/explos_2.0_271"
+            },
+            {
+              "time": 1.1333,
+              "name": "Explosion_2.0/explos_2.0_272"
+            },
+            {
+              "time": 1.1667,
+              "name": "Explosion_2.0/explos_2.0_273"
+            }
+          ]
+        },
+        "Saber": {
+          "color": [
+            {
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.0333,
+              "color": "ffffffff",
+              "curve": "stepped"
+            },
+            {
+              "time": 0.3,
+              "color": "ffffffff"
+            },
+            {
+              "time": 0.3333,
+              "color": "ffffff00"
+            }
+          ],
+          "attachment": [
+            {
+              "time": 0.0333,
+              "name": "Explosion/Saber_04"
+            },
+            {
+              "time": 0.0667,
+              "name": "Explosion/Saber_05"
+            },
+            {
+              "time": 0.1,
+              "name": "Explosion/Saber_06"
+            },
+            {
+              "time": 0.1333,
+              "name": "Explosion/Saber_07"
+            },
+            {
+              "time": 0.1667,
+              "name": "Explosion/Saber_08"
+            },
+            {
+              "time": 0.2,
+              "name": "Explosion/Saber_09"
+            },
+            {
+              "time": 0.2333,
+              "name": "Explosion/Saber_10"
+            },
+            {
+              "time": 0.2667,
+              "name": "Explosion/Saber_11"
+            },
+            {
+              "time": 0.3,
+              "name": "Explosion/Saber_12"
+            }
+          ]
+        }
+      }
+    },
+    "ExplosionBattleHeli": {
+      "slots": {
+        "Explosion_2.0": {
+          "color": [
+            {
+              "color": "ffffff00",
+              "curve": "stepped"
+            },
+            {
+              "time": 0.0667,
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.1,
+              "color": "ffffffff",
+              "curve": "stepped"
+            },
+            {
+              "time": 1.0333,
+              "color": "ffffffff"
+            },
+            {
+              "time": 1.1667,
+              "color": "ffffff00"
+            }
+          ],
+          "attachment": [
+            {
+              "name": "Explosion_2.0/explos_2.0_242"
+            },
+            {
+              "time": 0.0667,
+              "name": "Explosion_2.0/explos_2.0_273"
+            },
+            {
+              "time": 0.1,
+              "name": "Explosion_2.0/explos_2.0_242"
+            },
+            {
+              "time": 0.1333,
+              "name": "Explosion_2.0/explos_2.0_243"
+            },
+            {
+              "time": 0.1667,
+              "name": "Explosion_2.0/explos_2.0_244"
+            },
+            {
+              "time": 0.2,
+              "name": "Explosion_2.0/explos_2.0_245"
+            },
+            {
+              "time": 0.2333,
+              "name": "Explosion_2.0/explos_2.0_246"
+            },
+            {
+              "time": 0.2667,
+              "name": "Explosion_2.0/explos_2.0_247"
+            },
+            {
+              "time": 0.3,
+              "name": "Explosion_2.0/explos_2.0_248"
+            },
+            {
+              "time": 0.3333,
+              "name": "Explosion_2.0/explos_2.0_249"
+            },
+            {
+              "time": 0.3667,
+              "name": "Explosion_2.0/explos_2.0_250"
+            },
+            {
+              "time": 0.4,
+              "name": "Explosion_2.0/explos_2.0_251"
+            },
+            {
+              "time": 0.4333,
+              "name": "Explosion_2.0/explos_2.0_252"
+            },
+            {
+              "time": 0.4667,
+              "name": "Explosion_2.0/explos_2.0_253"
+            },
+            {
+              "time": 0.5,
+              "name": "Explosion_2.0/explos_2.0_254"
+            },
+            {
+              "time": 0.5333,
+              "name": "Explosion_2.0/explos_2.0_255"
+            },
+            {
+              "time": 0.5667,
+              "name": "Explosion_2.0/explos_2.0_256"
+            },
+            {
+              "time": 0.6,
+              "name": "Explosion_2.0/explos_2.0_257"
+            },
+            {
+              "time": 0.6333,
+              "name": "Explosion_2.0/explos_2.0_258"
+            },
+            {
+              "time": 0.6667,
+              "name": "Explosion_2.0/explos_2.0_259"
+            },
+            {
+              "time": 0.7,
+              "name": "Explosion_2.0/explos_2.0_260"
+            },
+            {
+              "time": 0.7667,
+              "name": "Explosion_2.0/explos_2.0_261"
+            },
+            {
+              "time": 0.8,
+              "name": "Explosion_2.0/explos_2.0_262"
+            },
+            {
+              "time": 0.8333,
+              "name": "Explosion_2.0/explos_2.0_263"
+            },
+            {
+              "time": 0.8667,
+              "name": "Explosion_2.0/explos_2.0_264"
+            },
+            {
+              "time": 0.9,
+              "name": "Explosion_2.0/explos_2.0_265"
+            },
+            {
+              "time": 0.9333,
+              "name": "Explosion_2.0/explos_2.0_266"
+            },
+            {
+              "time": 0.9667,
+              "name": "Explosion_2.0/explos_2.0_267"
+            },
+            {
+              "time": 1,
+              "name": "Explosion_2.0/explos_2.0_268"
+            },
+            {
+              "time": 1.0333,
+              "name": "Explosion_2.0/explos_2.0_269"
+            },
+            {
+              "time": 1.0667,
+              "name": "Explosion_2.0/explos_2.0_270"
+            },
+            {
+              "time": 1.1,
+              "name": "Explosion_2.0/explos_2.0_271"
+            },
+            {
+              "time": 1.1333,
+              "name": "Explosion_2.0/explos_2.0_272"
+            },
+            {
+              "time": 1.1667,
+              "name": "Explosion_2.0/explos_2.0_273"
+            }
+          ]
+        },
+        "Saber": {
+          "color": [
+            {
+              "color": "ffffff00"
+            }
+          ]
+        }
+      },
+      "bones": {
+        "explosion_2.0": {
+          "scale": [
+            {
+              "x": -1
+            }
+          ]
+        }
+      }
+    },
+    "ExplosionBattleJet": {
+      "slots": {
+        "Explosion_2.0": {
+          "color": [
+            {
+              "color": "ffffff00"
+            },
+            {
+              "time": 0.0333,
+              "color": "ffffffff",
+              "curve": "stepped"
+            },
+            {
+              "time": 0.9667,
+              "color": "ffffffff"
+            },
+            {
+              "time": 1.1,
+              "color": "ffffff00"
+            }
+          ],
+          "attachment": [
+            {
+              "time": 0.0333,
+              "name": "Explosion_2.0/explos_2.0_242"
+            },
+            {
+              "time": 0.0667,
+              "name": "Explosion_2.0/explos_2.0_243"
+            },
+            {
+              "time": 0.1,
+              "name": "Explosion_2.0/explos_2.0_244"
+            },
+            {
+              "time": 0.1333,
+              "name": "Explosion_2.0/explos_2.0_245"
+            },
+            {
+              "time": 0.1667,
+              "name": "Explosion_2.0/explos_2.0_246"
+            },
+            {
+              "time": 0.2,
+              "name": "Explosion_2.0/explos_2.0_247"
+            },
+            {
+              "time": 0.2333,
+              "name": "Explosion_2.0/explos_2.0_248"
+            },
+            {
+              "time": 0.2667,
+              "name": "Explosion_2.0/explos_2.0_249"
+            },
+            {
+              "time": 0.3,
+              "name": "Explosion_2.0/explos_2.0_250"
+            },
+            {
+              "time": 0.3333,
+              "name": "Explosion_2.0/explos_2.0_251"
+            },
+            {
+              "time": 0.3667,
+              "name": "Explosion_2.0/explos_2.0_252"
+            },
+            {
+              "time": 0.4,
+              "name": "Explosion_2.0/explos_2.0_253"
+            },
+            {
+              "time": 0.4333,
+              "name": "Explosion_2.0/explos_2.0_254"
+            },
+            {
+              "time": 0.4667,
+              "name": "Explosion_2.0/explos_2.0_255"
+            },
+            {
+              "time": 0.5,
+              "name": "Explosion_2.0/explos_2.0_256"
+            },
+            {
+              "time": 0.5333,
+              "name": "Explosion_2.0/explos_2.0_257"
+            },
+            {
+              "time": 0.5667,
+              "name": "Explosion_2.0/explos_2.0_258"
+            },
+            {
+              "time": 0.6,
+              "name": "Explosion_2.0/explos_2.0_259"
+            },
+            {
+              "time": 0.6333,
+              "name": "Explosion_2.0/explos_2.0_260"
+            },
+            {
+              "time": 0.7,
+              "name": "Explosion_2.0/explos_2.0_261"
+            },
+            {
+              "time": 0.7333,
+              "name": "Explosion_2.0/explos_2.0_262"
+            },
+            {
+              "time": 0.7667,
+              "name": "Explosion_2.0/explos_2.0_263"
+            },
+            {
+              "time": 0.8,
+              "name": "Explosion_2.0/explos_2.0_264"
+            },
+            {
+              "time": 0.8333,
+              "name": "Explosion_2.0/explos_2.0_265"
+            },
+            {
+              "time": 0.8667,
+              "name": "Explosion_2.0/explos_2.0_266"
+            },
+            {
+              "time": 0.9,
+              "name": "Explosion_2.0/explos_2.0_267"
+            },
+            {
+              "time": 0.9333,
+              "name": "Explosion_2.0/explos_2.0_268"
+            },
+            {
+              "time": 0.9667,
+              "name": "Explosion_2.0/explos_2.0_269"
+            },
+            {
+              "time": 1,
+              "name": "Explosion_2.0/explos_2.0_270"
+            },
+            {
+              "time": 1.0333,
+              "name": "Explosion_2.0/explos_2.0_271"
+            },
+            {
+              "time": 1.0667,
+              "name": "Explosion_2.0/explos_2.0_272"
+            },
+            {
+              "time": 1.1,
+              "name": "Explosion_2.0/explos_2.0_273"
+            }
+          ]
+        },
+        "Saber": {
+          "color": [
+            {
+              "color": "ffffff00"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

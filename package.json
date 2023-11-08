@@ -12,7 +12,8 @@
   "dependencies": {
     "gsap": "^3.6.1",
     "mini-signals": "^2.0.0",
-    "pixi.js": "^7.3.2"
+    "pixi-spine": "^4.0.4",
+    "pixi.js": "^6.5.9"
   },
   "devDependencies": {
     "@parcel/config-default": "2.9.2",
