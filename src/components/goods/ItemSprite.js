@@ -4,6 +4,7 @@ import SpriteCommon from '../common/SpriteCommon';
 import { AppConfig } from '../../config';
 import gsap from "gsap";
 const { cartWidth } = AppConfig.gameSettings;
+const { zCartPosition } = AppConfig.settings3D;
 class ItemSprite extends Pseudo3DSprite {
     constructor(itemModel, gameModel, gameScreen) {
         super(gameScreen, itemModel.resource);
@@ -16,7 +17,7 @@ class ItemSprite extends Pseudo3DSprite {
 
     updatePosByPoint3D() {
         super.updatePosByPoint3D();
-        if (this.point3D.z < 6 && !this.hasAchivedBorder) {
+        if (this.point3D.z < zCartPosition && !this.hasAchivedBorder) {
             const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
             const isSuccess = this.gameModel.registerAchiveBorder(this.itemModel, isInCart);
             this.listen3D = false;
@@ -38,7 +39,7 @@ class ItemSprite extends Pseudo3DSprite {
             }
         }
     }
-    
+
     createShadow() {
         this.shadow = new SpriteCommon(this.resourceName);
         this.addChildAt(this.shadow, 0);

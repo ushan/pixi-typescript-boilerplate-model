@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 class ProgressBar extends PIXI.Container {
-    constructor(w = 60, h = 5, color = 0xff0000) {
+    constructor(w = 60, h = 5, color = 0xaf2424) {
         super();
         this.w = w;
         this.h = h;

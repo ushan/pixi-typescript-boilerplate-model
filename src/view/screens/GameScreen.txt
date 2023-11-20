@@ -12,7 +12,7 @@ import {Cart, CartOver} from '../../components/goods/Cart';
 import ProgressBar from '../../components/ProgressBar';
 
 const {gameWidth, gameHeight} = AppConfig.settings;
-const {animationSpped, worldSize, convayorY, convayorWidth} = AppConfig.settings3D;
+const {animationSpped, worldSize, conveyorY, conveyorWidth} = AppConfig.settings3D;
 const {levelMaxScores, newItemDelay} = AppConfig.gameSettings;
 
 class GameScreen extends PIXI.Container {

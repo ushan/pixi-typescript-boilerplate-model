@@ -13,6 +13,12 @@ class Game extends PIXI.Container {
             this.startGame();
             this.animate();
         });
+
+        this.animate = (delta) => {
+            requestAnimationFrame(this.animate);
+            this.app.renderer.render(this.app.stage);
+            this.gameScreen?.animate(delta);
+        };
     }
 
     startGame() {
@@ -25,11 +31,7 @@ class Game extends PIXI.Container {
         this.removeChildren();
     };
 
-    animate(delta) {
-        requestAnimationFrame(this.animate);
-        this.app.renderer.render(this.app.stage);
-        this.gameScreen?.animate(delta);
-    };
+
 }
 
 export default Game;

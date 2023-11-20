@@ -3,29 +3,31 @@ export var AppConfig;
 (function (AppConfig) {
 
     AppConfig.settings = {
-        gameWidth: 400,
+        gameWidth: 600,
         gameHeight: 800,
     };
 
     AppConfig.settings3D = {
-        focalLength: 8,
+        focalLength: 10,
         scaleZoom: 4,
         horyzontPos: 0.2,
         animationSpped: 1 * 5,
         worldSize: 1000,
-        convayorY: 6,
-        convayorWidth: 11
+        conveyorY: 6,
+        conveyorWidth: 6,
+        zCartPosition: 3
     };
 
     AppConfig.gameSettings = {
-        levelMaxScores: 1000,
+        levelMaxScores: 500,
         cartWidth: 50,
-        newItemDelay: 1 * 1000
+        newItemDelay: 1 * 1000,
+        itemsExtraScale: 0.8
     };
 
     AppConfig.animationSettings = {
         itemJumpDuration: 0.3,
         itemDropDuration: 0.2,
-        displayItemsInCart: 10
+        displayItemsInCart: 30
     };
 })(AppConfig || (AppConfig = {}));

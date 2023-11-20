@@ -8,7 +8,7 @@ class Point3D {
 
     get x() { return this._x; }
     set x(value) { this._x = value; this.update(); }
-    
+
     get y() { return this._y; }
     set y(value) { this._y = value; this.update(); }
 
@@ -26,6 +26,10 @@ class Point3D {
         if (this.onUpdate) {
             this.onUpdate();
         }
+    }
+
+    clone() {
+        return new Point3D (this.onUpdate, this.x, this.y, this.z);
     }
 }
 export default Point3D;

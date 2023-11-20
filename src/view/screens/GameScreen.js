@@ -7,9 +7,10 @@ import { AppConfig } from '../../config';
 import ItemSprite from '../../components/goods/ItemSprite';
 import { Cart, CartOver } from '../../components/goods/Cart';
 import ProgressBar from '../../components/ProgressBar';
+import Point3D from '../../model/pseudo3ds/Point3D';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
-const { animationSpped, worldSize, convayorY, convayorWidth } = AppConfig.settings3D;
+const { animationSpped, worldSize, conveyorY, conveyorWidth, focalLength, scaleZoom, horyzontPos} = AppConfig.settings3D;
 const { levelMaxScores, newItemDelay } = AppConfig.gameSettings;
 class GameScreen extends PIXI.Container {
     // endregion
@@ -18,7 +19,8 @@ class GameScreen extends PIXI.Container {
         this.app = app;
         this.gameModel = gameModel;
         // region #Resources
-        this.bg = new SpriteCommon(ResourceList.BG);
+        // this.bg = new SpriteCommon(ResourceList.BG);
+        this.bg = new PIXI.Graphics();;
         this.items = [];
         this.itemsCont = new PIXI.Container;
         this.cart = new Cart();
@@ -28,24 +30,26 @@ class GameScreen extends PIXI.Container {
         this.t = 0;
 
         this.addElements = () => {
-            this.addChild(this.bg);
-            this.bg.visible = false;
+            this.drawBG();
+            // this.addChild(this.bg);
+            // this.bg.visible = false;
             this.addChild(this.itemsCont);
             this.addChild(this.cart);
-            this.cart.scale.set(0.25);
+            this.cart.scale.set(0.5);
             this.cart.anchor.set(0.5, 1);
             this.cart.y = gameHeight;
             this.cart.x = 0;
             this.addChild(this.cartOver);
-            this.cartOver.scale.set(0.25);
+            this.cartOver.scale.set(0.5);
             this.cartOver.anchor.set(0.5, 1);
             this.cartOver.y = gameHeight;
             this.cartOver.x = 0;
             this.addChild(this.scores);
             this.scoresText = new Text('0/0', {
                 fontFamily: 'Arial',
+                fontWeight: 'bold',
                 fontSize: 24,
-                fill: 0xff1010,
+                fill: 0x9f1212,
                 align: 'center'
             });
             this.scores.addChild(this.scoresText);
@@ -82,7 +86,6 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => { c.point3D.z -= (delta / animationSpped); });
         });
         this.on("pointermove", (e) => {
-            // console.log('X', e.data.global.x, 'Y', e.data.global.y);
             this.cart.x = e.data.global.x;
             this.cartOver.x = e.data.global.x;
         });
@@ -91,8 +94,50 @@ class GameScreen extends PIXI.Container {
         }, newItemDelay);
     };
 
+    drawBG() {
+        this.bg.lineStyle(2, 0xFF00FF, 1);
 
-    moveToCart (item) {
+
+        const w = gameWidth;
+        const h = gameHeight;
+        const centrX = w / 2;
+
+        const topLeft3D = new Point3D (null, - worldSize * conveyorWidth / 2, conveyorY * worldSize, 100);
+        const topRight3D = new Point3D (null, worldSize * conveyorWidth / 2, conveyorY * worldSize, 100);
+        const bottomLeft3D = topLeft3D.clone();
+        bottomLeft3D.z = 3;
+        const bottomRight3D = topRight3D.clone();
+        bottomRight3D.z = 3;
+
+
+        const topLeft = new PIXI.Point();
+        const topRight = new PIXI.Point();
+        const bottomLeft = new PIXI.Point();
+        const bottomRight = new PIXI.Point();
+
+        topLeft.x = centrX + topLeft3D.x / (topLeft3D.z + focalLength);
+        topLeft.y = h * horyzontPos + topLeft3D.y / (topLeft3D.z + focalLength);
+        
+        topRight.x = centrX + topRight3D.x / (topRight3D.z + focalLength);
+        topRight.y = h * horyzontPos + topRight3D.y / (topRight3D.z + focalLength);
+        
+        bottomLeft.x = centrX + bottomLeft3D.x / (bottomLeft3D.z + focalLength);
+        bottomLeft.y = h * horyzontPos + bottomLeft3D.y / (bottomLeft3D.z + focalLength);
+        
+        bottomRight.x = centrX + bottomRight3D.x / (bottomRight3D.z + focalLength);
+        bottomRight.y = h * horyzontPos + bottomRight3D.y / (bottomRight3D.z + focalLength);
+        
+        const vertices = [
+            topLeft, topRight,
+            bottomRight, bottomLeft
+        ];
+
+        this.bg.drawPolygon(vertices);
+        this.addChild(this.bg);
+    }
+
+
+    moveToCart(item) {
         this.cart.cloneItem(item);
     };
 
@@ -101,14 +146,14 @@ class GameScreen extends PIXI.Container {
     };
 
 
-    addRandomItem () {
+    addRandomItem() {
         const itemModel = this.gameModel.getNextItemModel();
         const item = new ItemSprite(itemModel, this.gameModel, this);
         item.anchor.set(0.5, 1);
         item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
-        const xPosOnConvayor = Math.random() * convayorWidth * worldSize - worldSize * convayorWidth / 2;
-        const yPosOnConvayor = convayorY * worldSize;
-        item.point3D.setPositions(xPosOnConvayor, yPosOnConvayor, 100);
+        const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
+        const yPosOnConveyor = conveyorY * worldSize;
+        item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, 100);
         this.itemsCont.addChild(item);
         this.items.push(item);
         this.count++;
@@ -119,7 +164,7 @@ class GameScreen extends PIXI.Container {
         // this.gameModel.scores += itemModel.scores;
     };
 
-    removeItem (item) {
+    removeItem(item) {
         this.itemsCont.removeChild(item);
         //this.items.
         const index = this.items.indexOf(item, 0);
@@ -128,11 +173,11 @@ class GameScreen extends PIXI.Container {
         }
     };
 
-    arrangeElements () {
+    arrangeElements() {
         const { app } = this;
         // Bg
-        this.bg.width = gameWidth;
-        this.bg.height = gameHeight;
+        // this.bg.width = gameWidth;
+        // this.bg.height = gameHeight;
     };
 
     onItemOutOfBounds(item) {

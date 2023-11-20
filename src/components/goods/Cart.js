@@ -15,8 +15,9 @@ export class Cart extends SpriteCommon {
             gsap.to(clone, {
                 x: 0,
                 y: -800,
-                rotation: 0,
+                rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
                 onComplete: this.anymateInCartFinish,
+                onCompleteParams:[clone],
                 ease: "power2.out",
                 duration: itemJumpDuration
             });
@@ -26,7 +27,7 @@ export class Cart extends SpriteCommon {
             gsap.to(clone, {
                 x: clone.inCartPoint.x,
                 y: clone.inCartPoint.y,
-                rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
+                // rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
                 ease: "power2.in",
                 delay: itemJumpDuration,
                 duration: itemDropDuration
@@ -50,7 +51,7 @@ export class Cart extends SpriteCommon {
             reverseTransformMatrix = reverseTransformMatrix.append(currentContainer.transform.worldTransform.clone().invert());
             currentContainer = currentContainer.parent;
         }
-        
+
         sourceMatrix.prepend(reverseTransformMatrix);
         clone.transform.setFromMatrix(sourceMatrix);
         // destinationContainer.addChild(clone);

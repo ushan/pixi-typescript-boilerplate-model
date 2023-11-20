@@ -5,4 +5,9 @@ body {
 canvas {
     /* width: 100%; */
     background-color: #AF2424;
+    position: absolute;
+    top: 10;
+    left: 50%;
+    transform: translate(-50%, 0);
+    
 }
