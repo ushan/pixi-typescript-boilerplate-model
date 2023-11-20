@@ -4,7 +4,7 @@
   "description": "pixi-typescript-boilerplate",
   "scripts": {
     "clear": "rm -rf dist/* && rm -rf .parcel-cache/*",
-    "start": "parcel src/index.html",
+    "start": "PORT=8080 parcel src/index.html",
     "build": "parcel build src/index.html --public-url ./"
   },
   "author": "ushan",
@@ -29,5 +29,7 @@
     "staticPath": "src/assets",
     "staticOutPath": "assets",
     "watcherGlob": "**"
-  }
+  },
+  "main": "index.js",
+  "keywords": []
 }

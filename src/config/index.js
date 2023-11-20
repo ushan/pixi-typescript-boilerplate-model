@@ -1,11 +1,14 @@
+//pseudo namespace
 export var AppConfig;
 (function (AppConfig) {
+
     AppConfig.settings = {
-        gameWidth: 800,
-        gameHeight: 600,
+        gameWidth: 400,
+        gameHeight: 800,
     };
+
     AppConfig.settings3D = {
-        focalLength: 10,
+        focalLength: 8,
         scaleZoom: 4,
         horyzontPos: 0.2,
         animationSpped: 1 * 5,
@@ -13,11 +16,13 @@ export var AppConfig;
         convayorY: 6,
         convayorWidth: 11
     };
+
     AppConfig.gameSettings = {
         levelMaxScores: 1000,
         cartWidth: 50,
         newItemDelay: 1 * 1000
     };
+
     AppConfig.animationSettings = {
         itemJumpDuration: 0.3,
         itemDropDuration: 0.2,

@@ -1,4 +1,8 @@
+body {
+    background-color: #AF2424;
+  }
+
 canvas {
     /* width: 100%; */
-    background-color: black;
+    background-color: #AF2424;
 }

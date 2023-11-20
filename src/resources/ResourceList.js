@@ -10,6 +10,7 @@ ResourceList.GOOD_3 = `./assets/good_3.png`;
 ResourceList.GOOD_4 = `./assets/good_4.png`;
 ResourceList.GOOD_5 = `./assets/good_5.png`;
 ResourceList.CUSTOM_RESOURCES = [];
+
 ResourceList.LIST = [
     ResourceList.BG,
     ResourceList.CART,
@@ -21,6 +22,7 @@ ResourceList.LIST = [
     ResourceList.GOOD_5,
     ...ResourceList.CUSTOM_RESOURCES,
 ];
+
 ResourceList.GOODS_LIST = [
     ResourceList.GOOD_1,
     ResourceList.GOOD_2,

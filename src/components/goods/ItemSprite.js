@@ -13,7 +13,7 @@ class ItemSprite extends Pseudo3DSprite {
         this.hasAchivedBorder = false;
         //this.createShadow();
     }
-    // public updateSleeping()
+
     updatePosByPoint3D() {
         super.updatePosByPoint3D();
         if (this.point3D.z < 6 && !this.hasAchivedBorder) {
@@ -38,6 +38,7 @@ class ItemSprite extends Pseudo3DSprite {
             }
         }
     }
+    
     createShadow() {
         this.shadow = new SpriteCommon(this.resourceName);
         this.addChildAt(this.shadow, 0);

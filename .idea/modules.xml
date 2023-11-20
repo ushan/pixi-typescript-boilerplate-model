@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/webpack-starter-kit-pixijs-master.iml" filepath="$PROJECT_DIR$/.idea/webpack-starter-kit-pixijs-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/conveyor.iml" filepath="$PROJECT_DIR$/conveyor.iml" />
     </modules>
   </component>
 </project>

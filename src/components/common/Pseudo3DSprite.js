@@ -11,6 +11,7 @@ class Pseudo3DSprite extends SpriteCommon {
         // public onUpdate : () => void;
         this.point3D = new Point3D(() => this.updatePosByPoint3D());
     }
+
     updatePosByPoint3D() {
         if (!this.listen3D)
             return;
@@ -26,6 +27,7 @@ class Pseudo3DSprite extends SpriteCommon {
             this.dispatchOutOfBounds();
         }
     }
+    
     dispatchOutOfBounds() {
         if (this.outOfBoundsCallback)
             this.outOfBoundsCallback(this);
