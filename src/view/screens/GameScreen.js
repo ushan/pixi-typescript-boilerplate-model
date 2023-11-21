@@ -4,10 +4,11 @@ import SpriteCommon from "../../components/common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
 import { AppConfig } from '../../config';
-import ItemSprite from '../../components/goods/ItemSprite';
-import { Cart, CartOver } from '../../components/goods/Cart';
+import ItemSprite from '../../components/items/ItemSprite';
+import { Cart, CartOver } from '../../components/items/Cart';
 import ProgressBar from '../../components/ProgressBar';
 import Point3D from '../../model/pseudo3ds/Point3D';
+import Background3D from '../../components/items/Background3D';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { animationSpped, worldSize, conveyorY, conveyorWidth, focalLength, scaleZoom, horyzontPos} = AppConfig.settings3D;
@@ -20,7 +21,7 @@ class GameScreen extends PIXI.Container {
         this.gameModel = gameModel;
         // region #Resources
         // this.bg = new SpriteCommon(ResourceList.BG);
-        this.bg = new PIXI.Graphics();;
+        this.bg = new Background3D();
         this.items = [];
         this.itemsCont = new PIXI.Container;
         this.cart = new Cart();
@@ -30,9 +31,8 @@ class GameScreen extends PIXI.Container {
         this.t = 0;
 
         this.addElements = () => {
-            this.drawBG();
-            // this.addChild(this.bg);
-            // this.bg.visible = false;
+            // this.drawBG();
+            this.addChild(this.bg);
             this.addChild(this.itemsCont);
             this.addChild(this.cart);
             this.cart.scale.set(0.5);
@@ -94,47 +94,7 @@ class GameScreen extends PIXI.Container {
         }, newItemDelay);
     };
 
-    drawBG() {
-        this.bg.lineStyle(2, 0xFF00FF, 1);
 
-
-        const w = gameWidth;
-        const h = gameHeight;
-        const centrX = w / 2;
-
-        const topLeft3D = new Point3D (null, - worldSize * conveyorWidth / 2, conveyorY * worldSize, 100);
-        const topRight3D = new Point3D (null, worldSize * conveyorWidth / 2, conveyorY * worldSize, 100);
-        const bottomLeft3D = topLeft3D.clone();
-        bottomLeft3D.z = 3;
-        const bottomRight3D = topRight3D.clone();
-        bottomRight3D.z = 3;
-
-
-        const topLeft = new PIXI.Point();
-        const topRight = new PIXI.Point();
-        const bottomLeft = new PIXI.Point();
-        const bottomRight = new PIXI.Point();
-
-        topLeft.x = centrX + topLeft3D.x / (topLeft3D.z + focalLength);
-        topLeft.y = h * horyzontPos + topLeft3D.y / (topLeft3D.z + focalLength);
-        
-        topRight.x = centrX + topRight3D.x / (topRight3D.z + focalLength);
-        topRight.y = h * horyzontPos + topRight3D.y / (topRight3D.z + focalLength);
-        
-        bottomLeft.x = centrX + bottomLeft3D.x / (bottomLeft3D.z + focalLength);
-        bottomLeft.y = h * horyzontPos + bottomLeft3D.y / (bottomLeft3D.z + focalLength);
-        
-        bottomRight.x = centrX + bottomRight3D.x / (bottomRight3D.z + focalLength);
-        bottomRight.y = h * horyzontPos + bottomRight3D.y / (bottomRight3D.z + focalLength);
-        
-        const vertices = [
-            topLeft, topRight,
-            bottomRight, bottomLeft
-        ];
-
-        this.bg.drawPolygon(vertices);
-        this.addChild(this.bg);
-    }
 
 
     moveToCart(item) {

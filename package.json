@@ -30,6 +30,5 @@
     "staticOutPath": "assets",
     "watcherGlob": "**"
   },
-  "main": "index.js",
   "keywords": []
 }
