@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import ResourceService from "../../resources/ResourceService";
+import ResourceService from "../../../resources/ResourceService";
 
 class SpriteCommon extends PIXI.Sprite {
     constructor(resourceName) {

@@ -1,9 +1,10 @@
 import ResourceList from "../resources/ResourceList";
-import ItemModel from "./goods/ItemModel";
+import ItemModel from "./items/ItemModel";
 import { MiniSignal } from "mini-signals";
 class GameModel {
 
     constructor() {
+
         this.scoreUpdated = new MiniSignal();
         this.itemModels = this.createItemModels();
         this._scores = 0;
@@ -30,7 +31,7 @@ class GameModel {
     }
     update() {
     }
-    
+
     getNextItemModel() {
         const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
         return itemModel;

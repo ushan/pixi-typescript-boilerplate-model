@@ -1,6 +1,6 @@
 import SpriteCommon from './SpriteCommon';
-import Point3D from '../../model/pseudo3ds/Point3D';
-import { AppConfig } from '../../config';
+import Point3D from '../../../model/pseudo3ds/Point3D';
+import { AppConfig } from '../../../config';
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { focalLength, scaleZoom, horyzontPos } = AppConfig.settings3D;
 const { itemsExtraScale } = AppConfig.gameSettings;

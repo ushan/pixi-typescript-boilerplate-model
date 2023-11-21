@@ -1,10 +1,10 @@
 import SpriteCommon from "../common/SpriteCommon";
-import ResourceList from "../../resources/ResourceList";
+import ResourceList from "../../../resources/ResourceList";
 import { Container, Matrix, Point } from "pixi.js";
 import gsap from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import ClonedItemSprite from "./ClonedItemSprite";
-import { AppConfig } from "../../config";
+import { AppConfig } from "../../../config";
 const { itemJumpDuration, itemDropDuration, displayItemsInCart } = AppConfig.animationSettings;
 export class Cart extends SpriteCommon {
     constructor() {

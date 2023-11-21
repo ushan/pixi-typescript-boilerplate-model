@@ -1,14 +1,15 @@
 import * as PIXI from 'pixi.js';
 import { Text } from 'pixi.js';
-import SpriteCommon from "../../components/common/SpriteCommon";
+import SpriteCommon from "../components/common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
 import { AppConfig } from '../../config';
-import ItemSprite from '../../components/items/ItemSprite';
-import { Cart, CartOver } from '../../components/items/Cart';
-import ProgressBar from '../../components/ProgressBar';
+import ItemSprite from '../components/items/ItemSprite';
+import { Cart, CartOver } from '../components/items/Cart';
+import ProgressBar from '../components/ProgressBar';
 import Point3D from '../../model/pseudo3ds/Point3D';
-import Background3D from '../../components/items/Background3D';
+import Background3D from '../components/items/Background3D';
+import { SoundBoard } from '../../resources/SoundBoard';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { animationSpped, worldSize, conveyorY, conveyorWidth, focalLength, scaleZoom, horyzontPos} = AppConfig.settings3D;
@@ -122,6 +123,9 @@ class GameScreen extends PIXI.Container {
         item.alpha = 0;
         gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
         // this.gameModel.scores += itemModel.scores;
+        return item
+
+        // SoundBoard.play()
     };
 
     removeItem(item) {
@@ -133,12 +137,6 @@ class GameScreen extends PIXI.Container {
         }
     };
 
-    arrangeElements() {
-        const { app } = this;
-        // Bg
-        // this.bg.width = gameWidth;
-        // this.bg.height = gameHeight;
-    };
 
     onItemOutOfBounds(item) {
         this.removeItem(item);
