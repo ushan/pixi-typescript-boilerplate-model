@@ -12,7 +12,7 @@ import Background3D from '../components/items/Background3D';
 import { SoundBoard } from '../../resources/SoundBoard';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
-const { animationSpped, worldSize, conveyorY, conveyorWidth, focalLength, scaleZoom, horyzontPos} = AppConfig.settings3D;
+const { animationSpped, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
 const { levelMaxScores, newItemDelay } = AppConfig.gameSettings;
 class GameScreen extends PIXI.Container {
     // endregion
@@ -114,7 +114,7 @@ class GameScreen extends PIXI.Container {
         item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
         const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
         const yPosOnConveyor = conveyorY * worldSize;
-        item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, 100);
+        item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
         this.itemsCont.addChild(item);
         this.items.push(item);
         this.count++;
@@ -123,9 +123,11 @@ class GameScreen extends PIXI.Container {
         item.alpha = 0;
         gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
         // this.gameModel.scores += itemModel.scores;
+
+        SoundBoard.play('move');
+
         return item
 
-        // SoundBoard.play()
     };
 
     removeItem(item) {
@@ -137,6 +139,36 @@ class GameScreen extends PIXI.Container {
         }
     };
 
+
+    arrangeElements() {
+        const zLeng = zDeep - zCartPosition;
+        const n = 10;
+        const space = zLeng / n;
+        
+        for (let i = 0; i < n; i++) {
+            for (let r = -1; r <= 1; r++){
+                let item = this.addRandomItem();
+                const posInRow = this.getRandomInt(-1, 2);
+                item.point3D.z = zDeep - i * space;
+                item.point3D.x = this.get3DXByPosInRow(r);
+                item.zIndex = 0xffffff - item.point3D.z - posInRow;
+            }
+
+
+        }
+        this.itemsCont.sortChildren();
+    };
+
+    get3DXByPosInRow(pos) {
+        const f = 0.5 + pos * 0.35;
+        return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2
+    }
+
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); 
+      }
 
     onItemOutOfBounds(item) {
         this.removeItem(item);

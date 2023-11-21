@@ -2,13 +2,16 @@ import ResourceList from "../resources/ResourceList";
 import ItemModel from "./items/ItemModel";
 import { MiniSignal } from "mini-signals";
 class GameModel {
-
+    static _instance;
+    static get instance() {
+        return GameModel._instance;
+    }
     constructor() {
-
         this.scoreUpdated = new MiniSignal();
         this.itemModels = this.createItemModels();
         this._scores = 0;
         this.init();
+        GameModel._instance = this;
     }
 
     get scores() { return this._scores; }

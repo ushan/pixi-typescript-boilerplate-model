@@ -15,7 +15,8 @@ export var AppConfig;
         worldSize: 1000,
         conveyorY: 6,
         conveyorWidth: 6,
-        zCartPosition: 3
+        zCartPosition: 3,
+        zDeep:100
     };
 
     AppConfig.gameSettings = {
