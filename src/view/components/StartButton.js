@@ -1,46 +1,49 @@
 import * as PIXI from 'pixi.js';
 
-class StartButton extends PIXI.Container {
+class StartButton extends PIXI.Sprite {
   constructor() {
     super();
 
+    // this.anchor.set (0.5, 0.5);
+
+    this.cursor = "pointer";
+    // this.eventMode = "dynamic";
+
     // Create a PIXI.Graphics object for the button background
-    this.buttonBackground = new PIXI.Graphics();
-    this.buttonBackground.beginFill(0x33cc33); // Green color
-    this.buttonBackground.drawRect(0, 0, 100, 50);
-    this.buttonBackground.endFill();
+    this.bg = new PIXI.Graphics();
+    this.bg.beginFill(0x33cc33); // Green color
+    this.bg.drawRoundedRect(0, 0, 150, 70, 10);
+    this.bg.endFill();
+
+
 
     // Create a PIXI.Text object for the button label
-    this.buttonLabel = new PIXI.Text('Start', { fontSize: 20, fill: 0xFFFFFF });
+    this.buttonLabel = new PIXI.Text('Start', { fontSize: 40  , fill: 0xFFFFFF });
 
     // Add objects to the container
-    this.addChild(this.buttonBackground, this.buttonLabel);
+    this.addChild(this.bg, this.buttonLabel);
 
-    // Center the button elements
-    this.buttonBackground.position.set(-50, -25);
-    this.buttonLabel.position.set(0.5, 0.5);
+    this.bg.position.set( - this.bg.width / 2,  - this.bg.height / 2);
+    this.buttonLabel.position.set( - this.buttonLabel.width / 2,  - this.buttonLabel.height / 2);
 
-    // Enable interactive mode and button events
-    this.buttonBackground.interactive = true;
-    this.buttonBackground.buttonMode = true;
 
-    // Add event listeners
-    this.buttonBackground.on('pointerdown', this.onButtonDown.bind(this));
-    this.buttonBackground.on('pointerup', this.onButtonUp.bind(this));
-    this.buttonBackground.on('pointerout', this.onButtonUp.bind(this));
+
+    this.interactive = true;
+    this.buttonMode = true;
+
+    this.on('pointerdown', this.onButtonDown.bind(this));
+    this.on('pointerup', this.onButtonUp.bind(this));
+    this.on('pointerout', this.onButtonUp.bind(this));
   }
 
   onButtonDown() {
-    // Adjust the button appearance when pressed
-    this.buttonBackground.tint = 0x66ff66; // Lighter green color
+      this.bg.tint = 0x66ff66; // Lighter green color
+      this.emit('startButtonClick');
   }
 
   onButtonUp() {
-    // Reset the button appearance when released or pointer leaves
-    this.buttonBackground.tint = 0x33cc33; // Original green color
+    this.bg.tint = 0x33cc33; // Original green color
 
-    // Emit a custom event when the button is clicked
-    this.emit('startButtonClick');
   }
 }
 

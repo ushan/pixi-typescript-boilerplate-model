@@ -64,7 +64,10 @@ class GameScreen extends PIXI.Container {
 
             this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
             this.addChild(this.countdown);
-            // this.items.forEach(item => this.addChild(item));
+            this.countdown.on('countdownComplete', () => {
+                 this.start();
+              });
+  
         };
 
         this.count = 1; 
@@ -79,14 +82,19 @@ class GameScreen extends PIXI.Container {
         
         this.items = [];
         this.interactive = true;
+        this.eventMode = `dynamic`;
 
         this.gameModel.scoreUpdated.add(this.updateScores);
-        this.start();
+        this.init();
     }
 
-    start () {
+    init() {
         this.addElements();
         this.arrangeElements();
+
+    };
+
+    start() {
         this.app.ticker.add((delta) => {
             this.t += delta;
             this.items.forEach(c => { c.point3D.z -= (delta / animationSpped); });
@@ -98,7 +106,7 @@ class GameScreen extends PIXI.Container {
         const newItemInterval = setInterval(() => {
             this.addRandomItem();
         }, newItemDelay);
-    };
+    }
 
 
 
@@ -129,7 +137,7 @@ class GameScreen extends PIXI.Container {
         gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
         // this.gameModel.scores += itemModel.scores;
 
-        SoundBoard.play('move');
+        //SoundBoard.play('move');
 
         return item
 
