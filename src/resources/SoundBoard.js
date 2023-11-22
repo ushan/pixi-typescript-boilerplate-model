@@ -4,7 +4,7 @@ import ResourceList from "./ResourceList";
 import ResourceService from "./ResourceService";
 
 export class SoundBoard {
-	static useDOM = false;
+	static useDOM = true;
 	static sounds = {
     match: '../assets/sounds/match.wav',
     move: '../assets/sounds/move.wav',
@@ -20,8 +20,6 @@ export class SoundBoard {
 	} else {
 		SoundBoard.playPIXI(sound);
 	}
-	
-
   }
 
   static playDOM(sound) {

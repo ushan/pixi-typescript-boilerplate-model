@@ -10,6 +10,7 @@ import ProgressBar from '../components/ProgressBar';
 import Point3D from '../../model/pseudo3ds/Point3D';
 import Background3D from '../components/items/Background3D';
 import { SoundBoard } from '../../resources/SoundBoard';
+import Countdown from '../components/CountDown';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { animationSpped, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
@@ -29,6 +30,7 @@ class GameScreen extends PIXI.Container {
         this.cartOver = new CartOver();
         this.scores = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
+        this.countdown = new Countdown();
         this.t = 0;
 
         this.addElements = () => {
@@ -59,6 +61,9 @@ class GameScreen extends PIXI.Container {
             this.scores.y = 10;
             this.progressBar.y = 30;
             this.updateScores();
+
+            this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
+            this.addChild(this.countdown);
             // this.items.forEach(item => this.addChild(item));
         };
 
