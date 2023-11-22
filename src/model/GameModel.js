@@ -9,13 +9,19 @@ class GameModel {
     constructor() {
         this.scoreUpdated = new MiniSignal();
         this.itemModels = this.createItemModels();
+        this.lastItem = null;
         this._scores = 0;
         this.init();
         GameModel._instance = this;
     }
 
     get scores() { return this._scores; }
-    set scores(value) { this._scores = value; this.scoreUpdated.dispatch(); }
+    set scores(value) { 
+        if (value == this._scores) return
+        const increment = value - this._scores;
+        this._scores = value; 
+        this.scoreUpdated.dispatch(this.lastItem, increment); 
+    }
 
     init() {
         this.createItemModels();
@@ -41,8 +47,10 @@ class GameModel {
     }
 
     registerAchiveBorder(item, inCart) {
+        let itemModel = item.itemModel;
+        this.lastItem = item;
         if (inCart) {
-            this.scores += item.scores;
+            this.scores += itemModel.scores;
             return true;
         }
         else {

@@ -11,6 +11,7 @@ import Point3D from '../../model/pseudo3ds/Point3D';
 import Background3D from '../components/items/Background3D';
 import { SoundBoard } from '../../resources/SoundBoard';
 import Countdown from '../components/CountDown';
+import ScoreBallon from '../components/ScoreBallon';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { animationSpped, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
@@ -28,7 +29,8 @@ class GameScreen extends PIXI.Container {
         this.itemsCont = new PIXI.Container;
         this.cart = new Cart();
         this.cartOver = new CartOver();
-        this.scores = new PIXI.Container;
+        this.scoreBallonsCont = new PIXI.Container;
+        this.scoresPanel = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
         this.countdown = new Countdown();
         this.t = 0;
@@ -47,7 +49,7 @@ class GameScreen extends PIXI.Container {
             this.cartOver.anchor.set(0.5, 1);
             this.cartOver.y = gameHeight;
             this.cartOver.x = 0;
-            this.addChild(this.scores);
+            this.addChild(this.scoresPanel);
             this.scoresText = new Text('0/0', {
                 fontFamily: 'Arial',
                 fontWeight: 'bold',
@@ -55,11 +57,12 @@ class GameScreen extends PIXI.Container {
                 fill: 0x9f1212,
                 align: 'center'
             });
-            this.scores.addChild(this.scoresText);
-            this.scores.addChild(this.progressBar);
-            this.scores.x = 10;
-            this.scores.y = 10;
+            this.scoresPanel.addChild(this.scoresText);
+            this.scoresPanel.addChild(this.progressBar);
+            this.scoresPanel.x = 10;
+            this.scoresPanel.y = 10;
             this.progressBar.y = 30;
+            this.addChild(this.scoreBallonsCont);
             this.updateScores();
 
             this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
@@ -72,7 +75,8 @@ class GameScreen extends PIXI.Container {
 
         this.count = 1; 
 
-        this.updateScores = () => {
+        this.updateScores = (item, scores) => {
+            this.addScoreBallon(item, scores);
             if (this.scoresText) {
                 this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
                 this.progressBar.progress = this.gameModel.scores / levelMaxScores;
@@ -108,9 +112,6 @@ class GameScreen extends PIXI.Container {
         }, newItemDelay);
     }
 
-
-
-
     moveToCart(item) {
         this.cart.cloneItem(item);
     };
@@ -118,7 +119,6 @@ class GameScreen extends PIXI.Container {
     animate (delta = 0) {
 
     };
-
 
     addRandomItem() {
         const itemModel = this.gameModel.getNextItemModel();
@@ -138,7 +138,6 @@ class GameScreen extends PIXI.Container {
         // this.gameModel.scores += itemModel.scores;
 
         //SoundBoard.play('move');
-
         return item
 
     };
@@ -151,7 +150,6 @@ class GameScreen extends PIXI.Container {
             this.items.splice(index, 1);
         }
     };
-
 
     arrangeElements() {
         const zLeng = zDeep - zCartPosition;
@@ -166,8 +164,6 @@ class GameScreen extends PIXI.Container {
                 item.point3D.x = this.get3DXByPosInRow(r);
                 item.zIndex = 0xffffff - item.point3D.z - posInRow;
             }
-
-
         }
         this.itemsCont.sortChildren();
     };
@@ -187,5 +183,18 @@ class GameScreen extends PIXI.Container {
         this.removeItem(item);
         item.destroy();
     }
+
+    addScoreBallon(item, scores) {
+        let point = item ? {x:item.x, y:item.y} : {x:gameWidth / 2, y:gameHeight / 2};
+        const scoreBallon = new ScoreBallon(scores, point);
+        this.scoreBallonsCont.addChild(scoreBallon);
+        scoreBallon.on('finish', () => {
+            this.scoreBallonsCont.removeChild(scoreBallon);
+            scoreBallon.removeAllListeners('finish');
+        });
+
+    }
+
+  
 }
 export default GameScreen;

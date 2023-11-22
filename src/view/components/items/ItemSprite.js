@@ -19,7 +19,7 @@ class ItemSprite extends Pseudo3DSprite {
         super.updatePosByPoint3D();
         if (this.point3D.z < zCartPosition && !this.hasAchivedBorder) {
             const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
-            const isSuccess = this.gameModel.registerAchiveBorder(this.itemModel, isInCart);
+            const isSuccess = this.gameModel.registerAchiveBorder(this, isInCart);
             this.listen3D = false;
             this.hasAchivedBorder = true;
             //gsap.to(this, {x: this.gameScreen.cart.x, y: this.gameScreen.cart.y + 150, duration: 2.3});

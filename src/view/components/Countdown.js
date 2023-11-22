@@ -70,7 +70,7 @@ class Countdown extends PIXI.Container {
             this.emit('countdownComplete');
             this.visible = false;
         }); // Emit an event when countdown is complete
-      }
+    }
 
 }
 
