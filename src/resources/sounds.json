@@ -1,0 +1,14 @@
+{
+    "move": {
+        "src": "./assets/sounds/move.wav",
+        "volume": 0.5
+    },
+    "match": {
+        "src": "./assets/sounds/match.wav",
+        "volume": 0.4
+    },
+    "paint": {
+        "src": "./assets/sounds/paint.wav",
+        "volume": 0.5
+    }
+}

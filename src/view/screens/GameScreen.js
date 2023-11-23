@@ -12,6 +12,7 @@ import Background3D from '../components/items/Background3D';
 import { SoundBoard } from '../../resources/SoundBoard';
 import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
+import { SoundManager } from '../../resources/sounds';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { animationSpped, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
@@ -22,6 +23,7 @@ class GameScreen extends PIXI.Container {
         super();
         this.app = app;
         this.gameModel = gameModel;
+        this.soundManager = new SoundManager();
         // region #Resources
         // this.bg = new SpriteCommon(ResourceList.BG);
         this.bg = new Background3D();
@@ -193,9 +195,11 @@ class GameScreen extends PIXI.Container {
             scoreBallon.removeAllListeners('finish');
         });
         if (scores > 0 ) {
-            SoundBoard.play('match');
+            // SoundBoard.play('match');
+            this.soundManager.play('match');
         } else {
-            SoundBoard.play('move');
+            // SoundBoard.play('move');
+            this.soundManager.play('move');
         }
 
     }
