@@ -192,6 +192,11 @@ class GameScreen extends PIXI.Container {
             this.scoreBallonsCont.removeChild(scoreBallon);
             scoreBallon.removeAllListeners('finish');
         });
+        if (scores > 0 ) {
+            SoundBoard.play('match');
+        } else {
+            SoundBoard.play('move');
+        }
 
     }
 
