@@ -50,6 +50,10 @@ class Background3D extends PIXI.Graphics{
 
        this.drawPolygon(vertices);
     }
+
+/*     drawSegemntOfConveyor (start = 0, end = 0) {
+
+    } */
 }
 
 export default Background3D;

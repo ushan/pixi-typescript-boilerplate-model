@@ -157,7 +157,7 @@ class GameScreen extends PIXI.Container {
         });
         const newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
-            this.addRandomItem();
+            this.addItem('none');
         }, newItemDelay);
     }
 
@@ -169,13 +169,25 @@ class GameScreen extends PIXI.Container {
 
     };
 
-    addRandomItem() {
+    /**
+     * 
+     * @param { (-1 | 0 | 1 | 'none') } pos 
+     * @returns {ItemSprite}
+     */
+    addItem(pos) {
         const itemModel = this.gameModel.getNextItemModel();
-        const item = new ItemSprite(itemModel, this.gameModel, this);
+        let posInRow;
+        if (pos !== 'none') {
+            posInRow = pos;
+        } else {
+            posInRow = this.getRandomInt(-1, 2);
+        }
+        const item = new ItemSprite(posInRow, itemModel, this.gameModel, this);
         item.anchor.set(0.5, 1);
         item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
-        const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
+        // const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
         const yPosOnConveyor = conveyorY * worldSize;
+        const xPosOnConveyor = this.get3DXByPosInRow(posInRow);
         item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
         this.itemsCont.addChild(item);
         this.items.push(item);
@@ -207,8 +219,8 @@ class GameScreen extends PIXI.Container {
         
         for (let i = 0; i < n; i++) {
             for (let r = -1; r <= 1; r++){
-                let item = this.addRandomItem();
                 const posInRow = this.getRandomInt(-1, 2);
+                let item = this.addItem(posInRow);
                 item.point3D.z = zDeep - i * space;
                 item.point3D.x = this.get3DXByPosInRow(r);
                 item.zIndex = 0xffffff - item.point3D.z - posInRow;
@@ -252,7 +264,7 @@ class GameScreen extends PIXI.Container {
     get3DXByPosInRow(pos) {
         const f = 0.5 + pos * 0.35;
         return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
-    }
+    } 
 
     getRandomInt(min, max) {
         min = Math.ceil(min);

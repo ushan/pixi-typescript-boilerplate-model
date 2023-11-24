@@ -3,15 +3,30 @@ import Pseudo3DSprite from "../common/Pseudo3DSprite";
 import SpriteCommon from '../common/SpriteCommon';
 import { AppConfig } from '../../../config';
 import gsap from "gsap";
+import ItemModel from '../../../model/items/ItemModel';
+import GameModel from '../../../model/GameModel';
+import GameScreen from '../../screens/GameScreen';
 const { cartWidth } = AppConfig.gameSettings;
-const { zCartPosition } = AppConfig.settings3D;
+const { worldSize, conveyorWidth, zCartPosition} = AppConfig.settings3D;
+
+
 class ItemSprite extends Pseudo3DSprite {
-    constructor(itemModel, gameModel, gameScreen) {
+    /**
+     * @param { ( -1| 0 | 1 | 'none') } posInLine
+     * @param { ItemModel } itemModel 
+     * @param { GameModel } gameModel 
+     * @param { GameScreen } gameScreen 
+     */
+    constructor(posInLine, itemModel, gameModel, gameScreen) {
         super(gameScreen, itemModel.resource);
+        this.posInLine = posInLine;
         this.itemModel = itemModel;
         this.gameModel = gameModel;
         this.gameScreen = gameScreen;
         this.hasAchivedBorder = false;
+        if (this.posInLine != 'none') {
+            // this.set3DPoseByPosInLine();
+        }
         //this.createShadow();
     }
 
@@ -22,6 +37,7 @@ class ItemSprite extends Pseudo3DSprite {
             const isSuccess = this.gameModel.registerAchiveBorder(this, isInCart);
             this.listen3D = false;
             this.hasAchivedBorder = true;
+            // this.setByPosInLine();
             //gsap.to(this, {x: this.gameScreen.cart.x, y: this.gameScreen.cart.y + 150, duration: 2.3});
             if (isSuccess) {
                 this.gameScreen.moveToCart(this);
@@ -38,6 +54,20 @@ class ItemSprite extends Pseudo3DSprite {
                 });
             }
         }
+    }
+
+    set3DPoseByPosInLine() {
+        this.point3D.x = this.get3DXByPosInRow(this.posInLine);
+    }
+
+    /**
+     * 
+     * @param { (-1 | 0 | 1 )} pos 
+     * @returns { number }
+     */
+    get3DXByPosInRow(pos) {
+        const f = 0.5 + pos * 0.35;
+        return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
     }
 
     createShadow() {
