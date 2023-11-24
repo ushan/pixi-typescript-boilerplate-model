@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { Text } from 'pixi.js';
+import GameModel, { EGameStates } from '../../model/GameModel';
 import SpriteCommon from "../components/common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
@@ -14,18 +15,22 @@ import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
 import { SoundManager } from '../../resources/sounds';
 
+
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { animationSpped, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
 const { levelMaxScores, newItemDelay } = AppConfig.gameSettings;
+
+
 class GameScreen extends PIXI.Container {
-    // endregion
+    /**
+     * @param {PIXI.Application} app
+     * @param {GameModel} gameModel 
+     */
     constructor(app, gameModel) {
         super();
         this.app = app;
         this.gameModel = gameModel;
         this.soundManager = new SoundManager();
-        // region #Resources
-        // this.bg = new SpriteCommon(ResourceList.BG);
         this.bg = new Background3D();
         this.items = [];
         this.itemsCont = new PIXI.Container;
@@ -59,13 +64,24 @@ class GameScreen extends PIXI.Container {
                 fill: 0x9f1212,
                 align: 'center'
             });
+            this.timeLeftText = new Text('0/0', {
+                fontFamily: 'Arial',
+                fontWeight: 'bold',
+                fontSize: 24,
+                fill: 0x12129f,
+                align: 'center'
+            });
+
             this.scoresPanel.addChild(this.scoresText);
             this.scoresPanel.addChild(this.progressBar);
+            this.scoresPanel.addChild(this.timeLeftText);
             this.scoresPanel.x = 10;
             this.scoresPanel.y = 10;
             this.progressBar.y = 30;
+            this.timeLeftText.x = gameWidth - 100;
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
+            this.updateTimeLeft();
 
             this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
             this.addChild(this.countdown);
@@ -85,12 +101,29 @@ class GameScreen extends PIXI.Container {
                 this.scoresText.x = (this.progressBar.width - this.scoresText.width) / 2;
             }
         };
+
+        this.updateTimeLeft = (item, scores) => {
+            if (this.timeLeftText) {
+                this.timeLeftText.text = `${this.gameModel.timeLeft} s`
+            }
+        };
+
+        this.onGameStateUpdated = () => {
+            if (this.gameModel.gameState === EGameStates.playing){
+
+            } 
+            if (this.gameModel.gameState === EGameStates.stop) {
+
+            };
+        };
         
         this.items = [];
         this.interactive = true;
         this.eventMode = `dynamic`;
 
         this.gameModel.scoreUpdated.add(this.updateScores);
+        this.gameModel.timeLeftUpdated.add(this.updateTimeLeft);
+        this.gameModel.gameStateUpdated.add(this.onGameStateUpdated);
         this.init();
     }
 
@@ -101,7 +134,9 @@ class GameScreen extends PIXI.Container {
     };
 
     start() {
+        this.gameModel.startGame();
         this.app.ticker.add((delta) => {
+            if (this.gameModel.gameState !== EGameStates.playing) return
             this.t += delta;
             this.items.forEach(c => { c.point3D.z -= (delta / animationSpped); });
         });
@@ -110,6 +145,7 @@ class GameScreen extends PIXI.Container {
             this.cartOver.x = e.data.global.x;
         });
         const newItemInterval = setInterval(() => {
+            if (this.gameModel.gameState !== EGameStates.playing) return
             this.addRandomItem();
         }, newItemDelay);
     }
