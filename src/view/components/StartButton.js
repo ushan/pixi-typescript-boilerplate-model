@@ -40,22 +40,3 @@ class StartButton extends PIXI.Sprite {
 }
 
 export default StartButton
-
-/*
-// Usage
-const app = new PIXI.Application();
-document.body.appendChild(app.view);
-
-const countdown = new CountdownText();
-countdown.position.set(app.screen.width / 2, app.screen.height / 2);
-app.stage.addChild(countdown);
-
-const startButton = new StartButton();
-startButton.position.set(app.screen.width / 2, app.screen.height / 2 + 60);
-app.stage.addChild(startButton);
-
-// Listen for the start button click event
-startButton.on('startButtonClick', () => {
-  countdown.startCountdown();
-});
-*/

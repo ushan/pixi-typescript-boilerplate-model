@@ -50,12 +50,12 @@ class GameScreen extends PIXI.Container {
             this.cart.scale.set(0.5);
             this.cart.anchor.set(0.5, 1);
             this.cart.y = gameHeight;
-            this.cart.x = 0;
+            this.cart.x = gameWidth / 2;
             this.addChild(this.cartOver);
             this.cartOver.scale.set(0.5);
             this.cartOver.anchor.set(0.5, 1);
             this.cartOver.y = gameHeight;
-            this.cartOver.x = 0;
+            this.cartOver.x = gameWidth / 2;
             this.addChild(this.scoresPanel);
             this.scoresText = new Text('0/0', {
                 fontFamily: 'Arial',
@@ -64,13 +64,15 @@ class GameScreen extends PIXI.Container {
                 fill: 0x9f1212,
                 align: 'center'
             });
-            this.timeLeftText = new Text('0/0', {
+            this.timeLeftText = new Text('0s', {
                 fontFamily: 'Arial',
                 fontWeight: 'bold',
                 fontSize: 24,
-                fill: 0x12129f,
+                fill: 0xeeeeee,
                 align: 'center'
             });
+
+            this.addControls();
 
             this.scoresPanel.addChild(this.scoresText);
             this.scoresPanel.addChild(this.progressBar);
@@ -116,6 +118,14 @@ class GameScreen extends PIXI.Container {
 
             };
         };
+
+        this.onCartLineUpdated = () => {
+            const f = 0.5 * this.gameModel.cartLine;
+            const conveyorWidth = gameWidth * 0.5;
+            // const lineWidth = conveyorWidth / 3;
+            this.cart.x = gameWidth / 2   + conveyorWidth * f;
+            this.cartOver.x = this.cart.x;
+        };
         
         this.items = [];
         this.interactive = true;
@@ -124,6 +134,7 @@ class GameScreen extends PIXI.Container {
         this.gameModel.scoreUpdated.add(this.updateScores);
         this.gameModel.timeLeftUpdated.add(this.updateTimeLeft);
         this.gameModel.gameStateUpdated.add(this.onGameStateUpdated);
+        this.gameModel.cartLineUpdated.add(this.onCartLineUpdated);
         this.init();
     }
 
@@ -141,8 +152,8 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => { c.point3D.z -= (delta / animationSpped); });
         });
         this.on("pointermove", (e) => {
-            this.cart.x = e.data.global.x;
-            this.cartOver.x = e.data.global.x;
+            // this.cart.x = e.data.global.x;
+            // this.cartOver.x = e.data.global.x;
         });
         const newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
@@ -206,9 +217,41 @@ class GameScreen extends PIXI.Container {
         this.itemsCont.sortChildren();
     };
 
+    addControls() {
+        this.controlsCont = new PIXI.Container();
+        this.keyLeft = new SpriteCommon(ResourceList.KEY_LEFT);
+        this.keyLeft.cursor = "pointer";
+        this.keyLeft.on('pointerdown', () => {
+            // this.cart.x -= 50;
+            // this.cartOver.x = this.cart.x;
+            this.gameModel.registerMoveCart(true);
+        });
+        this.keyLeft.anchor.set(1, 0.5);
+        this.keyLeft.alpha = 0.6;
+        this.keyLeft.x = - 50;
+
+        this.keyRight = new SpriteCommon(ResourceList.KEY_RIGHT);
+        this.keyRight.on('pointerdown', () => {
+            // this.cart.x += 50;
+            // this.cartOver.x = this.cart.x;
+            this.gameModel.registerMoveCart(false);
+        });
+        
+        this.keyRight.cursor = "pointer";
+        this.keyRight.alpha = 0.6;
+        this.keyRight.anchor.set(0, 0.5);
+        this.keyRight.x = 50;
+
+        this.controlsCont.addChild(this.keyLeft);
+        this.controlsCont.addChild(this.keyRight);
+        this.addChild(this.controlsCont);
+        this.controlsCont.y = gameHeight - 60;
+        this.controlsCont.x = gameWidth / 2;
+    }
+
     get3DXByPosInRow(pos) {
         const f = 0.5 + pos * 0.35;
-        return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2
+        return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
     }
 
     getRandomInt(min, max) {
@@ -237,6 +280,11 @@ class GameScreen extends PIXI.Container {
             // SoundBoard.play('move');
             this.soundManager.play('move');
         }
+
+    }
+
+
+    getCartXByLine(linePos) {
 
     }
 
