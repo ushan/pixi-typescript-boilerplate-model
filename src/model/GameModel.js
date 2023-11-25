@@ -1,9 +1,13 @@
+import { AppConfig } from "../config";
 import ResourceList from "../resources/ResourceList";
 import ItemSprite from "../view/components/items/ItemSprite";
 import ItemModel from "./items/ItemModel";
 import { MiniSignal } from "mini-signals";
 
 export const EGameStates = Object.freeze({"stop":1, "playing":2});
+
+const { animationSpeed} = AppConfig.settings3D;
+
 class GameModel {
     static _instance;
     static get instance() {
@@ -16,6 +20,8 @@ class GameModel {
         this.cartLineUpdated = new MiniSignal();
         this.itemModels = this.createItemModels();
         this.gameState = EGameStates.stop;
+        this.speed = 1.6;
+        this.speedUpFactor = 1;
         this.lastItem = null;
         this._scores = 0;
         this._timeLeft = 120;
@@ -53,7 +59,7 @@ class GameModel {
         this.createItemModels();
     }
     
-    createItemModels() {
+    createItemModelsDebug() {
         const arr = [];
         let itemScores = 1;
         ResourceList.GOODS_LIST.forEach(resource => {
@@ -64,6 +70,25 @@ class GameModel {
         });
         return arr;
     }
+
+    createItemModels() {   
+        const scorePlusItem1 = new ItemModel(1, ResourceList.GOOD_1, "scores", 10, 0, "good");
+        const scorePlusItem2 = new ItemModel(2, ResourceList.GOOD_2, "scores", 20, 0, "good");
+        const scoreMinusItem = new ItemModel(3, ResourceList.GOOD_3, "scores", -10, 0, "bad");
+        const secondsMinusItem = new ItemModel(4, ResourceList.GOOD_4, "time", 0, 10, "bad");
+        const magnetItem = new ItemModel(5, ResourceList.GOOD_5, "magent", 0, 0, "good");
+        const speedUpItem = new ItemModel(6, ResourceList.GOOD_1, "speedUp", 0, 0, "good");
+        const arr = [
+            scorePlusItem1, 
+            scorePlusItem2,
+            scoreMinusItem,
+            secondsMinusItem,
+            magnetItem,
+            speedUpItem
+        ];
+        return arr;
+    }
+
     update() {
     }
 
@@ -73,6 +98,8 @@ class GameModel {
             this.stopGame();
         }
     }
+
+
 
     startGame() {
         this.gameState = EGameStates.playing;
@@ -106,12 +133,25 @@ class GameModel {
         let itemModel = item.itemModel;
         this.lastItem = item;
         if (inCart) {
-            this.scores += itemModel.scores;
+            
+            this.addCautchItem(itemModel);
             return true;
         }
         else {
             this.scores -= 1;
             return false;
+        }
+    }
+
+    /**
+     * @param {ItemModel} item 
+     */
+    addCautchItem(item){
+        if (item.scores != 0) {
+            this.scores += item.scores;
+        }
+        if (item.time != 0) {
+            this.timeLeft += item.time;
         }
     }
 

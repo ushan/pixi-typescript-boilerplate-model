@@ -17,7 +17,7 @@ import { SoundManager } from '../../resources/sounds';
 
 
 const { gameWidth, gameHeight } = AppConfig.settings;
-const { animationSpped, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
+const { animationSpeed, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
 const { levelMaxScores, newItemDelay } = AppConfig.gameSettings;
 
 
@@ -71,6 +71,7 @@ class GameScreen extends PIXI.Container {
                 fill: 0xeeeeee,
                 align: 'center'
             });
+            this.claculateParams();
 
             this.addControls();
 
@@ -123,8 +124,12 @@ class GameScreen extends PIXI.Container {
             const f = 0.5 * this.gameModel.cartLine;
             const conveyorWidth = gameWidth * 0.5;
             // const lineWidth = conveyorWidth / 3;
-            this.cart.x = gameWidth / 2   + conveyorWidth * f;
-            this.cartOver.x = this.cart.x;
+            const trgX = gameWidth / 2   + conveyorWidth * f;
+            // this.cart.x = gameWidth / 2   + conveyorWidth * f;
+            // this.cartOver.x = this.cart.x;
+
+            gsap.to(this.cart, { x: trgX, duration: 0.3 })
+            gsap.to(this.cartOver, { x: trgX, duration: 0.3 })
         };
         
         this.items = [];
@@ -149,7 +154,9 @@ class GameScreen extends PIXI.Container {
         this.app.ticker.add((delta) => {
             if (this.gameModel.gameState !== EGameStates.playing) return
             this.t += delta;
-            this.items.forEach(c => { c.point3D.z -= (delta / animationSpped); });
+            const speed = this.blockSpace3Dz * (this.app.ticker.deltaMS / (this.gameModel.speed * 1000));
+            // const speed = this.blockSpace3Dz * (delta / )
+            this.items.forEach(c => { c.point3D.z -= speed; });
         });
         this.on("pointermove", (e) => {
             // this.cart.x = e.data.global.x;
@@ -212,16 +219,22 @@ class GameScreen extends PIXI.Container {
         }
     };
 
-    arrangeElements() {
+    claculateParams() {
         const zLeng = zDeep - zCartPosition;
         const n = 10;
-        const space = zLeng / n;
+        this.blockSpace3Dz = zLeng / n;
+    }
+
+    arrangeElements() {
+        // const zLeng = zDeep - zCartPosition;
+        const n = 10;
+        // const space = zLeng / n;
         
         for (let i = 0; i < n; i++) {
             for (let r = -1; r <= 1; r++){
                 const posInRow = this.getRandomInt(-1, 2);
                 let item = this.addItem(posInRow);
-                item.point3D.z = zDeep - i * space;
+                item.point3D.z = zDeep - i * this.blockSpace3Dz;
                 item.point3D.x = this.get3DXByPosInRow(r);
                 item.zIndex = 0xffffff - item.point3D.z - posInRow;
             }
