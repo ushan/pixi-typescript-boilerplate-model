@@ -12,7 +12,7 @@ const { worldSize, conveyorWidth, zCartPosition} = AppConfig.settings3D;
 
 class ItemSprite extends Pseudo3DSprite {
     /**
-     * @param { ( -1| 0 | 1 | 'none') } posInLine
+     * @param { ( -1| 0 | 1 ) } posInLine
      * @param { ItemModel } itemModel 
      * @param { GameModel } gameModel 
      * @param { GameScreen } gameScreen 
@@ -24,16 +24,14 @@ class ItemSprite extends Pseudo3DSprite {
         this.gameModel = gameModel;
         this.gameScreen = gameScreen;
         this.hasAchivedBorder = false;
-        if (this.posInLine != 'none') {
-            // this.set3DPoseByPosInLine();
-        }
         //this.createShadow();
     }
 
     updatePosByPoint3D() {
         super.updatePosByPoint3D();
         if (this.point3D.z < zCartPosition && !this.hasAchivedBorder) {
-            const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
+            // const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
+            const isInCart = this.gameModel.cartLine === this.posInLine;
             const isSuccess = this.gameModel.registerAchiveBorder(this, isInCart);
             this.listen3D = false;
             this.hasAchivedBorder = true;

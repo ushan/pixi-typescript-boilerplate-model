@@ -165,7 +165,8 @@ class GameScreen extends PIXI.Container {
         });
         const newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
-            this.addItem('none');
+            const posInRow = this.getRandomInt(-1, 2);
+            this.addItem(posInRow);
         }, newItemDelay);
     }
 
@@ -182,14 +183,8 @@ class GameScreen extends PIXI.Container {
      * @param { (-1 | 0 | 1 | 'none') } pos 
      * @returns {ItemSprite}
      */
-    addItem(pos) {
-        const itemModel = this.gameModel.getNextItemModel();
-        let posInRow;
-        if (pos !== 'none') {
-            posInRow = pos;
-        } else {
-            posInRow = this.getRandomInt(-1, 2);
-        }
+    addItem(posInRow) {
+         const itemModel = this.gameModel.getNextItemModel();
         const item = new ItemSprite(posInRow, itemModel, this.gameModel, this);
         item.anchor.set(0.5, 1);
         item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
@@ -204,9 +199,6 @@ class GameScreen extends PIXI.Container {
         this.itemsCont.sortChildren();
         item.alpha = 0;
         gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
-        // this.gameModel.scores += itemModel.scores;
-
-        //SoundBoard.play('move');
         return item
 
     };
