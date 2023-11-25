@@ -163,6 +163,14 @@ class GameScreen extends PIXI.Container {
             // this.cart.x = e.data.global.x;
             // this.cartOver.x = e.data.global.x;
         });
+        window.addEventListener('keydown', (e) => {
+            console.log('Key pressed:', e.code);
+            if (e.code === 'ArrowRight') {
+                this.gameModel.registerMoveCart(false);
+            } else if (e.code === 'ArrowLeft') {
+                this.gameModel.registerMoveCart(true);
+            }
+        });
         const newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
             const posInRow = this.getRandomInt(-1, 2);
@@ -303,14 +311,10 @@ class GameScreen extends PIXI.Container {
             // SoundBoard.play('move');
             this.soundManager.play('move');
         }
-
     }
-
 
     getCartXByLine(linePos) {
 
-    }
-
-  
+    } 
 }
 export default GameScreen;
