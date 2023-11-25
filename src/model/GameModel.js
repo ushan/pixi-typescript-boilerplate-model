@@ -43,7 +43,7 @@ class GameModel {
         if (value == this._timeLeft) return
         const increment = value - this._timeLeft;
         this._timeLeft = value; 
-        this.timeLeftUpdated.dispatch(increment); 
+        this.timeLeftUpdated.dispatch(this.lastItem, increment); 
     }
 
     get cartLine() { return this._cartLine }
@@ -72,9 +72,9 @@ class GameModel {
     }
 
     createItemModels() {   
-        const scorePlusItem1 = new ItemModel(1, ResourceList.GOOD_1, "scores", 10, 0, "good");
-        const scorePlusItem2 = new ItemModel(2, ResourceList.GOOD_2, "scores", 20, 0, "good");
-        const scoreMinusItem = new ItemModel(3, ResourceList.GOOD_3, "scores", -10, 0, "bad");
+        const scorePlusItem1 = new ItemModel(1, ResourceList.GOOD_1, "scores", 10, 10, "good");
+        const scorePlusItem2 = new ItemModel(2, ResourceList.GOOD_2, "scores", 20, 10, "good");
+        const scoreMinusItem = new ItemModel(3, ResourceList.GOOD_3, "scores", -10, 10, "bad");
         const secondsMinusItem = new ItemModel(4, ResourceList.GOOD_4, "time", 0, 10, "bad");
         const magnetItem = new ItemModel(5, ResourceList.GOOD_5, "magent", 0, 0, "good");
         const speedUpItem = new ItemModel(6, ResourceList.GOOD_1, "speedUp", 0, 0, "good");

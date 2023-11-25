@@ -3,14 +3,20 @@ import { Text } from 'pixi.js';
 import gsap from "gsap";
 
 class ScoreBallon extends PIXI.Sprite {
-    constructor(scores, point){
+        /**
+     * @param {*} item 
+     * @param {( 'scores' | 'time')} type 
+     * @param { x:number, y:number } point 
+     */
+    constructor(type, scores, point){
         super();
         const scoreCaption = scores >= 0 ? "+" + scores : scores;
+        const textColor = type === 'scores' ? 0xffffff : 0x4444ff;
         this.scoresText = new Text(scoreCaption, {
             fontFamily: 'Arial',
             fontWeight: 'bold',
             fontSize: 32,
-            fill: 0xffffff,
+            fill: textColor,
             align: 'center'
         });
         this.x = point.x;

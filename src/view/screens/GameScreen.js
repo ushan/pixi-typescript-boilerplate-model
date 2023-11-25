@@ -97,7 +97,7 @@ class GameScreen extends PIXI.Container {
         this.count = 1; 
 
         this.updateScores = (item, scores) => {
-            this.addScoreBallon(item, scores);
+            this.addScoreBallon(item, 'scores', scores);
             if (this.scoresText) {
                 this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
                 this.progressBar.progress = this.gameModel.scores / levelMaxScores;
@@ -105,7 +105,8 @@ class GameScreen extends PIXI.Container {
             }
         };
 
-        this.updateTimeLeft = (item, scores) => {
+        this.updateTimeLeft = (item, timeIncrement) => {
+            if (timeIncrement > 0) this.addScoreBallon(item, 'time', timeIncrement);
             if (this.timeLeftText) {
                 this.timeLeftText.text = `${this.gameModel.timeLeft} s`
             }
@@ -290,15 +291,20 @@ class GameScreen extends PIXI.Container {
         item.destroy();
     }
 
-    addScoreBallon(item, scores) {
+    /**
+     * @param {*} item 
+     * @param {( 'scores' | 'time')} item 
+     * @param {*} value 
+     */
+    addScoreBallon(item, type, value) {
         let point = item ? {x:item.x, y:item.y} : {x:gameWidth / 2, y:gameHeight / 2};
-        const scoreBallon = new ScoreBallon(scores, point);
+        const scoreBallon = new ScoreBallon(type, value, point);
         this.scoreBallonsCont.addChild(scoreBallon);
         scoreBallon.on('finish', () => {
             this.scoreBallonsCont.removeChild(scoreBallon);
             scoreBallon.removeAllListeners('finish');
         });
-        if (scores > 0 ) {
+        if (value > 0 ) {
             // SoundBoard.play('match');
             this.soundManager.play('match');
         } else {
