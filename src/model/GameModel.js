@@ -25,6 +25,7 @@ class GameModel {
         this.gameState = EGameStates.stop;
         this.speed = 1.6;
         this.speedUpFactor = 1;
+        this.isMagnet = false;
         this.lastItem = null;
         this._scores = 0;
         this._timeLeft = 120;
@@ -80,7 +81,7 @@ class GameModel {
         const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 0, "good");
         const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 0, "bad");
         const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.GOOD_4, "time", 0, 10, "bad");
-        const magnetItem = new ItemKind("magnet", ResourceList.GOOD_5, "magent", 0, 0, "good");
+        const magnetItem = new ItemKind("magnet", ResourceList.GOOD_5, "magnet", 0, 0, "good");
         const speedUpItem = new ItemKind("speedUp", ResourceList.GOOD_6, "speedUp", 0, 0, "good");
         const arr = [
             scorePlusItem1, 
@@ -235,6 +236,12 @@ class GameModel {
                         this.speedUpFactor = 1;
                     }, 4000);
                 }
+                if (item.itemKind.id === 'magnet') {
+                    this.isMagnet = true;
+                    setTimeout(() => {
+                        this.isMagnet = false;
+                    }, 600000);
+                }
             }
         }
       
@@ -249,10 +256,16 @@ class GameModel {
      * @param {Boolean} inCart 
      * @returns {Boolean}
      */
-    registerAchiveBorder(item, inCart) {
+    registerAchiveBorder(item) {
         // let itemModel = item.itemKind;
+        let isInCart = item.posInRow === this.cartLine;
+        const itemKind = item.itemKind;
+        if (this.isMagnet && itemKind.kindness == 'good' && itemKind.itemType !== 'magnet' && itemKind.itemType !== 'speedUp'){
+            isInCart = true;
+        }
+
         this.lastItem = item;
-        if (inCart) {
+        if (isInCart) {
             
             this.addCautchItem(item);
             return true;

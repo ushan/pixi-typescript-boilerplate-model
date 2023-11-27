@@ -32,7 +32,7 @@ class ItemSprite extends Pseudo3DSprite {
         if (this.point3D.z < zCartPosition && !this.hasAchivedBorder) {
             // const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
             const isInCart = this.gameModel.cartLine === this.posInRow;
-            const isSuccess = this.gameModel.registerAchiveBorder(this, isInCart);
+            const isSuccess = this.gameModel.registerAchiveBorder(this);
             
             this.hasAchivedBorder = true;
             // this.setByPosInLine();
