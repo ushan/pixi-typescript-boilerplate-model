@@ -112,13 +112,6 @@ class GameModel {
         this.speed = this.getParamsByTime(this.timeSpent, GAME_CONFIG.speeds).speed;
     }
 
-
-    getParamsByTime1(currentTime, configObj) {
-        const keys = Object.keys(configObj).map(Number).sort((a, b) => a - b);
-        const key = keys.find(interval => interval > currentTime);
-        return key ? configObj[key] : null;
-      }
-
     getParamsByTime(currentTime, configObj) {
         const keys = Object.keys(configObj).map(Number).sort((a, b) => a - b);
         const key = keys.find(interval => interval > currentTime);
@@ -142,8 +135,34 @@ class GameModel {
 
     getNextItemModel() {
         const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
+        const probObj = { row0: 20, row1: 25, row2: 40, row3: 15 };
+        const numInRow = this.getNumberByProbability(probObj);
+        console.log(numInRow);
         return itemModel;
     }
+
+    getNumberByProbability(probObj) {
+        // Generate a random number between 0 and 100 (inclusive)
+        const randomNumber = Math.floor(Math.random() * 101);
+
+        let cumulativeProbability = 0;
+
+        // Iterate through each row in probObj
+        for (const row in probObj) {
+            if (probObj.hasOwnProperty(row)) {
+                cumulativeProbability += probObj[row];
+
+                // If the random number falls within the cumulative probability range, return the corresponding row number
+                if (randomNumber <= cumulativeProbability) {
+                    return parseInt(row.replace('row', ''), 10);
+                }
+            }
+        }
+
+        // Default to the last row if the random number exceeds the cumulative probability
+        return Object.keys(probObj).length - 1;
+    }
+      
 
     /***************************
      * Controller
