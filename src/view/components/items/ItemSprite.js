@@ -54,12 +54,14 @@ class ItemSprite extends Pseudo3DSprite {
         }
     }
 
-    set3DPoseByPosInLine() {
-        this.point3D.x = this.get3DXByPosInRow(this.posInRow);
-    }
+
+
+    // update3DPoseByPosInRow() {
+        // this.point3D.x = this.get3DXByPosInRow(this.posInRow);
+    // }
 
     /**
-     * 
+     * @access protected
      * @param { (-1 | 0 | 1 )} pos 
      * @returns { number }
      */
