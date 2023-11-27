@@ -139,9 +139,9 @@ class GameModel {
         const numInRowProp = this.getPropertyByProbability(currentIntemsInRowParams);
         const numOfItems = parseInt(numInRowProp.replace('row', ''), 10) //parse number from propname row0, row1, row2 ...
         console.log(numOfItems);
-        // const currentItemKinds = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow).speed;
-        // const itemProp = this.getPropertyByProbability(currentItemKinds);
-        // console.log(numOfItems);
+        const currentItemKinds = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemKinds);
+        const itemProp = this.getPropertyByProbability(currentItemKinds, false);
+        console.log(itemProp);
         
         return itemModel;
     }
@@ -150,24 +150,25 @@ class GameModel {
      *  @param      {Object} probObj 
      *              the object with distribution of probabilities in perscetns 
      *              {prop1:10, prop2:20, prop3:70}. It must be 100 in summ
+     *  @param      {boolean} usePercents=true
+     *              determine if the values in objects are defined as percents but
      *  @returns    {string} 
      *              propname
      */
-    getPropertyByProbability(probObj) {
-        // Generate a random number between 0 and 100 (inclusive)
+    getPropertyByProbability(probObj, usePercents = true) {
         const randomNumber = Math.floor(Math.random() * 101);
+        const percentFactor = usePercents ? 1 : 100;
         let cumulativeProbability = 0;
         for (const row in probObj) {
             if (probObj.hasOwnProperty(row)) {
-                cumulativeProbability += probObj[row];
+                cumulativeProbability += (probObj[row] * percentFactor);
                 if (randomNumber <= cumulativeProbability) {
                     return row
                 }
             }
         }
 
-        console.log ("Error: the value exceeds probabilities ")
-
+        // console.log ("Error: the value exceeds probabilities ")
         // Default to the last row if the random number exceeds the cumulative probability
         return Object.keys(probObj).length - 1;
     }

@@ -30,7 +30,7 @@ const GAME_CONFIG = {
         '600': {row0: 0, row1: 0, row2: 55, row3: 45},
         'infinity': {row0: 0, row1: 0, row2: 50, row3: 50}
     },
-    itemsModifier: {
+    itemKinds: {
         '60': {plus10: 0.5, plus20: 0.3, minus10: 0, minusNseconds: 0, minusNseconds: 0.1, magnet: 0.05, speedUp: 0.05},
         '120': {plus10: 0.5, plus20: 0.29, minus10: 0, minusNseconds: 0.01, minusNseconds: 0.1, magnet: 0.05, speedUp: 0.05},
         '180': {plus10: 0.45, plus20: 0.28, minus10: 0.05, minusNseconds: 0.02, minusNseconds: 0.1, magnet: 0.05, speedUp: 0.05},
