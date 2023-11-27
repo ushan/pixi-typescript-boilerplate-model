@@ -233,7 +233,7 @@ class GameScreen extends PIXI.Container {
         for (let i = 0; i < n; i++) {
             let item = this.addItem();
             item.point3D.z = zDeep - i * this.blockSpace3Dz;
-            item.point3D.x = this.get3DXByPosInRow(item.posInLine);
+            item.point3D.x = this.get3DXByPosInRow(item.posInRow);
             item.zIndex = 0xffffff - item.point3D.z - 3;
             
         }

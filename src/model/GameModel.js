@@ -222,7 +222,7 @@ class GameModel {
      * @returns {Boolean}
      */
     registerAchiveBorder(item, inCart) {
-        let itemModel = item.itemModel;
+        let itemModel = item.itemKind;
         this.lastItem = item;
         if (inCart) {
             

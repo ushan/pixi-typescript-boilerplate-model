@@ -12,15 +12,15 @@ const { worldSize, conveyorWidth, zCartPosition} = AppConfig.settings3D;
 
 class ItemSprite extends Pseudo3DSprite {
     /**
-     * @param { ( -1| 0 | 1 ) } posInLine
-     * @param { ItemKind } itemModel 
+     * @param { ( -1| 0 | 1 ) } posInRow
+     * @param { ItemKind } itemKind 
      * @param { GameModel } gameModel 
      * @param { GameScreen } gameScreen 
      */
-    constructor(posInLine, itemModel, gameModel, gameScreen) {
-        super(gameScreen, itemModel.resource);
-        this.posInLine = posInLine;
-        this.itemModel = itemModel;
+    constructor(posInRow, itemKind, gameModel, gameScreen) {
+        super(gameScreen, itemKind.resource);
+        this.posInRow = posInRow;
+        this.itemKind = itemKind;
         this.gameModel = gameModel;
         this.gameScreen = gameScreen;
         this.hasAchivedBorder = false;
@@ -31,7 +31,7 @@ class ItemSprite extends Pseudo3DSprite {
         super.updatePosByPoint3D();
         if (this.point3D.z < zCartPosition && !this.hasAchivedBorder) {
             // const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
-            const isInCart = this.gameModel.cartLine === this.posInLine;
+            const isInCart = this.gameModel.cartLine === this.posInRow;
             const isSuccess = this.gameModel.registerAchiveBorder(this, isInCart);
             this.listen3D = false;
             this.hasAchivedBorder = true;
@@ -55,7 +55,7 @@ class ItemSprite extends Pseudo3DSprite {
     }
 
     set3DPoseByPosInLine() {
-        this.point3D.x = this.get3DXByPosInRow(this.posInLine);
+        this.point3D.x = this.get3DXByPosInRow(this.posInRow);
     }
 
     /**
