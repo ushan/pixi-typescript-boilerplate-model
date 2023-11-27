@@ -4,6 +4,7 @@ import ResourceList from "../resources/ResourceList";
 import ItemSprite from "../view/components/items/ItemSprite";
 import ItemKind from "./items/ItemKind";
 import { MiniSignal } from "mini-signals";
+import ItemModel from "./items/ItemModel";
 
 export const EGameStates = Object.freeze({"stop":1, "playing":2});
 
@@ -142,7 +143,7 @@ class GameModel {
 
     /**
      * 
-     * @returns {Array.<ItemKind>}
+     * @returns {ItemModel}
      *          Array of 
      */
     getNextItemModel() {
@@ -153,8 +154,8 @@ class GameModel {
         //     return dict[keys[Math.floor(keys.length * Math.random())]];
         // };
         const itemKind = this.getRandomElementFromDictionary(this.itemKinds);
-
-
+        const posInRow = ItemModel.getRandomPosInRow();
+        const itemModel = new ItemModel(itemKind, posInRow);
 
 
         const currentIntemsInRowParams = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow);
@@ -170,7 +171,7 @@ class GameModel {
         }
 
         
-        return itemKind;
+        return itemModel;
     }
 
     getRandomPosInRow() {

@@ -188,17 +188,16 @@ class GameScreen extends PIXI.Container {
 
     /**
      * 
-     * @param { (-1 | 0 | 1 | 'none') } pos 
      * @returns {ItemSprite}
      */
-    addItem(posInRow) {
-         const itemModel = this.gameModel.getNextItemModel();
-        const item = new ItemSprite(posInRow, itemModel, this.gameModel, this);
+    addItem() {
+        const itemModel = this.gameModel.getNextItemModel();
+        const item = new ItemSprite(itemModel.posInRow, itemModel.itemKind, this.gameModel, this);
         item.anchor.set(0.5, 1);
         item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
         // const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
         const yPosOnConveyor = conveyorY * worldSize;
-        const xPosOnConveyor = this.get3DXByPosInRow(posInRow);
+        const xPosOnConveyor = this.get3DXByPosInRow(itemModel.posInRow);
         item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
         this.itemsCont.addChild(item);
         this.items.push(item);
@@ -232,13 +231,11 @@ class GameScreen extends PIXI.Container {
         // const space = zLeng / n;
         
         for (let i = 0; i < n; i++) {
-            for (let r = -1; r <= 1; r++){
-                const posInRow = this.getRandomInt(-1, 2);
-                let item = this.addItem(posInRow);
-                item.point3D.z = zDeep - i * this.blockSpace3Dz;
-                item.point3D.x = this.get3DXByPosInRow(r);
-                item.zIndex = 0xffffff - item.point3D.z - posInRow;
-            }
+            let item = this.addItem();
+            item.point3D.z = zDeep - i * this.blockSpace3Dz;
+            item.point3D.x = this.get3DXByPosInRow(item.posInLine);
+            item.zIndex = 0xffffff - item.point3D.z - 3;
+            
         }
         this.itemsCont.sortChildren();
     };
