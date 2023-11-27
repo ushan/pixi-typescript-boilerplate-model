@@ -1,4 +1,5 @@
 import { AppConfig } from "../config";
+import GAME_CONFIG from "../config/GameConfig";
 import ResourceList from "../resources/ResourceList";
 import ItemSprite from "../view/components/items/ItemSprite";
 import ItemModel from "./items/ItemModel";
@@ -25,6 +26,7 @@ class GameModel {
         this.lastItem = null;
         this._scores = 0;
         this._timeLeft = 120;
+        this._timeSpend = 0;
         this._cartLine = 0;
         this.init();
         GameModel._instance = this;
@@ -92,6 +94,13 @@ class GameModel {
     update() {
     }
 
+    updateTime() {
+        this.timeSpent ++;
+        this.updateTimeLevel();
+        this.updateTimeLevel();
+        // if (this.timeSpent % 30 === 0) this.updateTimeLevel();
+    }
+
     updateTimeLeft() {
         this.timeLeft = this.timeLeft - 1;
         if (this.timeLeft <= 0) {
@@ -99,14 +108,30 @@ class GameModel {
         }
     }
 
+    updateTimeLevel() {
+        this.speed = this.getParamsByTime(this.timeSpent, GAME_CONFIG.speeds).speed;
+    }
 
+
+    getParamsByTime1(currentTime, configObj) {
+        const keys = Object.keys(configObj).map(Number).sort((a, b) => a - b);
+        const key = keys.find(interval => interval > currentTime);
+        return key ? configObj[key] : null;
+      }
+
+    getParamsByTime(currentTime, configObj) {
+        const keys = Object.keys(configObj).map(Number).sort((a, b) => a - b);
+        const key = keys.find(interval => interval > currentTime);
+        return key ? configObj[key] : configObj['infinity'];
+    }
 
     startGame() {
         this.gameState = EGameStates.playing;
         this.intervalId = setInterval(() => {
-            this.updateTimeLeft();
+            this.updateTime();
         }, 1000);
-        this.gameStateUpdated.dispatch(); 
+        this.gameStateUpdated.dispatch();
+        this.timeSpent = 0;
     }
 
     stopGame() {

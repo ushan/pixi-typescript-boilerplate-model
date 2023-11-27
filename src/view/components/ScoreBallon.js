@@ -5,7 +5,7 @@ import gsap from "gsap";
 class ScoreBallon extends PIXI.Sprite {
         /**
      * @param {*} item 
-     * @param {( 'scores' | 'time')} type 
+     * @param {( 'scores' | 'time' | 'speedUp')} type 
      * @param { x:number, y:number } point 
      */
     constructor(type, scores, point){
