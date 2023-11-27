@@ -74,12 +74,12 @@ class GameModel {
     }
 
     createItemModels() {   
-        const scorePlusItem1 = new ItemModel(1, ResourceList.GOOD_1, "scores", 10, 10, "good");
-        const scorePlusItem2 = new ItemModel(2, ResourceList.GOOD_2, "scores", 20, 10, "good");
-        const scoreMinusItem = new ItemModel(3, ResourceList.GOOD_3, "scores", -10, 10, "bad");
-        const secondsMinusItem = new ItemModel(4, ResourceList.GOOD_4, "time", 0, 10, "bad");
-        const magnetItem = new ItemModel(5, ResourceList.GOOD_5, "magent", 0, 0, "good");
-        const speedUpItem = new ItemModel(6, ResourceList.GOOD_1, "speedUp", 0, 0, "good");
+        const scorePlusItem1 = new ItemModel("plus10", ResourceList.GOOD_1, "scores", 10, 10, "good");
+        const scorePlusItem2 = new ItemModel("plus20", ResourceList.GOOD_2, "scores", 20, 10, "good");
+        const scoreMinusItem = new ItemModel("minus10", ResourceList.GOOD_3, "scores", -10, 10, "bad");
+        const secondsMinusItem = new ItemModel("minusNseconds", ResourceList.GOOD_4, "time", 0, 10, "bad");
+        const magnetItem = new ItemModel("magnet", ResourceList.GOOD_5, "magent", 0, 0, "good");
+        const speedUpItem = new ItemModel("speedUp", ResourceList.GOOD_1, "speedUp", 0, 0, "good");
         const arr = [
             scorePlusItem1, 
             scorePlusItem2,
@@ -88,7 +88,13 @@ class GameModel {
             magnetItem,
             speedUpItem
         ];
-        return arr;
+
+        //creating dictionary were the keys are ID's of objects in original array
+        const dict = arr.reduce((dictionary, obj) => {
+            dictionary[obj.id] = obj;
+            return dictionary;
+          }, {});
+        return dict;
     }
 
     update() {
@@ -133,18 +139,45 @@ class GameModel {
         this.gameStateUpdated.dispatch(); 
     }
 
+
+    /**
+     * 
+     * @returns {Array.<ItemModel>}
+     *          Array of 
+     */
     getNextItemModel() {
-        const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
+        // const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
+        
+        // const randomItemID = (dict) => {
+        //     var keys = Object.keys(dict);
+        //     return dict[keys[Math.floor(keys.length * Math.random())]];
+        // };
+        const itemModel = this.getRandomElementFromDictionary(this.itemModels);
+
+
+
+
         const currentIntemsInRowParams = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow);
         const numInRowProp = this.getPropertyByProbability(currentIntemsInRowParams);
         const numOfItems = parseInt(numInRowProp.replace('row', ''), 10) //parse number from propname row0, row1, row2 ...
         console.log(numOfItems);
-        const currentItemKinds = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemKinds);
-        const itemProp = this.getPropertyByProbability(currentItemKinds, false);
-        console.log(itemProp);
+        const ItemsArray = [];
+        for (let i = 0; i < numOfItems; i++)
+        {
+            const currentItemKinds = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemKinds);
+            const itemProp = this.getPropertyByProbability(currentItemKinds, false);
+            console.log(itemProp);
+        }
+
         
         return itemModel;
     }
+
+    getRandomElementFromDictionary(dict) {
+        const keys = Object.keys(dict);
+        const randomKey = keys[Math.floor(Math.random() * keys.length)];
+        return dict[randomKey];
+      }
 
     /**
      *  @param      {Object} probObj 

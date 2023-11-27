@@ -2,7 +2,7 @@
 class ItemModel {
     /**
      * 
-     * @param {number} id 
+     * @param {string} id 
      * @param {string} resource 
      * @param {('scores' | 'time' | 'magent' | 'speedUp')} itemType 
      * @param {number} scores 
