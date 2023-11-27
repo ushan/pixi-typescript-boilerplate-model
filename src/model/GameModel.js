@@ -2,7 +2,7 @@ import { AppConfig } from "../config";
 import GAME_CONFIG from "../config/GameConfig";
 import ResourceList from "../resources/ResourceList";
 import ItemSprite from "../view/components/items/ItemSprite";
-import ItemModel from "./items/ItemModel";
+import ItemKind from "./items/ItemKind";
 import { MiniSignal } from "mini-signals";
 
 export const EGameStates = Object.freeze({"stop":1, "playing":2});
@@ -19,7 +19,7 @@ class GameModel {
         this.timeLeftUpdated = new MiniSignal();
         this.gameStateUpdated = new MiniSignal();
         this.cartLineUpdated = new MiniSignal();
-        this.itemModels = this.createItemModels();
+        this.itemKinds = this.createItemKinds();
         this.gameState = EGameStates.stop;
         this.speed = 1.6;
         this.speedUpFactor = 1;
@@ -58,14 +58,14 @@ class GameModel {
 
 
     init() {
-        this.createItemModels();
+        this.createItemKinds();
     }
     
     createItemModelsDebug() {
         const arr = [];
         let itemScores = 1;
         ResourceList.GOODS_LIST.forEach(resource => {
-            const itemModel = new ItemModel(resource);
+            const itemModel = new ItemKind(resource);
             itemModel.scores = itemScores;
             itemScores *= 2;
             arr.push(itemModel);
@@ -73,13 +73,13 @@ class GameModel {
         return arr;
     }
 
-    createItemModels() {   
-        const scorePlusItem1 = new ItemModel("plus10", ResourceList.GOOD_1, "scores", 10, 10, "good");
-        const scorePlusItem2 = new ItemModel("plus20", ResourceList.GOOD_2, "scores", 20, 10, "good");
-        const scoreMinusItem = new ItemModel("minus10", ResourceList.GOOD_3, "scores", -10, 10, "bad");
-        const secondsMinusItem = new ItemModel("minusNseconds", ResourceList.GOOD_4, "time", 0, 10, "bad");
-        const magnetItem = new ItemModel("magnet", ResourceList.GOOD_5, "magent", 0, 0, "good");
-        const speedUpItem = new ItemModel("speedUp", ResourceList.GOOD_1, "speedUp", 0, 0, "good");
+    createItemKinds() {   
+        const scorePlusItem1 = new ItemKind("plus10", ResourceList.GOOD_1, "scores", 10, 10, "good");
+        const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 10, "good");
+        const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 10, "bad");
+        const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.GOOD_4, "time", 0, 10, "bad");
+        const magnetItem = new ItemKind("magnet", ResourceList.GOOD_5, "magent", 0, 0, "good");
+        const speedUpItem = new ItemKind("speedUp", ResourceList.GOOD_1, "speedUp", 0, 0, "good");
         const arr = [
             scorePlusItem1, 
             scorePlusItem2,
@@ -142,7 +142,7 @@ class GameModel {
 
     /**
      * 
-     * @returns {Array.<ItemModel>}
+     * @returns {Array.<ItemKind>}
      *          Array of 
      */
     getNextItemModel() {
@@ -152,7 +152,7 @@ class GameModel {
         //     var keys = Object.keys(dict);
         //     return dict[keys[Math.floor(keys.length * Math.random())]];
         // };
-        const itemModel = this.getRandomElementFromDictionary(this.itemModels);
+        const itemKind = this.getRandomElementFromDictionary(this.itemKinds);
 
 
 
@@ -170,7 +170,11 @@ class GameModel {
         }
 
         
-        return itemModel;
+        return itemKind;
+    }
+
+    getRandomPosInRow() {
+         return randomIndex = Math.floor(Math.random() * 3) - 1;
     }
 
     getRandomElementFromDictionary(dict) {
@@ -231,7 +235,7 @@ class GameModel {
     }
 
     /**
-     * @param {ItemModel} item 
+     * @param {ItemKind} item 
      */
     addCautchItem(item){
         if (item.scores != 0) {

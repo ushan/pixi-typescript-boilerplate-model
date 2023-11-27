@@ -3,7 +3,7 @@ import Pseudo3DSprite from "../common/Pseudo3DSprite";
 import SpriteCommon from '../common/SpriteCommon';
 import { AppConfig } from '../../../config';
 import gsap from "gsap";
-import ItemModel from '../../../model/items/ItemModel';
+import ItemKind from '../../../model/items/ItemKind';
 import GameModel from '../../../model/GameModel';
 import GameScreen from '../../screens/GameScreen';
 const { cartWidth } = AppConfig.gameSettings;
@@ -13,7 +13,7 @@ const { worldSize, conveyorWidth, zCartPosition} = AppConfig.settings3D;
 class ItemSprite extends Pseudo3DSprite {
     /**
      * @param { ( -1| 0 | 1 ) } posInLine
-     * @param { ItemModel } itemModel 
+     * @param { ItemKind } itemModel 
      * @param { GameModel } gameModel 
      * @param { GameScreen } gameScreen 
      */

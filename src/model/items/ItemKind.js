@@ -1,5 +1,5 @@
 
-class ItemModel {
+class ItemKind {
     /**
      * 
      * @param {string} id 
@@ -17,4 +17,4 @@ class ItemModel {
         this.time = time;
     }
 }
-export default ItemModel;
+export default ItemKind;
