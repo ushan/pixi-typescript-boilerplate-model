@@ -188,25 +188,31 @@ class GameScreen extends PIXI.Container {
 
     /**
      * 
-     * @returns {ItemSprite}
+     * @returns {Array.<ItemSprite>}
      */
     addItem() {
-        const itemModel = this.gameModel.getNextItemModel();
-        const item = new ItemSprite(itemModel.posInRow, itemModel.itemKind, this.gameModel, this);
-        item.anchor.set(0.5, 1);
-        item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
-        // const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
-        const yPosOnConveyor = conveyorY * worldSize;
-        const xPosOnConveyor = this.get3DXByPosInRow(itemModel.posInRow);
-        item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
-        this.itemsCont.addChild(item);
-        this.items.push(item);
-        this.count++;
-        item.zIndex = 0xffffff - this.count;
-        this.itemsCont.sortChildren();
-        item.alpha = 0;
-        gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
-        return item
+        const modelItemsArray = this.gameModel.getNextItemModel()
+        const itemsArray = []
+        for (let i = 0; i < modelItemsArray.length; i++) {
+            const itemModel = modelItemsArray[i];
+            const item = new ItemSprite(itemModel.posInRow, itemModel.itemKind, this.gameModel, this);
+            itemsArray.push(item);
+            item.anchor.set(0.5, 1);
+            item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
+            // const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
+            const yPosOnConveyor = conveyorY * worldSize;
+            const xPosOnConveyor = this.get3DXByPosInRow(itemModel.posInRow);
+            item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
+            this.itemsCont.addChild(item);
+            this.items.push(item);
+            this.count++;
+            item.zIndex = 0xffffff - this.count;
+            this.itemsCont.sortChildren();
+            item.alpha = 0;
+            gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
+        }
+
+        return itemsArray
 
     };
 
@@ -231,11 +237,14 @@ class GameScreen extends PIXI.Container {
         // const space = zLeng / n;
         
         for (let i = 0; i < n; i++) {
-            let item = this.addItem();
-            item.point3D.z = zDeep - i * this.blockSpace3Dz;
-            // item.update3DPoseByPosInRow();
-            item.point3D.x = this.get3DXByPosInRow(item.posInRow);
-            item.zIndex = 0xffffff - item.point3D.z - 3;
+            let itemsRow = this.addItem();
+            for (let r = 0; r < itemsRow.length; r++) {
+                let item = itemsRow[r];
+                item.point3D.z = zDeep - i * this.blockSpace3Dz;
+                // item.update3DPoseByPosInRow();
+                item.point3D.x = this.get3DXByPosInRow(item.posInRow);
+                item.zIndex = 0xffffff - item.point3D.z - r;
+            }
             
         }
         this.itemsCont.sortChildren();

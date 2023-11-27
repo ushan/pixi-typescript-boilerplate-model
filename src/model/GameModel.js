@@ -143,19 +143,14 @@ class GameModel {
 
     /**
      * 
-     * @returns {ItemModel}
+     * @returns {Array.<ItemModel>}
      *          Array of 
      */
     getNextItemModel() {
-        // const itemModel = this.itemModels[Math.floor(Math.random() * this.itemModels.length)];
-        
-        // const randomItemID = (dict) => {
-        //     var keys = Object.keys(dict);
-        //     return dict[keys[Math.floor(keys.length * Math.random())]];
-        // };
-        const itemKind = this.getRandomElementFromDictionary(this.itemKinds);
-        const posInRow = ItemModel.getRandomPosInRow();
-        const itemModel = new ItemModel(itemKind, posInRow);
+
+        // const itemKind = this.getRandomElementFromDictionary(this.itemKinds);
+        // const posInRow = ItemModel.getRandomPosInRow();
+        // const itemModel = new ItemModel(itemKind, posInRow);
 
 
         const currentIntemsInRowParams = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow);
@@ -167,11 +162,14 @@ class GameModel {
         {
             const currentItemKinds = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemKinds);
             const itemProp = this.getPropertyByProbability(currentItemKinds, false);
+            const itemKind = this.itemKinds[itemProp];
             console.log(itemProp);
+            const itemModel = new ItemModel(itemKind, i - 1);
+            ItemsArray.push(itemModel);
         }
 
         
-        return itemModel;
+        return ItemsArray;
     }
 
     getRandomPosInRow() {
@@ -208,7 +206,9 @@ class GameModel {
 
         // console.log ("Error: the value exceeds probabilities ")
         // Default to the last row if the random number exceeds the cumulative probability
-        return Object.keys(probObj).length - 1;
+        const lastKey = Object.keys(probObj)[Object.keys(probObj).length - 1];
+        // return Object.keys(probObj).length - 1;
+        return lastKey;
     }
       
 
