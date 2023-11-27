@@ -173,8 +173,8 @@ class GameScreen extends PIXI.Container {
         });
         const newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
-            const posInRow = this.getRandomInt(-1, 2);
-            this.addItem(posInRow);
+            // const posInRow = this.getRandomInt(-1, 2);
+            this.addItemsRow();
         }, newItemDelay);
     }
 
@@ -190,7 +190,7 @@ class GameScreen extends PIXI.Container {
      * 
      * @returns {Array.<ItemSprite>}
      */
-    addItem() {
+    addItemsRow() {
         const modelItemsArray = this.gameModel.getNextItemModel()
         const itemsArray = []
         for (let i = 0; i < modelItemsArray.length; i++) {
@@ -237,7 +237,7 @@ class GameScreen extends PIXI.Container {
         // const space = zLeng / n;
         
         for (let i = 0; i < n; i++) {
-            let itemsRow = this.addItem();
+            let itemsRow = this.addItemsRow();
             for (let r = 0; r < itemsRow.length; r++) {
                 let item = itemsRow[r];
                 item.point3D.z = zDeep - i * this.blockSpace3Dz;
