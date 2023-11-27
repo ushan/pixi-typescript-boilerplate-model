@@ -132,6 +132,12 @@ class GameScreen extends PIXI.Container {
             gsap.to(this.cart, { x: trgX, duration: 0.3 })
             gsap.to(this.cartOver, { x: trgX, duration: 0.3 })
         };
+
+        this.onExtraCoutch = (item) => {
+            if (item.itemKind.id === "speedUp" || item.itemKind.id === "magnet"){
+                this.addScoreBallon(item, item.itemKind.id);
+            }
+        };
         
         this.items = [];
         this.interactive = true;
@@ -141,6 +147,7 @@ class GameScreen extends PIXI.Container {
         this.gameModel.timeLeftUpdated.add(this.updateTimeLeft);
         this.gameModel.gameStateUpdated.add(this.onGameStateUpdated);
         this.gameModel.cartLineUpdated.add(this.onCartLineUpdated);
+        this.gameModel.extraCoutch.add(this.onExtraCoutch);
         this.init();
     }
 

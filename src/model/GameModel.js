@@ -20,6 +20,7 @@ class GameModel {
         this.timeLeftUpdated = new MiniSignal();
         this.gameStateUpdated = new MiniSignal();
         this.cartLineUpdated = new MiniSignal();
+        this.extraCoutch = new MiniSignal();
         this.itemKinds = this.createItemKinds();
         this.gameState = EGameStates.stop;
         this.speed = 1.6;
@@ -75,12 +76,12 @@ class GameModel {
     }
 
     createItemKinds() {   
-        const scorePlusItem1 = new ItemKind("plus10", ResourceList.GOOD_1, "scores", 10, 10, "good");
-        const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 10, "good");
-        const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 10, "bad");
+        const scorePlusItem1 = new ItemKind("plus10", ResourceList.GOOD_1, "scores", 10, 0, "good");
+        const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 0, "good");
+        const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 0, "bad");
         const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.GOOD_4, "time", 0, 10, "bad");
         const magnetItem = new ItemKind("magnet", ResourceList.GOOD_5, "magent", 0, 0, "good");
-        const speedUpItem = new ItemKind("speedUp", ResourceList.GOOD_1, "speedUp", 0, 0, "good");
+        const speedUpItem = new ItemKind("speedUp", ResourceList.GOOD_6, "speedUp", 0, 0, "good");
         const arr = [
             scorePlusItem1, 
             scorePlusItem2,
@@ -222,28 +223,32 @@ class GameModel {
      * @returns {Boolean}
      */
     registerAchiveBorder(item, inCart) {
-        let itemModel = item.itemKind;
+        // let itemModel = item.itemKind;
         this.lastItem = item;
         if (inCart) {
             
-            this.addCautchItem(itemModel);
+            this.addCautchItem(item);
             return true;
         }
         else {
-            this.scores -= 1;
+            // this.scores -= 1;
             return false;
         }
     }
 
     /**
-     * @param {ItemKind} item 
+     * @param {ItemSprite} item 
      */
     addCautchItem(item){
-        if (item.scores != 0) {
-            this.scores += item.scores;
+        if (item.itemKind.scores != 0) {
+            this.scores += item.itemKind.scores;
         }
-        if (item.time != 0) {
-            this.timeLeft += item.time;
+        if (item.itemKind.time != 0) {
+            this.timeLeft += item.itemKind.time;
+        }
+        if (item.itemKind.id == 'magnet' || item.itemKind.id == 'speedUp' )
+        {
+            this.extraCoutch.dispatch(item);
         }
     }
 

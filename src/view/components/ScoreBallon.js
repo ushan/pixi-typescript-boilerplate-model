@@ -5,13 +5,35 @@ import gsap from "gsap";
 class ScoreBallon extends PIXI.Sprite {
         /**
      * @param {*} item 
-     * @param {( 'scores' | 'time' | 'speedUp')} type 
+     * @param {( 'scores' | 'time' | 'speedUp' | 'magnet')} type 
      * @param { x:number, y:number } point 
      */
     constructor(type, scores, point){
         super();
-        const scoreCaption = scores >= 0 ? "+" + scores : scores;
-        const textColor = type === 'scores' ? 0xffffff : 0x4444ff;
+        this.type = type;
+        let scoreCaption;
+        let textColor;
+        switch(type) {
+            case 'scores':
+                textColor = 0xffffff;
+                scoreCaption = scores >= 0 ? "+" + scores : scores;
+                break;
+            case  'time':
+                textColor = 0x4444ff;
+                scoreCaption = scores >= 0 ? "+" + scores + 's' : scores;
+                break;
+            case 'speedUp':
+                textColor = 0x44ff44;
+                scoreCaption = "speedUp";
+                break;
+            case 'magnet':
+                textColor = 0xff4444;
+                scoreCaption = "magnet";
+                break;
+            default:
+                textColor = 0xffffff;
+                scoreCaption = scores >= 0 ? "+" + scores : scores;
+        }
         this.scoresText = new Text(scoreCaption, {
             fontFamily: 'Arial',
             fontWeight: 'bold',
