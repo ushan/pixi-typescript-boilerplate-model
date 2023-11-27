@@ -164,7 +164,7 @@ class GameScreen extends PIXI.Container {
             this.t += delta;
             const speed = this.blockSpace3Dz * (this.app.ticker.deltaMS / (this.gameModel.speed * 1000));
             // const speed = this.blockSpace3Dz * (delta / )
-            this.items.forEach(c => { c.point3D.z -= speed; });
+            this.items.forEach(c => { c.point3D.z -= speed * this.gameModel.speedUpFactor; });
         });
         this.on("pointermove", (e) => {
             // this.cart.x = e.data.global.x;
@@ -198,7 +198,7 @@ class GameScreen extends PIXI.Container {
      * @returns {Array.<ItemSprite>}
      */
     addItemsRow() {
-        const modelItemsArray = this.gameModel.getNextItemModel()
+        const modelItemsArray = this.gameModel.getNextItemModelsRow()
         const itemsArray = []
         for (let i = 0; i < modelItemsArray.length; i++) {
             const itemModel = modelItemsArray[i];

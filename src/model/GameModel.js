@@ -126,6 +126,9 @@ class GameModel {
         return key ? configObj[key] : configObj['infinity'];
     }
 
+    /**
+     * @access public 
+     */
     startGame() {
         this.gameState = EGameStates.playing;
         this.intervalId = setInterval(() => {
@@ -135,6 +138,9 @@ class GameModel {
         this.timeSpent = 0;
     }
 
+    /**
+     * @access public 
+     */
     stopGame() {
         this.gameState = EGameStates.stop;
         clearInterval(this.intervalId);
@@ -143,11 +149,9 @@ class GameModel {
 
 
     /**
-     * 
      * @returns {Array.<ItemModel>}
-     *          Array of 
      */
-    getNextItemModel() {
+    getNextItemModelsRow() {
 
         // const itemKind = this.getRandomElementFromDictionary(this.itemKinds);
         // const posInRow = ItemModel.getRandomPosInRow();
@@ -211,6 +215,28 @@ class GameModel {
         // return Object.keys(probObj).length - 1;
         return lastKey;
     }
+
+    /**
+     * @access private
+     * @param {ItemSprite} item 
+     */
+        addCautchItem(item){
+            if (item.itemKind.scores != 0) {
+                this.scores += item.itemKind.scores;
+            }
+            if (item.itemKind.time != 0) {
+                this.timeLeft += item.itemKind.time;
+            }
+            if (item.itemKind.id ==='magnet' || item.itemKind.id === 'speedUp'){
+                this.extraCoutch.dispatch(item);
+                if (item.itemKind.id === 'speedUp') {
+                    this.speedUpFactor = 2;
+                    setTimeout(() => {
+                        this.speedUpFactor = 1;
+                    }, 4000);
+                }
+            }
+        }
       
 
     /***************************
@@ -218,6 +244,7 @@ class GameModel {
      **************************/
     
     /**
+     * @access public
      * @param {ItemSprite} item 
      * @param {Boolean} inCart 
      * @returns {Boolean}
@@ -236,24 +263,9 @@ class GameModel {
         }
     }
 
-    /**
-     * @param {ItemSprite} item 
-     */
-    addCautchItem(item){
-        if (item.itemKind.scores != 0) {
-            this.scores += item.itemKind.scores;
-        }
-        if (item.itemKind.time != 0) {
-            this.timeLeft += item.itemKind.time;
-        }
-        if (item.itemKind.id == 'magnet' || item.itemKind.id == 'speedUp' )
-        {
-            this.extraCoutch.dispatch(item);
-        }
-    }
 
     /**
-     * 
+     * @access public
      * @param {Boolean} toLeft //The direction of changing the cart line
      */
     registerMoveCart(toLeft) {

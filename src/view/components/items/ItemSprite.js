@@ -33,15 +33,18 @@ class ItemSprite extends Pseudo3DSprite {
             // const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
             const isInCart = this.gameModel.cartLine === this.posInRow;
             const isSuccess = this.gameModel.registerAchiveBorder(this, isInCart);
-            this.listen3D = false;
+            
             this.hasAchivedBorder = true;
             // this.setByPosInLine();
-            //gsap.to(this, {x: this.gameScreen.cart.x, y: this.gameScreen.cart.y + 150, duration: 2.3});
             if (isSuccess) {
+                this.listen3D = false;
                 this.gameScreen.moveToCart(this);
                 this.dispatchOutOfBounds();
             }
             else {
+
+                /*
+                this.listen3D = false;
                 gsap.to(this, {
                     x: 1000,
                     y: 200,
@@ -50,6 +53,7 @@ class ItemSprite extends Pseudo3DSprite {
                     ease: "power2.out",
                     duration: 0.9
                 });
+                */
             }
         }
     }
