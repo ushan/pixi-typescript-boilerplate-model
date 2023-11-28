@@ -20,11 +20,12 @@ class GameModel {
         this.timeLeftUpdated = new MiniSignal();
         this.gameStateUpdated = new MiniSignal();
         this.cartLineUpdated = new MiniSignal();
+        this.speedUpdated = new MiniSignal();
         this.extraCoutch = new MiniSignal();
         this.itemKinds = this.createItemKinds();
         this.gameState = EGameStates.stop;
-        this.speed = 1.6;
-        this.speedUpFactor = 1;
+        this._speed = 1.6;
+        this._speedUpFactor = 1;
         this.isMagnet = false;
         this.lastItem = null;
         this._scores = 0;
@@ -56,6 +57,20 @@ class GameModel {
         if (value == this._cartLine) return
         this._cartLine = value; 
         this.cartLineUpdated.dispatch(); 
+    }
+
+    get speed() { return this._speed }
+    set speed(value) { 
+        if (value == this._speed) return
+        this._speed = value; 
+        this.speedUpdated.dispatch(); 
+    }
+    
+    get speedUpFactor() { return this._speedUpFactor }
+    set speedUpFactor(value) { 
+        if (value == this._speedUpFactor) return
+        this._speedUpFactor = value; 
+        this.speedUpdated.dispatch(); 
     }
 
 
@@ -162,14 +177,12 @@ class GameModel {
         const currentIntemsInRowParams = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow);
         const numInRowProp = this.getPropertyByProbability(currentIntemsInRowParams);
         const numOfItems = parseInt(numInRowProp.replace('row', ''), 10) //parse number from propname row0, row1, row2 ...
-        console.log(numOfItems);
         const ItemsArray = [];
         for (let i = 0; i < numOfItems; i++)
         {
             const currentItemKinds = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemKinds);
             const itemProp = this.getPropertyByProbability(currentItemKinds, false);
             const itemKind = this.itemKinds[itemProp];
-            console.log(itemProp);
             const itemModel = new ItemModel(itemKind, i - 1);
             ItemsArray.push(itemModel);
         }
@@ -210,7 +223,7 @@ class GameModel {
             }
         }
 
-        // console.log ("Error: the value exceeds probabilities ")
+
         // Default to the last row if the random number exceeds the cumulative probability
         const lastKey = Object.keys(probObj)[Object.keys(probObj).length - 1];
         // return Object.keys(probObj).length - 1;
@@ -240,7 +253,7 @@ class GameModel {
                     this.isMagnet = true;
                     setTimeout(() => {
                         this.isMagnet = false;
-                    }, 600000);
+                    }, 4000);
                 }
             }
         }

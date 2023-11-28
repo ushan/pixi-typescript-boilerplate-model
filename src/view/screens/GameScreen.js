@@ -40,6 +40,7 @@ class GameScreen extends PIXI.Container {
         this.scoresPanel = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
         this.countdown = new Countdown();
+        this.initialSpeed = this.gameModel.speed * this.gameModel.speedUpFactor;
         this.t = 0;
 
         this.addElements = () => {
@@ -57,6 +58,8 @@ class GameScreen extends PIXI.Container {
             this.cartOver.y = gameHeight;
             this.cartOver.x = gameWidth / 2;
             this.addChild(this.scoresPanel);
+            
+
             this.scoresText = new Text('0/0', {
                 fontFamily: 'Arial',
                 fontWeight: 'bold',
@@ -72,6 +75,7 @@ class GameScreen extends PIXI.Container {
                 align: 'center'
             });
             this.claculateParams();
+            // this.startSpeed = this.
 
             this.addControls();
 
@@ -138,6 +142,10 @@ class GameScreen extends PIXI.Container {
                 this.addScoreBallon(item, item.itemKind.id);
             }
         };
+
+        this.onSpeedUpdated = (item) => {
+            this.reRunAddRowInterval();
+        };
         
         this.items = [];
         this.interactive = true;
@@ -148,6 +156,7 @@ class GameScreen extends PIXI.Container {
         this.gameModel.gameStateUpdated.add(this.onGameStateUpdated);
         this.gameModel.cartLineUpdated.add(this.onCartLineUpdated);
         this.gameModel.extraCoutch.add(this.onExtraCoutch);
+        this.gameModel.speedUpdated.add(this.onSpeedUpdated);
         this.init();
     }
 
@@ -171,18 +180,14 @@ class GameScreen extends PIXI.Container {
             // this.cartOver.x = e.data.global.x;
         });
         window.addEventListener('keydown', (e) => {
-            console.log('Key pressed:', e.code);
             if (e.code === 'ArrowRight') {
                 this.gameModel.registerMoveCart(false);
             } else if (e.code === 'ArrowLeft') {
                 this.gameModel.registerMoveCart(true);
             }
         });
-        const newItemInterval = setInterval(() => {
-            if (this.gameModel.gameState !== EGameStates.playing) return
-            // const posInRow = this.getRandomInt(-1, 2);
-            this.addItemsRow();
-        }, newItemDelay);
+        this.reRunAddRowInterval();
+
     }
 
     moveToCart(item) {
@@ -192,6 +197,19 @@ class GameScreen extends PIXI.Container {
     animate (delta = 0) {
 
     };
+
+    reRunAddRowInterval() {
+        if (this.newItemInterval){
+            clearInterval(this.newItemInterval);
+        }
+        const speedRatio = (this.gameModel.speed * this.gameModel.speedUpFactor) / this.initialSpeed;
+        const currentAddItemInterval = newItemDelay * speedRatio;
+        this.newItemInterval = setInterval(() => {
+            if (this.gameModel.gameState !== EGameStates.playing) return
+            // const posInRow = this.getRandomInt(-1, 2);
+            this.addItemsRow();
+        }, currentAddItemInterval);
+    }
 
     /**
      * 
