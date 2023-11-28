@@ -57,7 +57,6 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => {c.point3D.z -= (delta / animationSpped)})
         });
         this.on("pointermove", (e:any) => {
-            // console.log('X', e.data.global.x, 'Y', e.data.global.y);
             this.cart.x = e.data.global.x;
             this.cartOver.x = e.data.global.x;
         });

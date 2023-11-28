@@ -238,7 +238,6 @@ class GameScreen extends PIXI.Container {
             item.alpha = 0;
             gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
         }
-        console.log ("added :" + itemsArray.length);
         return itemsArray
 
     };

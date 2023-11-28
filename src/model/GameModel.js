@@ -95,7 +95,8 @@ class GameModel {
         const scorePlusItem1 = new ItemKind("plus10", ResourceList.GOOD_1, "scores", 10, 0, "good");
         const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 0, "good");
         const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 0, "bad");
-        const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.GOOD_4, "time", 0, 10, "bad");
+        const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.GOOD_4, "time", 0, -10, "bad");
+        const secondsPlusItem = new ItemKind("plusNseconds", ResourceList.GOOD_4, "time", 0, 10, "good");
         const magnetItem = new ItemKind("magnet", ResourceList.GOOD_5, "magnet", 0, 0, "good");
         const speedUpItem = new ItemKind("speedUp", ResourceList.GOOD_6, "speedUp", 0, 0, "good");
         const arr = [
@@ -103,8 +104,15 @@ class GameModel {
             scorePlusItem2,
             scoreMinusItem,
             secondsMinusItem,
+            secondsPlusItem,
             magnetItem,
             speedUpItem
+        ];
+
+        this.goodRegular = [
+            scorePlusItem1, 
+            scorePlusItem2,
+            secondsPlusItem,
         ];
 
         //creating dictionary were the keys are ID's of objects in original array
@@ -169,15 +177,9 @@ class GameModel {
      */
     getNextItemModelsRow() {
 
-        // const itemKind = this.getRandomElementFromDictionary(this.itemKinds);
-        // const posInRow = ItemModel.getRandomPosInRow();
-        // const itemModel = new ItemModel(itemKind, posInRow);
-
-
         const currentIntemsInRowParams = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow);
         const numInRowProp = this.getPropertyByProbability(currentIntemsInRowParams);
         const numOfItems = parseInt(numInRowProp.replace('row', ''), 10) //parse number from propname row0, row1, row2 ...
-        console.log("num of items" + numOfItems);
         const ItemsArray = [];
         for (let i = 0; i < numOfItems; i++)
         {
@@ -185,6 +187,13 @@ class GameModel {
             const itemProp = this.getPropertyByProbability(currentItemKinds, false);
             const itemKind = this.itemKinds[itemProp];
             const itemModel = new ItemModel(itemKind, i - 1);
+            if (i == 2) {
+                const allAreBad = ItemsArray[0].itemKind.kindness === "bad" && 
+                ItemsArray[1].itemKind.kindness === "bad" && ItemsArray[1].itemKind.kindness === "bad";
+                if (allAreBad) {
+                    console.log("alll arr bad");
+                }
+            }
             ItemsArray.push(itemModel);
         }
 
