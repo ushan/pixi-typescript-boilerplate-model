@@ -7,7 +7,7 @@ class StartButton extends PIXI.Sprite {
     // this.anchor.set (0.5, 0.5);
 
     this.cursor = "pointer";
-    // this.eventMode = "dynamic";
+    this.eventMode = "dynamic";
 
     this.bg = new PIXI.Graphics();
     this.bg.beginFill(0x33cc33); // Green color
@@ -21,7 +21,6 @@ class StartButton extends PIXI.Sprite {
     this.bg.position.set( - this.bg.width / 2,  - this.bg.height / 2);
     this.buttonLabel.position.set( - this.buttonLabel.width / 2,  - this.buttonLabel.height / 2);
 
-    this.interactive = true;
     this.buttonMode = true;
 
     this.on('pointerdown', this.onButtonDown.bind(this));

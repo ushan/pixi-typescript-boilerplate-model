@@ -11,11 +11,11 @@ export var AppConfig;
         focalLength: 10,
         scaleZoom: 4,
         horyzontPos: 0.2,
-        animationSpeed: 1 * 5,
+        animationSped: 1 * 5,
         worldSize: 1000,
         conveyorY: 6,
         conveyorWidth: 6,
-        zCartPosition: 3,
+        zCartPosition: 2,
         zDeep:100
     };
 

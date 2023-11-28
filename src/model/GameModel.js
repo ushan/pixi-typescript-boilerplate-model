@@ -192,10 +192,16 @@ class GameModel {
                 const allAreBad = ItemsArray[0].itemKind.kindness === "bad" && 
                 ItemsArray[1].itemKind.kindness === "bad" && ItemsArray[1].itemKind.kindness === "bad";
                 if (allAreBad) {
-                    console.log("alll arr bad");
+                    console.log("all are bad");
+                    const goodItem = this.goodRegular[Math.floor(Math.random() * this.goodRegular.length)];
+                    ItemsArray.push(goodItem);
+                } else {
+                    ItemsArray.push(itemModel);
                 }
+            } else {
+                ItemsArray.push(itemModel);
             }
-            ItemsArray.push(itemModel);
+            
         }
 
         this.sortItemsRow(ItemsArray);

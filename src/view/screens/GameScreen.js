@@ -8,12 +8,10 @@ import { AppConfig } from '../../config';
 import ItemSprite from '../components/items/ItemSprite';
 import { Cart, CartOver } from '../components/items/Cart';
 import ProgressBar from '../components/ProgressBar';
-import Point3D from '../../model/pseudo3ds/Point3D';
 import Background3D from '../components/items/Background3D';
-import { SoundBoard } from '../../resources/SoundBoard';
 import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
-import { SoundManager } from '../../resources/sounds';
+import { SoundManager } from '../../resources/SoundManager';
 
 
 const { gameWidth, gameHeight } = AppConfig.settings;
@@ -148,7 +146,6 @@ class GameScreen extends PIXI.Container {
         };
         
         this.items = [];
-        this.interactive = true;
         this.eventMode = `dynamic`;
 
         this.gameModel.scoreUpdated.add(this.updateScores);
@@ -202,12 +199,9 @@ class GameScreen extends PIXI.Container {
         if (this.newItemInterval){
             clearInterval(this.newItemInterval);
         }
-        // const speedRatio = (this.gameModel.speed * this.gameModel.speedUpFactor) / this.initialSpeed;
         const currentAddItemInterval = (this.gameModel.speed * 1000) / this.gameModel.speedUpFactor;
         this.newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
-            // const posInRow = this.getRandomInt(-1, 2);
-            console.log ("currentAddItemInterval:" + currentAddItemInterval);
             const newItems = this.addItemsRow();
             this.test_checkDistance();
         }, currentAddItemInterval);
@@ -330,6 +324,7 @@ class GameScreen extends PIXI.Container {
      * @param {*} value 
      */
     addScoreBallon(item, type, value) {
+        if (item === undefined) return
         let point = item ? {x:item.x, y:item.y} : {x:gameWidth / 2, y:gameHeight / 2};
         const scoreBallon = new ScoreBallon(type, value, point);
         this.scoreBallonsCont.addChild(scoreBallon);
@@ -359,7 +354,7 @@ class GameScreen extends PIXI.Container {
                 distances.push(diff);
             }
         }
-        console.log(this.gameModel.speed, this.gameModel.speedUpFactor, distances);
+        // console.log(this.gameModel.speed, this.gameModel.speedUpFactor, distances);
     }
 }
 export default GameScreen;

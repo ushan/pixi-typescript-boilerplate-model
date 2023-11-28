@@ -1,9 +1,8 @@
 import GameModel from "../model/GameModel";
-import * as PIXI from 'pixi.js';
 import ResourceList from "./ResourceList";
 import ResourceService from "./ResourceService";
 
-export class SoundBoard {
+class SoundBoard {
 	static useDOM = true;
 	static sounds = {
     match: '../assets/sounds/match.wav',
