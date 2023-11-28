@@ -188,8 +188,24 @@ class GameModel {
             ItemsArray.push(itemModel);
         }
 
+        this.sortItemsRow(ItemsArray);
+
         
         return ItemsArray;
+    }
+
+    /**
+     * 
+     * @param {Array.<ItemModel>} items 
+     */
+    sortItemsRow(items) {
+        const posValues = [-1, 0, 1];
+        const shuffledPosValues = posValues.sort(() => Math.random() - 0.5);
+              items.forEach((item, index) => {
+          if (shuffledPosValues[index] !== undefined) {
+            item.posInRow = shuffledPosValues[index];
+          }
+        });
     }
 
     getRandomPosInRow() {
