@@ -129,8 +129,9 @@ class GameModel {
     updateTime() {
         this.timeSpent ++;
         this.updateTimeLevel();
-        this.updateTimeLevel();
+        // this.updateTimeLevel();
         // if (this.timeSpent % 30 === 0) this.updateTimeLevel();
+        this.updateTimeLeft();
     }
 
     updateTimeLeft() {
