@@ -30,7 +30,7 @@ class GameModel {
         this.lastItem = null;
         this._scores = 0;
         this._timeLeft = 120;
-        this._timeSpend = 0;
+        this.timeSpent = 0;
         this._cartLine = 0;
         this.init();
         GameModel._instance = this;
@@ -146,12 +146,12 @@ class GameModel {
      * @access public 
      */
     startGame() {
+        this.timeSpent = 0;
         this.gameState = EGameStates.playing;
         this.intervalId = setInterval(() => {
             this.updateTime();
         }, 1000);
         this.gameStateUpdated.dispatch();
-        this.timeSpent = 0;
     }
 
     /**
@@ -177,6 +177,7 @@ class GameModel {
         const currentIntemsInRowParams = this.getParamsByTime(this.timeSpent, GAME_CONFIG.itemsInRow);
         const numInRowProp = this.getPropertyByProbability(currentIntemsInRowParams);
         const numOfItems = parseInt(numInRowProp.replace('row', ''), 10) //parse number from propname row0, row1, row2 ...
+        console.log("num of items" + numOfItems);
         const ItemsArray = [];
         for (let i = 0; i < numOfItems; i++)
         {

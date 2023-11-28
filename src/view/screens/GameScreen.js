@@ -202,12 +202,14 @@ class GameScreen extends PIXI.Container {
         if (this.newItemInterval){
             clearInterval(this.newItemInterval);
         }
-        const speedRatio = (this.gameModel.speed * this.gameModel.speedUpFactor) / this.initialSpeed;
-        const currentAddItemInterval = newItemDelay * speedRatio;
+        // const speedRatio = (this.gameModel.speed * this.gameModel.speedUpFactor) / this.initialSpeed;
+        const currentAddItemInterval = (this.gameModel.speed * 1000) / this.gameModel.speedUpFactor;
         this.newItemInterval = setInterval(() => {
             if (this.gameModel.gameState !== EGameStates.playing) return
             // const posInRow = this.getRandomInt(-1, 2);
-            this.addItemsRow();
+            console.log ("currentAddItemInterval:" + currentAddItemInterval);
+            const newItems = this.addItemsRow();
+            this.test_checkDistance();
         }, currentAddItemInterval);
     }
 
@@ -236,7 +238,7 @@ class GameScreen extends PIXI.Container {
             item.alpha = 0;
             gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
         }
-
+        console.log ("added :" + itemsArray.length);
         return itemsArray
 
     };
@@ -348,5 +350,17 @@ class GameScreen extends PIXI.Container {
     getCartXByLine(linePos) {
 
     } 
+
+    test_checkDistance() {
+        let distances = [];
+        for (let i = 0; i < this.items.length; i++){
+            let item = this.items[i];
+            if (i < this.items.length - 1) {
+                let diff = this.items[i + 1].point3D.z - this.items[i].point3D.z 
+                distances.push(diff);
+            }
+        }
+        console.log(this.gameModel.speed, this.gameModel.speedUpFactor, distances);
+    }
 }
 export default GameScreen;
