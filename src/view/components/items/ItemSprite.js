@@ -26,20 +26,24 @@ class ItemSprite extends Pseudo3DSprite {
         this.hasAchivedBorder = false;
         this.hasAchivedMagnetLine = true;
         this._axis3Dx = 0;
+        this.xAxis = 0;
         //this.createShadow();
     }
 
     get axis3Dx() { return this._axis3Dx; }
     set axis3Dx(value) { this._axis3Dx = value; this.point3D.x = value; }
 
+
     updatePosByPoint3D() {
         super.updatePosByPoint3D();
         const zMagnetPosition = 12;
         if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition) {
+        // if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition) {
             const distInMagnet = zMagnetPosition - this.point3D.z;
             const distOfMagnet = zMagnetPosition - zCartPosition;
             const f =   1 -  0.5 * (Math.pow (distInMagnet / distOfMagnet, 2));
             this.point3D._x = this._axis3Dx * f;
+            
         }
         if (this.point3D.z < zCartPosition && !this.hasAchivedBorder) {
             // const isInCart = Math.abs(this.x - this.gameScreen.cart.x) < cartWidth;
@@ -96,6 +100,10 @@ class ItemSprite extends Pseudo3DSprite {
     get3DXByPosInRow(pos) {
         const f = 0.5 + pos * 0.35;
         return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
+    }
+
+    getAxis3DxByCartPos() {
+        return this.get3DXByPosInRow(this.gameModel.posInRow);
     }
 
     createShadow() {

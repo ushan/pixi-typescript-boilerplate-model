@@ -9,6 +9,7 @@ import ItemModel from "./items/ItemModel";
 export const EGameStates = Object.freeze({"stop":1, "playing":2});
 
 const { animationSpeed} = AppConfig.settings3D;
+const { magnetItemsCount} = AppConfig.settings;
 
 class GameModel {
     static _instance;
@@ -27,6 +28,7 @@ class GameModel {
         this._speed = 1.6;
         this._speedUpFactor = 1;
         this.isMagnet = false;
+        this.magnetCount = 0;
         this.lastItem = null;
         this._scores = 0;
         this._timeLeft = 120;
@@ -268,6 +270,13 @@ class GameModel {
      * @param {ItemSprite} item 
      */
         addCautchItem(item){
+            if (this.isMagnet) { //N items are cautch with  magnet
+                this.magnetCount ++;
+                if (this.magnetCount > magnetItemsCount){
+                    this.isMagnet = false;
+                    this.magnetCount = 0;
+                }
+            }
             if (item.itemKind.scores != 0) {
                 this.scores += item.itemKind.scores;
             }
@@ -284,9 +293,10 @@ class GameModel {
                 }
                 if (item.itemKind.id === 'magnet') {
                     this.isMagnet = true;
+                    this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
                     setTimeout(() => {
                         this.isMagnet = false;
-                    }, 4000);
+                    }, 6000);
                 }
             }
         }

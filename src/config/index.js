@@ -23,8 +23,9 @@ export var AppConfig;
         levelMaxScores: 500,
         cartWidth: 50,
         newItemDelay: 1 * 1000,
-        itemsExtraScale: 0.8
-    };
+        itemsExtraScale: 0.8,
+        magnetItemsCount: 8
+        };
 
     AppConfig.animationSettings = {
         itemJumpDuration: 0.3,
