@@ -19,7 +19,7 @@ export class Cart extends SpriteCommon {
                 onComplete: this.anymateInCartFinish,
                 onCompleteParams:[clone],
                 ease: "power2.out",
-                duration: itemJumpDuration
+                duration: itemJumpDuration / 3
             });
         };
 
@@ -27,9 +27,10 @@ export class Cart extends SpriteCommon {
             gsap.to(clone, {
                 x: clone.inCartPoint.x,
                 y: clone.inCartPoint.y,
-                // rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
+                rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
                 ease: "power2.in",
-                delay: itemJumpDuration,
+                // delay: itemJumpDuration,
+                delay: 0,
                 duration: itemDropDuration
             });
         };
@@ -56,7 +57,7 @@ export class Cart extends SpriteCommon {
         clone.transform.setFromMatrix(sourceMatrix);
         // destinationContainer.addChild(clone);
         this.itemsCont.addChild(clone);
-        this.anymateInCartStart(clone);
+        // this.anymateInCartStart(clone);
         this.anymateInCartFinish(clone);
         this.removeExtraItems();
     }

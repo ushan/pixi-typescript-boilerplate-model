@@ -50,8 +50,20 @@ class ItemSprite extends Pseudo3DSprite {
             // this.setByPosInLine();
             if (isSuccess) {
                 this.listen3D = false;
-                this.gameScreen.moveToCart(this);
-                this.dispatchOutOfBounds();
+                // this.gameScreen.moveToCart(this);
+                // this.dispatchOutOfBounds();
+
+                gsap.to(this, {
+                    y: 300,
+                    rotation: Math.PI / 4,
+                    onComplete: () => { 
+                        
+                        this.gameScreen.moveToCart(this);
+                        this.dispatchOutOfBounds();
+                    },
+                    ease: "power2.out",
+                    duration: 0.3
+                });
             }
             else {
 
