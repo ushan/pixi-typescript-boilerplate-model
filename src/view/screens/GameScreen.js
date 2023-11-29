@@ -12,6 +12,7 @@ import Background3D from '../components/items/Background3D';
 import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
 import { SoundManager } from '../../resources/SoundManager';
+import KeyPad from '../components/common/KeyPad';
 
 
 const { gameWidth, gameHeight } = AppConfig.settings;
@@ -35,6 +36,7 @@ class GameScreen extends PIXI.Container {
         this.cart = new Cart();
         this.cartOver = new CartOver();
         this.scoreBallonsCont = new PIXI.Container;
+        this.keyPad = new KeyPad(gameModel);
         this.scoresPanel = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
         this.countdown = new Countdown();
@@ -42,7 +44,6 @@ class GameScreen extends PIXI.Container {
         this.t = 0;
 
         this.addElements = () => {
-            // this.drawBG();
             this.addChild(this.bg);
             this.addChild(this.itemsCont);
             this.addChild(this.cart);
@@ -271,6 +272,8 @@ class GameScreen extends PIXI.Container {
     };
 
     addControls() {
+        this.addChild(this.keyPad);
+        return
         this.controlsCont = new PIXI.Container();
         this.keyLeft = new SpriteCommon(ResourceList.KEY_LEFT);
         this.keyLeft.cursor = "pointer";

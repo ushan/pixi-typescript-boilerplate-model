@@ -344,6 +344,14 @@ class GameModel {
         }
     }
 
+        /**
+     * @access public
+     * @param {(-1 | 0 | 1)} toLeft //The direction of changing the cart line
+     */
+        registerSetCartPos(pos) {
+            this.cartLine = pos;
+        }
+
 
 }
 export default GameModel;

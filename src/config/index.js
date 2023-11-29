@@ -15,7 +15,7 @@ export var AppConfig;
         worldSize: 1000,
         conveyorY: 6,
         conveyorWidth: 6,
-        zCartPosition: 2,
+        zCartPosition: 1,
         zDeep:100
     };
 
