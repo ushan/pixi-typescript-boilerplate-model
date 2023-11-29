@@ -127,10 +127,7 @@ class GameScreen extends PIXI.Container {
         this.onCartLineUpdated = () => {
             const f = 0.5 * this.gameModel.cartLine;
             const conveyorWidth = gameWidth * 0.5;
-            // const lineWidth = conveyorWidth / 3;
             const trgX = gameWidth / 2   + conveyorWidth * f;
-            // this.cart.x = gameWidth / 2   + conveyorWidth * f;
-            // this.cartOver.x = this.cart.x;
 
             gsap.to(this.cart, { x: trgX, duration: 0.3 })
             gsap.to(this.cartOver, { x: trgX, duration: 0.3 })
@@ -172,10 +169,6 @@ class GameScreen extends PIXI.Container {
             const speed = this.blockSpace3Dz * (this.app.ticker.deltaMS / (this.gameModel.speed * 1000));
             // const speed = this.blockSpace3Dz * (delta / )
             this.items.forEach(c => { c.point3D.z -= speed * this.gameModel.speedUpFactor; });
-        });
-        this.on("pointermove", (e) => {
-            // this.cart.x = e.data.global.x;
-            // this.cartOver.x = e.data.global.x;
         });
         window.addEventListener('keydown', (e) => {
             if (e.code === 'ArrowRight') {
@@ -225,6 +218,7 @@ class GameScreen extends PIXI.Container {
             const yPosOnConveyor = conveyorY * worldSize;
             const xPosOnConveyor = this.get3DXByPosInRow(itemModel.posInRow);
             item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
+            item.axis3Dx = xPosOnConveyor;
             this.itemsCont.addChild(item);
             this.items.push(item);
             this.count++;
@@ -263,7 +257,8 @@ class GameScreen extends PIXI.Container {
                 let item = itemsRow[r];
                 item.point3D.z = zDeep - i * this.blockSpace3Dz;
                 // item.update3DPoseByPosInRow();
-                item.point3D.x = this.get3DXByPosInRow(item.posInRow);
+                // item.point3D.x = this.get3DXByPosInRow(item.posInRow);
+                item.axis3Dx = this.get3DXByPosInRow(item.posInRow); 
                 item.zIndex = 0xffffff - item.point3D.z - r;
             }
             
@@ -273,36 +268,6 @@ class GameScreen extends PIXI.Container {
 
     addControls() {
         this.addChild(this.keyPad);
-        return
-        this.controlsCont = new PIXI.Container();
-        this.keyLeft = new SpriteCommon(ResourceList.KEY_LEFT);
-        this.keyLeft.cursor = "pointer";
-        this.keyLeft.on('pointerdown', () => {
-            // this.cart.x -= 50;
-            // this.cartOver.x = this.cart.x;
-            this.gameModel.registerMoveCart(true);
-        });
-        this.keyLeft.anchor.set(1, 0.5);
-        this.keyLeft.alpha = 0.6;
-        this.keyLeft.x = - 50;
-
-        this.keyRight = new SpriteCommon(ResourceList.KEY_RIGHT);
-        this.keyRight.on('pointerdown', () => {
-            // this.cart.x += 50;
-            // this.cartOver.x = this.cart.x;
-            this.gameModel.registerMoveCart(false);
-        });
-        
-        this.keyRight.cursor = "pointer";
-        this.keyRight.alpha = 0.6;
-        this.keyRight.anchor.set(0, 0.5);
-        this.keyRight.x = 50;
-
-        this.controlsCont.addChild(this.keyLeft);
-        this.controlsCont.addChild(this.keyRight);
-        this.addChild(this.controlsCont);
-        this.controlsCont.y = gameHeight - 60;
-        this.controlsCont.x = gameWidth / 2;
     }
 
     get3DXByPosInRow(pos) {
