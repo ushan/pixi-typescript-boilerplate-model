@@ -222,14 +222,28 @@ class GameScreen extends PIXI.Container {
             this.itemsCont.addChild(item);
             this.items.push(item);
             this.count++;
-            item.zIndex = 0xffffff - this.count;
-            this.itemsCont.sortChildren();
+            // item.zIndex = 0xffffff - item.point3D.z;
+            // this.itemsCont.sortChildren();
+            this.sortItems();
             item.alpha = 0;
             gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
         }
         return itemsArray
 
     };
+
+   sortItems() {
+        // Sort items based on pseudo3d.z in reverse order
+        this.items.sort((a, b) => {
+            a.point3D.z - a.point3D.b
+        });
+      
+        // Assign zIndex based on the sorted order
+        this.items.forEach((item, index) => {
+          item.zIndex = 0xffffff - index;
+        });
+        this.itemsCont.sortChildren();
+      }
 
     removeItem(item) {
         this.itemsCont.removeChild(item);
@@ -251,7 +265,7 @@ class GameScreen extends PIXI.Container {
         const n = 10;
         // const space = zLeng / n;
         
-        for (let i = 0; i < n; i++) {
+        for (let i = n - 1; i >= 0; i--) {
             let itemsRow = this.addItemsRow();
             for (let r = 0; r < itemsRow.length; r++) {
                 let item = itemsRow[r];
@@ -259,11 +273,13 @@ class GameScreen extends PIXI.Container {
                 // item.update3DPoseByPosInRow();
                 // item.point3D.x = this.get3DXByPosInRow(item.posInRow);
                 item.axis3Dx = this.get3DXByPosInRow(item.posInRow); 
-                item.zIndex = 0xffffff - item.point3D.z - r;
+                // item.zIndex = 0xffffff - item.point3D.z - r;
+                // item.zIndex = 0xffffff - item.point3D.z;
             }
             
         }
-        this.itemsCont.sortChildren();
+        // this.itemsCont.sortChildren();
+        this.sortItems();
     };
 
     addControls() {

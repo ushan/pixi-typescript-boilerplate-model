@@ -19,6 +19,7 @@ class ItemSprite extends Pseudo3DSprite {
      */
     constructor(posInRow, itemKind, gameModel, gameScreen) {
         super(gameScreen, itemKind.resource);
+        ItemSprite.count ++;
         this.posInRow = posInRow;
         this.itemKind = itemKind;
         this.gameModel = gameModel;
@@ -27,8 +28,11 @@ class ItemSprite extends Pseudo3DSprite {
         this.hasAchivedMagnetLine = true;
         this._axis3Dx = 0;
         this.xAxis = 0;
+        this.zIndex = this.count;
         //this.createShadow();
     }
+
+    static count = 0;
 
     get axis3Dx() { return this._axis3Dx; }
     set axis3Dx(value) { this._axis3Dx = value; this.point3D.x = value; }

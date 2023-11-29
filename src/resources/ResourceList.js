@@ -12,6 +12,10 @@ ResourceList.GOOD_5 = `./assets/good_5.png`;
 ResourceList.GOOD_6 = `./assets/good_6.png`;
 ResourceList.KEY_LEFT = `./assets/key-left.png`;
 ResourceList.KEY_RIGHT = `./assets/key-right.png`;
+ResourceList.ITEM_MAGNET = `./assets/item-magnet.png`;
+ResourceList.ITEM_SPEEDUP = `./assets/item-speedup.png`;
+ResourceList.ITEM_TIMEPLUS = `./assets/item-timeplus.png`;
+ResourceList.ITEM_TIMEMINUS = `./assets/item-timeplus.png`;
 
 /* ResourceList.SND_CAUTCH = `./assets/sound/move.mp3`;
 ResourceList.SND_FAIL = `./assets/sound/match.wav`;
@@ -32,6 +36,12 @@ ResourceList.LIST = [
     ResourceList.GOOD_6,
     ResourceList.KEY_LEFT,
     ResourceList.KEY_RIGHT,
+    ResourceList.KEY_LEFT,
+    ResourceList.KEY_RIGHT,
+    ResourceList.ITEM_MAGNET,
+    ResourceList.ITEM_SPEEDUP,
+    ResourceList.ITEM_TIMEPLUS,
+    ResourceList.ITEM_TIMEMINUS,
 /*     ResourceList.SND_CAUTCH,
     ResourceList.SND_FAIL,
     ResourceList.SND_SCORE, */

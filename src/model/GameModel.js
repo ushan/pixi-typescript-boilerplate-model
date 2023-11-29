@@ -97,10 +97,10 @@ class GameModel {
         const scorePlusItem1 = new ItemKind("plus10", ResourceList.GOOD_1, "scores", 10, 0, "good", true);
         const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 0, "good", true);
         const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 0, "bad", false);
-        const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.GOOD_4, "time", 0, -10, "bad", false);
-        const secondsPlusItem = new ItemKind("plusNseconds", ResourceList.GOOD_4, "time", 0, 10, "good", false);
-        const magnetItem = new ItemKind("magnet", ResourceList.GOOD_5, "magnet", 0, 0, "good", false);
-        const speedUpItem = new ItemKind("speedUp", ResourceList.GOOD_6, "speedUp", 0, 0, "good", false);
+        const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.ITEM_TIMEMINUS, "time", 0, -10, "bad", false);
+        const secondsPlusItem = new ItemKind("plusNseconds", ResourceList.ITEM_TIMEPLUS, "time", 0, 10, "good", false);
+        const magnetItem = new ItemKind("magnet", ResourceList.ITEM_MAGNET, "magnet", 0, 0, "good", false);
+        const speedUpItem = new ItemKind("speedUp", ResourceList.ITEM_SPEEDUP, "speedUp", 0, 0, "good", false);
         const arr = [
             scorePlusItem1, 
             scorePlusItem2,

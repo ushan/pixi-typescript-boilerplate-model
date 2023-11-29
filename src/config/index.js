@@ -9,7 +9,7 @@ export var AppConfig;
 
     AppConfig.settings3D = {
         focalLength: 10,
-        scaleZoom: 4,
+        scaleZoom: 16,
         horyzontPos: 0.2,
         animationSped: 1 * 5,
         worldSize: 1000,
