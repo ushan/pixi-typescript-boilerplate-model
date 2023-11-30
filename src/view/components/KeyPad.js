@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
-import GameModel from '../../../model/GameModel';
-import { AppConfig } from '../../../config';
-import ResourceList from '../../../resources/ResourceList';
-import SpriteCommon from './SpriteCommon';
+import GameModel from '../../model/GameModel';
+import { AppConfig } from '../../config';
+import ResourceList from '../../resources/ResourceList';
+import SpriteCommon from './common/SpriteCommon';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 const { conveyorWidth} = AppConfig.settings3D;

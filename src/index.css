@@ -11,3 +11,17 @@ canvas {
     transform: translate(-50%, 0);
     
 }
+
+@font-face {
+  font-family: 'Chunk-a-Chip';
+  src: url('./assets/static/fonts/Chunk-a-Chip.ttf');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+#fontsCont {
+  font-family: 'Chunk-a-Chip';
+  font-size: 2pt;
+  font-weight: bold;
+}

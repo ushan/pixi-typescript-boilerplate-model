@@ -12,7 +12,7 @@ import Background3D from '../components/items/Background3D';
 import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
 import { SoundManager } from '../../resources/SoundManager';
-import KeyPad from '../components/common/KeyPad';
+import KeyPad from '../components/KeyPad';
 
 
 const { gameWidth, gameHeight } = AppConfig.settings;

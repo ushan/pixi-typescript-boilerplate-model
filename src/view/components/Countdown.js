@@ -18,9 +18,10 @@ class Countdown extends PIXI.Container {
         this.addChild(this.bg);
 
         // Create PIXI.Text objects for each countdown number
-        this.text3 = new PIXI.Text('3', { fontSize: 148, fill: 0xFFFFFF });
-        this.text2 = new PIXI.Text('2', { fontSize: 148, fill: 0xFFFFFF });
-        this.text1 = new PIXI.Text('1', { fontSize: 148, fill: 0xFFFFFF });
+        this.text3 = new PIXI.Text('3', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
+        this.text2 = new PIXI.Text('2', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
+        this.text1 = new PIXI.Text('1', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
+        this.text0 = new PIXI.Text('Go!', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
 
         this.startButton = new StartButton();
         // this.startButton.anchor.x = 0.5;
@@ -40,22 +41,25 @@ class Countdown extends PIXI.Container {
           });
 
         // Add text objects to the container
-        this.addChild(this.text3, this.text2, this.text1);
+        this.addChild(this.text3, this.text2, this.text1, this.text0);
 
         // Initial setup
         this.text3.visible = false;
         this.text2.visible = false;
         this.text1.visible = false;
+        this.text0.visible = false;
 
         // Center the text objects within the container
         this.text3.anchor.set(0.5);
         this.text2.anchor.set(0.5);
         this.text1.anchor.set(0.5);
+        this.text0.anchor.set(0.5);
 
         // Position the text objects
         this.text3.position.set(0, 0);
         this.text2.position.set(0, 0);
         this.text1.position.set(0, 0);
+        this.text0.position.set(0, 0);
     }
 
     startCountdown() {
@@ -66,6 +70,8 @@ class Countdown extends PIXI.Container {
           .to(this.text2, { alpha: 0, duration: duration, delay: duration })
           .to(this.text1, { alpha: 1, duration: duration, onStart: () => this.text1.visible = true })
           .to(this.text1, { alpha: 0, duration: duration, delay: duration })
+          .to(this.text0, { alpha: 1, duration: duration, onStart: () => this.text0.visible = true })
+          .to(this.text0, { alpha: 0, duration: duration, delay: duration })
           .call(() => {
             this.emit('countdownComplete');
             this.visible = false;

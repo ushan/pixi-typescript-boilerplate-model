@@ -42,7 +42,7 @@ ResourceList.LIST = [
     ResourceList.ITEM_SPEEDUP,
     ResourceList.ITEM_TIMEPLUS,
     ResourceList.ITEM_TIMEMINUS,
-/*     ResourceList.SND_CAUTCH,
+    /*     ResourceList.SND_CAUTCH,
     ResourceList.SND_FAIL,
     ResourceList.SND_SCORE, */
     ...ResourceList.CUSTOM_RESOURCES,
