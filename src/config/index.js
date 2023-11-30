@@ -15,7 +15,7 @@ export var AppConfig;
         worldSize: 1000,
         conveyorY: 6,
         conveyorWidth: 6,
-        zCartPosition: 1,
+        zCartPosition: 0,
         zDeep:100
     };
 
@@ -24,7 +24,9 @@ export var AppConfig;
         cartWidth: 50,
         newItemDelay: 1 * 1000,
         itemsExtraScale: 0.8,
-        magnetItemsCount: 8
+        magnetItemsCount: 6,
+        magnetMaxDuration: 6000, //we double duration of bugnet by timeout and itemscount
+        speedUpDuration : 4000
         };
 
     AppConfig.animationSettings = {

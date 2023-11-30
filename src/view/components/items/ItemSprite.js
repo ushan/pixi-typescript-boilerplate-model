@@ -41,7 +41,7 @@ class ItemSprite extends Pseudo3DSprite {
     updatePosByPoint3D() {
         super.updatePosByPoint3D();
         const zMagnetPosition = 12;
-        if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition) {
+        if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition && this.itemKind.magnetable) {
         // if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition) {
             const distInMagnet = zMagnetPosition - this.point3D.z;
             const distOfMagnet = zMagnetPosition - zCartPosition;

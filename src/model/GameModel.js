@@ -10,6 +10,7 @@ export const EGameStates = Object.freeze({"stop":1, "playing":2});
 
 const { animationSpeed} = AppConfig.settings3D;
 const { magnetItemsCount} = AppConfig.settings;
+const { magnetMaxDuration, speedUpDuration} = AppConfig.gameSettings;
 
 class GameModel {
     static _instance;
@@ -74,7 +75,6 @@ class GameModel {
         this._speedUpFactor = value; 
         this.speedUpdated.dispatch(); 
     }
-
 
 
     init() {
@@ -287,16 +287,22 @@ class GameModel {
                 this.extraCoutch.dispatch(item);
                 if (item.itemKind.id === 'speedUp') {
                     this.speedUpFactor = 2;
-                    setTimeout(() => {
+                    if (this.speedUpTimeOut) {
+                        clearTimeout(this.speedUpTimeOut);
+                    }
+                    this.speedUpTimeOut = setTimeout(() => {
                         this.speedUpFactor = 1;
-                    }, 4000);
+                    }, speedUpDuration);
                 }
                 if (item.itemKind.id === 'magnet') {
                     this.isMagnet = true;
                     this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
-                    setTimeout(() => {
+                    if (this.magnetTimeOut) {
+                        clearTimeout(this.magnetTimeOut);
+                    }
+                    this.magnetTimeOut = setTimeout(() => {
                         this.isMagnet = false;
-                    }, 6000);
+                    }, magnetMaxDuration);
                 }
             }
         }
