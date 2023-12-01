@@ -33,6 +33,7 @@ class Countdown extends PIXI.Container {
         this.addChild(this.startButton);
 
         this.startButton.on('click', () => {
+            this.emit('countdownStarted');
             this.text3.alpha = 0;
             const duration = 0.25;
             gsap.timeline()

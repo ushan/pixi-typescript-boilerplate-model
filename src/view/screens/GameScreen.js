@@ -91,6 +91,9 @@ class GameScreen extends PIXI.Container {
 
             this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
             this.addChild(this.countdown);
+            this.countdown.on('countdownStarted', () => {
+                 this.acitvateSounds();
+              });
             this.countdown.on('countdownComplete', () => {
                  this.start();
               });
@@ -160,6 +163,11 @@ class GameScreen extends PIXI.Container {
         this.arrangeElements();
 
     };
+
+    acitvateSounds() {
+        //we activate them on first user action
+        this.soundManager.init();
+    }
 
     start() {
         this.gameModel.startGame();
