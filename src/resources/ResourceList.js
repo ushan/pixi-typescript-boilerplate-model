@@ -17,6 +17,8 @@ ResourceList.ITEM_SPEEDUP = `./assets/item-speedup.png`;
 ResourceList.ITEM_TIMEPLUS = `./assets/item-timeplus.png`;
 ResourceList.ITEM_TIMEMINUS = `./assets/item-timeplus.png`;
 
+ResourceList.EFFECTS = `./assets/effects.json`;
+
 /* ResourceList.SND_CAUTCH = `./assets/sound/move.mp3`;
 ResourceList.SND_FAIL = `./assets/sound/match.wav`;
 ResourceList.SND_SCORE = `./assets/sound/paint.wav`; */
@@ -42,6 +44,7 @@ ResourceList.LIST = [
     ResourceList.ITEM_SPEEDUP,
     ResourceList.ITEM_TIMEPLUS,
     ResourceList.ITEM_TIMEMINUS,
+    ResourceList.EFFECTS,
     /*     ResourceList.SND_CAUTCH,
     ResourceList.SND_FAIL,
     ResourceList.SND_SCORE, */
@@ -56,4 +59,6 @@ ResourceList.GOODS_LIST = [
     ResourceList.GOOD_5,
     ResourceList.GOOD_6
 ];
+
+
 export default ResourceList;

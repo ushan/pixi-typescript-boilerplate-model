@@ -1,13 +1,18 @@
 import * as PIXI from 'pixi.js';
+import { AnimatedSprite } from 'pixi.js';
 import { gsap } from 'gsap';
 import StartButton from './StartButton';
 import { AppConfig } from '../../config';
+import ResourceList from '../../resources/ResourceList';
+import ResourceService from '../../resources/ResourceService';
 
 const { gameWidth, gameHeight } = AppConfig.settings;
 
 class Countdown extends PIXI.Container {
     constructor() {
         super();
+    
+
         const STEP_TIME = 0.5;
 
         this.bg = new PIXI.Graphics();
@@ -60,6 +65,12 @@ class Countdown extends PIXI.Container {
         this.text2.position.set(0, 0);
         this.text1.position.set(0, 0);
         this.text0.position.set(0, 0);
+
+
+  /*       this.spritesheet = ResourceService.getSpriteSheet(ResourceList.EFFECTS);
+        this.anim = new AnimatedSprite(this.spritesheet.animations['lightning']);
+        this.anim.play();
+        this.addChild(this.anim); */
     }
 
     startCountdown() {

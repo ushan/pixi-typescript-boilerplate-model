@@ -11,6 +11,9 @@ ResourceService.getTexture = (resourceName) => {
 ResourceService.getSprite = (resourceName) => {
     return new Sprite(ResourceService.getTexture(resourceName));
 };
+ResourceService.getSpriteSheet = (resourceName) => {
+    return Assets.get(resourceName);
+};
 ResourceService.getSound = (resourceName) => {
     return Assets.get(resourceName);
 };
