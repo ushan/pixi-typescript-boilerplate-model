@@ -1,27 +1,30 @@
 body {
+    padding: 0;
+    margin: 0;
     background-color: #AF2424;
   }
 
 canvas {
     /* width: 100%; */
-    background-color: #AF2424;
-    position: absolute;
-    top: 10;
-    left: 50%;
-    transform: translate(-50%, 0);
+      background-color: #AF2424;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
     
 }
 
 @font-face {
-  font-family: 'Chunk-a-Chip';
-  src: url('./assets/static/fonts/Chunk-a-Chip.ttf');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Chunk-a-Chip';
+    src: url('./assets/static/fonts/Chunk-a-Chip.ttf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
 }
 
 #fontsCont {
-  font-family: 'Chunk-a-Chip';
-  font-size: 2pt;
-  font-weight: bold;
+    font-family: 'Chunk-a-Chip';
+    font-size: 2pt;
+    font-weight: bold;
+    position: absolute;
 }

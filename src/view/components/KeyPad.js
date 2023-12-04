@@ -19,6 +19,12 @@ class KeyPad extends PIXI.Container {
         this.centerBox = this.createBox(0);
         this.rightBox = this.createBox(1);
         //this.addArrowButtons();
+
+        this.onResize = () => {
+            //this.redrawBG();
+            this.updateAreaPos();
+        }
+        AppConfig.sizeUpdated.add(this.onResize);
     }
 
     /**
@@ -27,14 +33,17 @@ class KeyPad extends PIXI.Container {
      * @returns {Graphics}
      */
     createBox(posInRow){
+        const { gameWidth, gameHeight } = AppConfig.settings;
+
         const box = new PIXI.Graphics();
         box.eventMode = 'dynamic';
         box.beginFill(0x00ff0);
         const w = 0.9 * gameWidth / 3
-        box.drawRect( - w /2 , - 150, w, 150);
+        //box.drawRect( - w /2 , - 150, w, 150);
+        box.drawRect( - 50, -50, 100, 100);
         box.cursor = "pointer";
         box.alpha = 0.07;
-        this.setToPosition(box, posInRow);
+        // this.setToPosition(box, posInRow);
         this.addChild(box);
         box.on('pointerdown', () => {
             this.gameModel.registerSetCartPos(posInRow);
@@ -42,14 +51,23 @@ class KeyPad extends PIXI.Container {
         return box
     }
 
+    updateAreaPos() {
+        this.setToPosition(this.leftBox, -1);
+        this.setToPosition(this.centerBox, 0);
+        this.setToPosition(this.rightBox, 1); 
+    }
+
     /**
      * @access private
      * @param {PIXI.Graphics} element 
-     * @param {(1- | 0 | 1)} posInRow 
+     * @param {(- 1 | 0 | 1)} posInRow 
      */
     setToPosition (element, posInRow) {
+        const { gameWidth, gameHeight } = AppConfig.settings;
+
         const f = 0.65 * posInRow;
         const conveyorWidth = gameWidth * 0.5;
+        element.width = conveyorWidth / 3;
         element.x = gameWidth / 2   + conveyorWidth * f;
         //margin like x
         

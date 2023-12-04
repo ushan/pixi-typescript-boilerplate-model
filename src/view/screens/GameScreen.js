@@ -169,6 +169,11 @@ class GameScreen extends PIXI.Container {
 
             this.timeLeftText.x = gameWidth - 90;
 
+            this.cart.y = gameHeight;;
+            this.cartOver.y = gameHeight;;
+
+            this.onCartLineUpdated();
+
         };
         
         this.items = [];
