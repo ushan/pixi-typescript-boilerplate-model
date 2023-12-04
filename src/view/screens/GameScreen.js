@@ -15,9 +15,9 @@ import { SoundManager } from '../../resources/SoundManager';
 import KeyPad from '../components/KeyPad';
 
 
-const { gameWidth, gameHeight } = AppConfig.settings;
-const { animationSpeed, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
-const { levelMaxScores, newItemDelay } = AppConfig.gameSettings;
+// const { gameWidth, gameHeight } = AppConfig.settings;
+// const { animationSpeed, worldSize, conveyorY, conveyorWidth, zCartPosition, zDeep} = AppConfig.settings3D;
+// const { levelMaxScores, newItemDelay } = AppConfig.gameSettings;
 
 
 class GameScreen extends PIXI.Container {
@@ -151,6 +151,12 @@ class GameScreen extends PIXI.Container {
         this.onSpeedUpdated = (item) => {
             this.reRunAddRowInterval();
         };
+
+        this.onResize = (item) => {
+            this.items.forEach((item) => {
+                item.updatePosByPoint3D();
+            });
+        };
         
         this.items = [];
         this.eventMode = `dynamic`;
@@ -161,6 +167,8 @@ class GameScreen extends PIXI.Container {
         this.gameModel.cartLineUpdated.add(this.onCartLineUpdated);
         this.gameModel.extraCoutch.add(this.onExtraCoutch);
         this.gameModel.speedUpdated.add(this.onSpeedUpdated);
+
+        AppConfig.sizeUpdated.add(this.onResize);
         this.init();
     }
 
@@ -294,6 +302,8 @@ class GameScreen extends PIXI.Container {
     }
 
     get3DXByPosInRow(pos) {
+        const {worldSize, conveyorWidth} = AppConfig.settings3D;
+
         const f = 0.5 + pos * 0.35;
         return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
     } 
@@ -315,6 +325,8 @@ class GameScreen extends PIXI.Container {
      * @param {*} value 
      */
     addScoreBallon(item, type, value) {
+        const { gameWidth, gameHeight } = AppConfig.settings;
+
         if (item === undefined) return
         let point = item ? {x:item.x, y:item.y} : {x:gameWidth / 2, y:gameHeight / 2};
         const scoreBallon = new ScoreBallon(type, value, point);
