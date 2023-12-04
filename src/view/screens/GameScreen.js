@@ -43,7 +43,9 @@ class GameScreen extends PIXI.Container {
         this.initialSpeed = this.gameModel.speed * this.gameModel.speedUpFactor;
         this.t = 0;
 
-        this.addElements = () => {
+        this.addElements = () => {           
+            const { gameWidth, gameHeight } = AppConfig.settings;
+
             this.addChild(this.bg);
             this.addChild(this.itemsCont);
             this.addChild(this.cart);
@@ -103,6 +105,8 @@ class GameScreen extends PIXI.Container {
         this.count = 1; 
 
         this.updateScores = (item, scores) => {
+            const { levelMaxScores } = AppConfig.gameSettings;
+
             this.addScoreBallon(item, 'scores', scores);
             if (this.scoresText) {
                 this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
@@ -129,9 +133,10 @@ class GameScreen extends PIXI.Container {
 
         this.onCartLineUpdated = () => {
             const { gameWidth } = AppConfig.settings;
+
             const f = 0.5 * this.gameModel.cartLine;
-            const conveyorWidth = gameWidth * 0.5;
-            const trgX = gameWidth / 2   + conveyorWidth * f;
+            const conveyorWidth2D = gameWidth * 0.5;
+            const trgX = gameWidth / 2   + conveyorWidth2D * f;
 
             gsap.to(this.cart, { x: trgX, duration: 0.3 })
             gsap.to(this.cartOver, { x: trgX, duration: 0.3 })
@@ -215,6 +220,8 @@ class GameScreen extends PIXI.Container {
      * @returns {Array.<ItemSprite>}
      */
     addItemsRow() {
+        const { worldSize, conveyorY, zDeep } = AppConfig.settings3D;
+
         const modelItemsArray = this.gameModel.getNextItemModelsRow()
         const itemsArray = []
         for (let i = 0; i < modelItemsArray.length; i++) {
@@ -223,7 +230,6 @@ class GameScreen extends PIXI.Container {
             itemsArray.push(item);
             item.anchor.set(0.5, 1);
             item.outOfBoundsCallback = () => this.onItemOutOfBounds(item);
-            // const xPosOnConveyor = Math.random() * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
             const yPosOnConveyor = conveyorY * worldSize;
             const xPosOnConveyor = this.get3DXByPosInRow(itemModel.posInRow);
             item.point3D.setPositions(xPosOnConveyor, yPosOnConveyor, zDeep);
@@ -231,8 +237,6 @@ class GameScreen extends PIXI.Container {
             this.itemsCont.addChild(item);
             this.items.push(item);
             this.count++;
-            // item.zIndex = 0xffffff - item.point3D.z;
-            // this.itemsCont.sortChildren();
             this.sortItems();
             item.alpha = 0;
             gsap.to(item, { alpha: 1, duration: 1, onComplete: () => { item.alpha = 1; } });
@@ -242,12 +246,10 @@ class GameScreen extends PIXI.Container {
     };
 
    sortItems() {
-        // Sort items based on pseudo3d.z in reverse order
         this.items.sort((a, b) => {
             a.point3D.z - a.point3D.b
         });
       
-        // Assign zIndex based on the sorted order
         this.items.forEach((item, index) => {
           item.zIndex = 0xffffff - index;
         });
@@ -256,7 +258,6 @@ class GameScreen extends PIXI.Container {
 
     removeItem(item) {
         this.itemsCont.removeChild(item);
-        //this.items.
         const index = this.items.indexOf(item, 0);
         if (index > -1) {
             this.items.splice(index, 1);
@@ -264,15 +265,17 @@ class GameScreen extends PIXI.Container {
     };
 
     claculateParams() {
+        const { zCartPosition, zDeep} = AppConfig.settings3D;
+
         const zLeng = zDeep - zCartPosition;
         const n = 10;
         this.blockSpace3Dz = zLeng / n;
     }
 
     arrangeElements() {
-        // const zLeng = zDeep - zCartPosition;
+        const { zDeep } = AppConfig.settings3D;
+
         const n = 10;
-        // const space = zLeng / n;
         
         for (let i = n - 1; i >= 0; i--) {
             let itemsRow = this.addItemsRow();
@@ -283,7 +286,6 @@ class GameScreen extends PIXI.Container {
             }
             
         }
-        // this.itemsCont.sortChildren();
         this.sortItems();
     };
 

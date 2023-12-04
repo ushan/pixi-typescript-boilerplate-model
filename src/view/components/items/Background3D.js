@@ -13,8 +13,8 @@ class Background3D extends PIXI.Graphics{
             this.clear();
             const { gameWidth, gameHeight } = AppConfig.settings;
             const { worldSize, conveyorY, conveyorWidth, focalLength, horyzontPos} = AppConfig.settings3D;
+            
             this.beginFill(0x993333);
-    
     
             const w = gameWidth;
             const h = gameHeight;
