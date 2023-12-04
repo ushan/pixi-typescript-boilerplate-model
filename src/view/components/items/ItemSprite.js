@@ -6,7 +6,7 @@ import gsap from "gsap";
 import ItemKind from '../../../model/items/ItemKind';
 import GameModel from '../../../model/GameModel';
 import GameScreen from '../../screens/GameScreen';
-const { cartWidth } = AppConfig.gameSettings;
+// const { cartWidth } = AppConfig.gameSettings;
 const { worldSize, conveyorWidth, zCartPosition} = AppConfig.settings3D;
 
 
@@ -40,6 +40,8 @@ class ItemSprite extends Pseudo3DSprite {
 
     updatePosByPoint3D() {
         super.updatePosByPoint3D();
+        const { zCartPosition } = AppConfig.settings3D;
+
         const zMagnetPosition = 12;
         if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition && this.itemKind.magnetable) {
         // if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition) {
@@ -102,6 +104,8 @@ class ItemSprite extends Pseudo3DSprite {
      * @returns { number }
      */
     get3DXByPosInRow(pos) {
+        const { worldSize, conveyorWidth} = AppConfig.settings3D;
+
         const f = 0.5 + pos * 0.35;
         return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
     }

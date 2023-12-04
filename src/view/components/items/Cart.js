@@ -12,7 +12,7 @@ export class Cart extends SpriteCommon {
         this.itemsCont = new Container();
         
         this.anymateInCartStart = (clone) => {
-            gsap.to(clone, {
+                        gsap.to(clone, {
                 x: 0,
                 y: -800,
                 rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
@@ -24,7 +24,7 @@ export class Cart extends SpriteCommon {
         };
 
         this.anymateInCartFinish = (clone) => {
-            gsap.to(clone, {
+                        gsap.to(clone, {
                 x: clone.inCartPoint.x,
                 y: clone.inCartPoint.y,
                 rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
@@ -55,9 +55,9 @@ export class Cart extends SpriteCommon {
 
         sourceMatrix.prepend(reverseTransformMatrix);
         clone.transform.setFromMatrix(sourceMatrix);
-        // destinationContainer.addChild(clone);
+// destinationContainer.addChild(clone);
         this.itemsCont.addChild(clone);
-        // this.anymateInCartStart(clone);
+// this.anymateInCartStart(clone);
         this.anymateInCartFinish(clone);
         this.removeExtraItems();
     }

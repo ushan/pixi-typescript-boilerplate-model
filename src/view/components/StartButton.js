@@ -4,7 +4,6 @@ class StartButton extends PIXI.Sprite {
   constructor() {
     super();
 
-    // this.anchor.set (0.5, 0.5);
 
     this.cursor = "pointer";
     this.eventMode = "dynamic";

@@ -1,4 +1,9 @@
+// import { MiniSignal } from "mini-signals";
+import { MiniSignal } from "mini-signals";
+
 class AppConfig {
+
+    static sizeUpdated = new MiniSignal();
 
     /** 
      * @readonly
@@ -6,6 +11,12 @@ class AppConfig {
     static settings = {
         gameWidth: 600,
         gameHeight: 800
+    }
+
+    static updateSize (w, h) {
+        AppConfig.settings.gameWidth = w;
+        AppConfig.settings.gameHeight = h;
+        AppConfig.sizeUpdated.dispatch();
     }
 
     /** 
