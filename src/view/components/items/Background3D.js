@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { AppConfig } from '../../../config';
+import { AppConfig } from '../../../config/AppConfig';
 import Point3D from '../../../model/pseudo3ds/Point3D';
 
 const { gameWidth, gameHeight } = AppConfig.settings;

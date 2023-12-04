@@ -4,7 +4,7 @@ import { Container, Matrix, Point } from "pixi.js";
 import gsap from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import ClonedItemSprite from "./ClonedItemSprite";
-import { AppConfig } from "../../../config";
+import { AppConfig } from "../../../config/AppConfig";
 const { itemJumpDuration, itemDropDuration, displayItemsInCart } = AppConfig.animationSettings;
 export class Cart extends SpriteCommon {
     constructor() {

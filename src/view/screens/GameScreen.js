@@ -4,7 +4,7 @@ import GameModel, { EGameStates } from '../../model/GameModel';
 import SpriteCommon from "../components/common/SpriteCommon";
 import ResourceList from "../../resources/ResourceList";
 import gsap from "gsap";
-import { AppConfig } from '../../config';
+import { AppConfig } from '../../config/AppConfig';
 import ItemSprite from '../components/items/ItemSprite';
 import { Cart, CartOver } from '../components/items/Cart';
 import ProgressBar from '../components/ProgressBar';

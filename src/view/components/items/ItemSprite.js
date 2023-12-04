@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Pseudo3DSprite from "../common/Pseudo3DSprite";
 import SpriteCommon from '../common/SpriteCommon';
-import { AppConfig } from '../../../config';
+import { AppConfig } from '../../../config/AppConfig';
 import gsap from "gsap";
 import ItemKind from '../../../model/items/ItemKind';
 import GameModel from '../../../model/GameModel';

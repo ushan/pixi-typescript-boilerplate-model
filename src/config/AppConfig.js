@@ -1,13 +1,10 @@
-//pseudo namespace
-export var AppConfig;
-(function (AppConfig) {
-
-    AppConfig.settings = {
+class AppConfig {
+    static settings = {
         gameWidth: 600,
-        gameHeight: 800,
-    };
+        gameHeight: 800
+    }
 
-    AppConfig.settings3D = {
+    static settings3D = {
         focalLength: 10,
         scaleZoom: 16,
         horyzontPos: 0.2,
@@ -19,7 +16,7 @@ export var AppConfig;
         zDeep:100
     };
 
-    AppConfig.gameSettings = {
+    static gameSettings = {
         levelMaxScores: 500,
         cartWidth: 50,
         newItemDelay: 1 * 1000,
@@ -27,11 +24,13 @@ export var AppConfig;
         magnetItemsCount: 6,
         magnetMaxDuration: 6000, //we double duration of bugnet by timeout and itemscount
         speedUpDuration : 4000
-        };
+    };
 
-    AppConfig.animationSettings = {
+    static animationSettings = {
         itemJumpDuration: 0.3,
         itemDropDuration: 0.2,
         displayItemsInCart: 30
     };
-})(AppConfig || (AppConfig = {}));
+}
+
+export { AppConfig };

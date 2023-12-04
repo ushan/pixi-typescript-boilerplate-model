@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { AnimatedSprite } from 'pixi.js';
 import { gsap } from 'gsap';
 import StartButton from './StartButton';
-import { AppConfig } from '../../config';
+import { AppConfig } from '../../config/AppConfig';
 import ResourceList from '../../resources/ResourceList';
 import ResourceService from '../../resources/ResourceService';
 

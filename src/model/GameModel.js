@@ -1,4 +1,4 @@
-import { AppConfig } from "../config";
+import { AppConfig } from "../config/AppConfig";
 import GAME_CONFIG from "../config/GameConfig";
 import ResourceList from "../resources/ResourceList";
 import ItemSprite from "../view/components/items/ItemSprite";
