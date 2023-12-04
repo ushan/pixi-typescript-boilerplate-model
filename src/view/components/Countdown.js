@@ -12,24 +12,28 @@ class Countdown extends PIXI.Container {
     constructor() {
         super();
     
-
         const STEP_TIME = 0.5;
 
         this.bg = new PIXI.Graphics();
-        this.bg.beginFill(0x222222);
+/*         this.bg.beginFill(0x222222);
         this.bg.drawRect( - gameWidth / 2, - gameHeight / 2,  gameWidth, gameHeight);
         this.bg.endFill();
-        this.bg.alpha = 0.5;
-        this.addChild(this.bg);
+        this.bg.alpha = 0.5; */
 
-        // Create PIXI.Text objects for each countdown number
+        this.onResize = () => {
+            this.redrawBG();
+        }
+        AppConfig.sizeUpdated.add(this.onResize);
+        
+        this.addChild(this.bg);
+        this.redrawBG();
+
         this.text3 = new PIXI.Text('3', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
         this.text2 = new PIXI.Text('2', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
         this.text1 = new PIXI.Text('1', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
         this.text0 = new PIXI.Text('Go!', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
 
         this.startButton = new StartButton();
-        // this.startButton.anchor.x = 0.5;
         this.addChild(this.startButton);
 
         this.startButton.on('click', () => {
@@ -49,19 +53,16 @@ class Countdown extends PIXI.Container {
         // Add text objects to the container
         this.addChild(this.text3, this.text2, this.text1, this.text0);
 
-        // Initial setup
         this.text3.visible = false;
         this.text2.visible = false;
         this.text1.visible = false;
         this.text0.visible = false;
 
-        // Center the text objects within the container
         this.text3.anchor.set(0.5);
         this.text2.anchor.set(0.5);
         this.text1.anchor.set(0.5);
         this.text0.anchor.set(0.5);
 
-        // Position the text objects
         this.text3.position.set(0, 0);
         this.text2.position.set(0, 0);
         this.text1.position.set(0, 0);
@@ -88,6 +89,15 @@ class Countdown extends PIXI.Container {
             this.emit('countdownComplete');
             this.visible = false;
         }); // Emit an event when countdown is complete
+    }
+
+    redrawBG(){
+        const { gameWidth, gameHeight } = AppConfig.settings;
+        this.bg.clear();
+        this.bg.beginFill(0x222222);
+        this.bg.drawRect( - gameWidth / 2, - gameHeight / 2,  gameWidth, gameHeight);
+        this.bg.endFill();
+        this.bg.alpha = 0.5;
     }
 
 }

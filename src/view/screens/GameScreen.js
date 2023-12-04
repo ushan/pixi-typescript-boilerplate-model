@@ -31,15 +31,19 @@ class GameScreen extends PIXI.Container {
         this.gameModel = gameModel;
         this.soundManager = new SoundManager();
         this.bg = new Background3D();
+
         this.items = [];
         this.itemsCont = new PIXI.Container;
+
         this.cart = new Cart();
         this.cartOver = new CartOver();
+
         this.scoreBallonsCont = new PIXI.Container;
         this.keyPad = new KeyPad(gameModel);
         this.scoresPanel = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
         this.countdown = new Countdown();
+
         this.initialSpeed = this.gameModel.speed * this.gameModel.speedUpFactor;
         this.t = 0;
 
@@ -86,19 +90,21 @@ class GameScreen extends PIXI.Container {
             this.scoresPanel.x = 10;
             this.scoresPanel.y = 10;
             this.progressBar.y = 30;
-            this.timeLeftText.x = gameWidth - 100;
+            // this.timeLeftText.x = gameWidth - 100;
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
             this.updateTimeLeft();
 
-            this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
+            // this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
             this.addChild(this.countdown);
             this.countdown.on('countdownStarted', () => {
-                 this.acitvateSounds();
-              });
+                this.acitvateSounds();
+            });
             this.countdown.on('countdownComplete', () => {
-                 this.start();
-              });
+                this.start();
+            });
+
+            this.onResize();
   
         };
 
@@ -153,9 +159,16 @@ class GameScreen extends PIXI.Container {
         };
 
         this.onResize = (item) => {
+            const { gameWidth, gameHeight } = AppConfig.settings;
+
             this.items.forEach((item) => {
                 item.updatePosByPoint3D();
             });
+            // this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
+            this.countdown.position.set(gameWidth / 2, gameHeight / 2);
+
+            this.timeLeftText.x = gameWidth - 90;
+
         };
         
         this.items = [];
