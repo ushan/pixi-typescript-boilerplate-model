@@ -1,9 +1,16 @@
 class AppConfig {
+
+    /** 
+     * @readonly
+     */
     static settings = {
         gameWidth: 600,
         gameHeight: 800
     }
 
+    /** 
+     * @readonly
+     */
     static settings3D = {
         focalLength: 10,
         scaleZoom: 16,
@@ -16,6 +23,9 @@ class AppConfig {
         zDeep:100
     };
 
+    /** 
+     * @readonly
+     */
     static gameSettings = {
         levelMaxScores: 500,
         cartWidth: 50,
@@ -26,6 +36,9 @@ class AppConfig {
         speedUpDuration : 4000
     };
 
+    /** 
+     * @readonly
+     */
     static animationSettings = {
         itemJumpDuration: 0.3,
         itemDropDuration: 0.2,

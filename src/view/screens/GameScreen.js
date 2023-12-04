@@ -128,6 +128,7 @@ class GameScreen extends PIXI.Container {
         };
 
         this.onCartLineUpdated = () => {
+            const { gameWidth } = AppConfig.settings;
             const f = 0.5 * this.gameModel.cartLine;
             const conveyorWidth = gameWidth * 0.5;
             const trgX = gameWidth / 2   + conveyorWidth * f;

@@ -39,8 +39,8 @@ const init = () => {
         app.renderer.resize(window.innerWidth, window.innerHeight);
         // app.stage.scale.x = window.innerWidth / gameWidth;
         // app.stage.scale.y = window.innerHeight / gameHeight;
-        AppConfig.settings.gameWidth = indow.innerWidth;
-        AppConfig.settings.gameHeight = indow.innerHeight;
+        AppConfig.settings.gameWidth = window.innerWidth;
+        AppConfig.settings.gameHeight = window.innerHeight;
       });
     const game = new Game(app);
     app.stage.addChild(game);

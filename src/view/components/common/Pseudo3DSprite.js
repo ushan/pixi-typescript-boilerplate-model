@@ -16,6 +16,9 @@ class Pseudo3DSprite extends SpriteCommon {
     updatePosByPoint3D() {
         if (!this.listen3D)
             return;
+
+        const { gameWidth, gameHeight } = AppConfig.settings;
+
         const w = gameWidth;
         const h = gameHeight;
         const centrX = w / 2;
@@ -23,7 +26,7 @@ class Pseudo3DSprite extends SpriteCommon {
         this.y = h * horyzontPos + this.point3D.y / (this.point3D.z + focalLength);
         const sc = itemsExtraScale * scaleZoom * 1 / (this.point3D.z + focalLength);
         this.scale.set(sc, sc);
-        // this.rotation = this.point3D.z;
+
         if (this.point3D.z < -20 && this.outOfBoundsCallback) {
             this.dispatchOutOfBounds();
         }
