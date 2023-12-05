@@ -66,13 +66,14 @@ class KeyPad extends PIXI.Container {
     setToPosition (element, posInRow) {
         const { gameWidth, gameHeight } = AppConfig.settings;
 
-        const f = 0.65 * posInRow;
-        const conveyorWidth = gameWidth * 0.5;
+        const f = 0.35 * posInRow;
+        const conveyorWidth = gameWidth * 1;
         element.width = conveyorWidth / 3;
+        element.height = 200;
         element.x = gameWidth / 2   + conveyorWidth * f;
         //margin like x
         
-        element.y = gameHeight - 15;
+        element.y = gameHeight - element.height / 2;
 
     };
 

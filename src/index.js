@@ -2,25 +2,9 @@ import * as PIXI from 'pixi.js';
 import { AppConfig } from './config/AppConfig';
 import Game from "./Game";
 
-/*
-function resize() {
 
-    let w = window.innerWidth;
-    let h = window.innerHeight;
 
-    AppConfig.settings.gameWidth = w;
-    AppConfig.settings.gameHeight = h;
-    if (app) {
-        app.renderer.view.style.width = w + 'px';
-        app.renderer.view.style.height = h + 'px';
-        app.renderer.resize(w, h);
-        app.resize();
-    }
-
-    
-}
-window.onresize = resize;*/
-
+AppConfig.updateSize(window.innerWidth, window.innerHeight);
 const { gameWidth, gameHeight } = AppConfig.settings;
 
 const options = {
@@ -34,13 +18,11 @@ const app = new PIXI.Application(options);
 
 window['globalThis']['__PIXI_APP__'] = app;
 
+
+
 const init = () => {
     window.addEventListener('resize', () => {
         app.renderer.resize(window.innerWidth, window.innerHeight);
-        // app.stage.scale.x = window.innerWidth / gameWidth;
-        // app.stage.scale.y = window.innerHeight / gameHeight;
-        // AppConfig.settings.gameWidth = window.innerWidth;
-        // AppConfig.settings.gameHeight = window.innerHeight;
         AppConfig.updateSize(window.innerWidth, window.innerHeight);
       });
     const game = new Game(app);
