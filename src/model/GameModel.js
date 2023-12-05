@@ -5,6 +5,8 @@ import ItemSprite from "../view/components/items/ItemSprite";
 import ItemKind from "./items/ItemKind";
 import { MiniSignal } from "mini-signals";
 import ItemModel from "./items/ItemModel";
+import EItemType from "./EItemType";
+import EItemsID from "./EItemsID";
 
 export const EGameStates = Object.freeze({"stop":1, "playing":2});
 
@@ -35,6 +37,7 @@ class GameModel {
         this._timeLeft = 120;
         this.timeSpent = 0;
         this._cartLine = 0;
+        this.pointsProductsCount = 0;
         this.init();
         GameModel._instance = this;
     }
@@ -94,13 +97,13 @@ class GameModel {
     }
 
     createItemKinds() {   
-        const scorePlusItem1 = new ItemKind("plus10", ResourceList.GOOD_1, "scores", 10, 0, "good", true);
-        const scorePlusItem2 = new ItemKind("plus20", ResourceList.GOOD_2, "scores", 20, 0, "good", true);
-        const scoreMinusItem = new ItemKind("minus10", ResourceList.GOOD_3, "scores", -10, 0, "bad", false);
-        const secondsMinusItem = new ItemKind("minusNseconds", ResourceList.ITEM_TIMEMINUS, "time", 0, -10, "bad", false);
-        const secondsPlusItem = new ItemKind("plusNseconds", ResourceList.ITEM_TIMEPLUS, "time", 0, 10, "good", false);
-        const magnetItem = new ItemKind("magnet", ResourceList.ITEM_MAGNET, "magnet", 0, 0, "good", false);
-        const speedUpItem = new ItemKind("speedUp", ResourceList.ITEM_SPEEDUP, "speedUp", 0, 0, "good", false);
+        const scorePlusItem1 = new ItemKind(EItemsID.PLUS10, ResourceList.GOOD_1, EItemType.SCORES, 10, 0, "good", true);
+        const scorePlusItem2 = new ItemKind(EItemsID.PLUS20, ResourceList.GOOD_2, EItemType.SCORES, 20, 0, "good", true);
+        const scoreMinusItem = new ItemKind(EItemsID.MINUS10, ResourceList.GOOD_3, EItemType.SCORES, -10, 0, "bad", false);
+        const secondsMinusItem = new ItemKind(EItemsID.MINUS_N_SECONDS, ResourceList.ITEM_TIMEMINUS, EItemType.TIME, 0, -10, "bad", false);
+        const secondsPlusItem = new ItemKind(EItemsID.PLUS_N_SECONDS, ResourceList.ITEM_TIMEPLUS, EItemType.TIME, 0, 10, "good", false);
+        const magnetItem = new ItemKind(EItemsID.MAGNET, ResourceList.ITEM_MAGNET, EItemType.MAGNET, 0, 0, "good", false);
+        const speedUpItem = new ItemKind(EItemsID.SPEED_UP, ResourceList.ITEM_SPEEDUP, EItemType.SPEED_UP, 0, 0, "good", false);
         const arr = [
             scorePlusItem1, 
             scorePlusItem2,
@@ -283,9 +286,9 @@ class GameModel {
             if (item.itemKind.time != 0) {
                 this.timeLeft += item.itemKind.time;
             }
-            if (item.itemKind.id ==='magnet' || item.itemKind.id === 'speedUp'){
+            if (item.itemKind.id === EItemsID.MAGNET || item.itemKind.id === EItemsID.SPEED_UP){
                 this.extraCoutch.dispatch(item);
-                if (item.itemKind.id === 'speedUp') {
+                if (item.itemKind.id === EItemsID.SPEED_UP) {
                     this.speedUpFactor = 2;
                     if (this.speedUpTimeOut) {
                         clearTimeout(this.speedUpTimeOut);
@@ -294,7 +297,7 @@ class GameModel {
                         this.speedUpFactor = 1;
                     }, speedUpDuration);
                 }
-                if (item.itemKind.id === 'magnet') {
+                if (item.itemKind.id === EItemsID.MAGNET) {
                     this.isMagnet = true;
                     this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
                     if (this.magnetTimeOut) {
@@ -319,10 +322,8 @@ class GameModel {
      * @returns {Boolean}
      */
     registerAchiveBorder(item) {
-        // let itemModel = item.itemKind;
         let isInCart = item.posInRow === this.cartLine;
         const itemKind = item.itemKind;
-        // if (this.isMagnet && itemKind.kindness == 'good' && itemKind.itemType !== 'magnet' && itemKind.itemType !== 'speedUp'){
         if (this.isMagnet && itemKind.magnetable == true){
             isInCart = true;
         }
@@ -331,6 +332,7 @@ class GameModel {
         if (isInCart) {
             
             this.addCautchItem(item);
+
             return true;
         }
         else {
