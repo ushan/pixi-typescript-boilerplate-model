@@ -25,6 +25,7 @@ class KeyPad extends PIXI.Container {
             this.updateAreaPos();
         }
         AppConfig.sizeUpdated.add(this.onResize);
+        this.onResize();
     }
 
     /**
@@ -42,7 +43,7 @@ class KeyPad extends PIXI.Container {
         //box.drawRect( - w /2 , - 150, w, 150);
         box.drawRect( - 50, -50, 100, 100);
         box.cursor = "pointer";
-        box.alpha = 0.07;
+        box.alpha = 0.3;
         // this.setToPosition(box, posInRow);
         this.addChild(box);
         box.on('pointerdown', () => {
@@ -80,8 +81,6 @@ class KeyPad extends PIXI.Container {
         this.keyLeft = new SpriteCommon(ResourceList.KEY_LEFT);
         this.keyLeft.cursor = "pointer";
         this.keyLeft.on('pointerdown', () => {
-            // this.cart.x -= 50;
-            // this.cartOver.x = this.cart.x;
             this.gameModel.registerMoveCart(true);
         });
         this.keyLeft.anchor.set(1, 0.5);
@@ -90,8 +89,6 @@ class KeyPad extends PIXI.Container {
 
         this.keyRight = new SpriteCommon(ResourceList.KEY_RIGHT);
         this.keyRight.on('pointerdown', () => {
-            // this.cart.x += 50;
-            // this.cartOver.x = this.cart.x;
             this.gameModel.registerMoveCart(false);
         });
         
