@@ -37,9 +37,10 @@ class GameModel {
         this._timeLeft = 120;
         this.timeSpent = 0;
         this._cartLine = 0;
-        this.pointsProductsCount = 0;
+        this.goodProductsCount = 0;
         this.init();
         GameModel._instance = this;
+        this.steakMultiplier = 1;
     }
 
     get scores() { return this._scores }
@@ -153,6 +154,12 @@ class GameModel {
     getParamsByTime(currentTime, configObj) {
         const keys = Object.keys(configObj).map(Number).sort((a, b) => a - b);
         const key = keys.find(interval => interval > currentTime);
+        return key ? configObj[key] : configObj['infinity'];
+    }
+
+    getParamsByCount(count, configObj) {
+        const keys = Object.keys(configObj).map(Number).sort((a, b) => a - b);
+        const key = keys.find(interval => interval > count);
         return key ? configObj[key] : configObj['infinity'];
     }
 
@@ -272,43 +279,59 @@ class GameModel {
      * @access private
      * @param {ItemSprite} item 
      */
-        addCautchItem(item){
-            if (this.isMagnet) { //N items are cautch with  magnet
-                this.magnetCount ++;
-                if (this.magnetCount > magnetItemsCount){
-                    this.isMagnet = false;
-                    this.magnetCount = 0;
-                }
-            }
-            if (item.itemKind.scores != 0) {
-                this.scores += item.itemKind.scores;
-            }
-            if (item.itemKind.time != 0) {
-                this.timeLeft += item.itemKind.time;
-            }
-            if (item.itemKind.id === EItemsID.MAGNET || item.itemKind.id === EItemsID.SPEED_UP){
-                this.extraCoutch.dispatch(item);
-                if (item.itemKind.id === EItemsID.SPEED_UP) {
-                    this.speedUpFactor = 2;
-                    if (this.speedUpTimeOut) {
-                        clearTimeout(this.speedUpTimeOut);
-                    }
-                    this.speedUpTimeOut = setTimeout(() => {
-                        this.speedUpFactor = 1;
-                    }, speedUpDuration);
-                }
-                if (item.itemKind.id === EItemsID.MAGNET) {
-                    this.isMagnet = true;
-                    this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
-                    if (this.magnetTimeOut) {
-                        clearTimeout(this.magnetTimeOut);
-                    }
-                    this.magnetTimeOut = setTimeout(() => {
-                        this.isMagnet = false;
-                    }, magnetMaxDuration);
-                }
+    addCautchItem(item){
+        if (this.isMagnet) { //N items are cautch with  magnet
+            this.magnetCount ++;
+            if (this.magnetCount > magnetItemsCount){
+                this.isMagnet = false;
+                this.magnetCount = 0;
             }
         }
+
+        //Scores
+        if (item.itemKind.scores != 0) {
+            this.scores += (item.itemKind.scores * this.steakMultiplier);
+        }
+
+        //TimLeft change
+        if (item.itemKind.time != 0) {
+            this.timeLeft += item.itemKind.time;
+        }
+
+        //Steak bonus
+        if (item.itemKind.kindness == "bad"){
+            this.goodProductsCount = 0;
+        }
+        if (item.itemKind.id === EItemsID.PLUS10 || item.itemKind.id === EItemsID.PLUS20){
+            this.goodProductsCount ++;
+            const muliplierStr =  this.getParamsByCount(this.goodProductsCount, GAME_CONFIG.steakBonuses).multiplier;
+            this.steakMultiplier = parseFloat(muliplierStr.substring(1)); //Removing 'x` in `x1.2`
+        }
+
+        //Special Items
+        if (item.itemKind.id === EItemsID.MAGNET || item.itemKind.id === EItemsID.SPEED_UP){
+            this.extraCoutch.dispatch(item);
+            if (item.itemKind.id === EItemsID.SPEED_UP) {
+                this.speedUpFactor = 2;
+                if (this.speedUpTimeOut) {
+                    clearTimeout(this.speedUpTimeOut);
+                }
+                this.speedUpTimeOut = setTimeout(() => {
+                    this.speedUpFactor = 1;
+                }, speedUpDuration);
+            }
+            if (item.itemKind.id === EItemsID.MAGNET) {
+                this.isMagnet = true;
+                this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
+                if (this.magnetTimeOut) {
+                    clearTimeout(this.magnetTimeOut);
+                }
+                this.magnetTimeOut = setTimeout(() => {
+                    this.isMagnet = false;
+                }, magnetMaxDuration);
+            }
+        }
+    }
       
 
     /***************************
@@ -329,10 +352,8 @@ class GameModel {
         }
 
         this.lastItem = item;
-        if (isInCart) {
-            
+        if (isInCart) {        
             this.addCautchItem(item);
-
             return true;
         }
         else {
