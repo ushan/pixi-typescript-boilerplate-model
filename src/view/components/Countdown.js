@@ -6,7 +6,7 @@ import { AppConfig } from '../../config/AppConfig';
 import ResourceList from '../../resources/ResourceList';
 import ResourceService from '../../resources/ResourceService';
 
-const { gameWidth, gameHeight } = AppConfig.settings;
+// const { gameWidth, gameHeight } = AppConfig.settings;
 
 class Countdown extends PIXI.Container {
     constructor() {
@@ -15,10 +15,6 @@ class Countdown extends PIXI.Container {
         const STEP_TIME = 0.5;
 
         this.bg = new PIXI.Graphics();
-/*         this.bg.beginFill(0x222222);
-        this.bg.drawRect( - gameWidth / 2, - gameHeight / 2,  gameWidth, gameHeight);
-        this.bg.endFill();
-        this.bg.alpha = 0.5; */
 
         this.onResize = () => {
             this.redrawBG();
@@ -28,10 +24,10 @@ class Countdown extends PIXI.Container {
         this.addChild(this.bg);
         this.redrawBG();
 
-        this.text3 = new PIXI.Text('3', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
-        this.text2 = new PIXI.Text('2', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
-        this.text1 = new PIXI.Text('1', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
-        this.text0 = new PIXI.Text('Go!', { fontSize: 148, fontFamily:'Chunk-a-Chip', fill: 0xFFFFFF });
+        this.text3 = new PIXI.Text('3', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
+        this.text2 = new PIXI.Text('2', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
+        this.text1 = new PIXI.Text('1', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
+        this.text0 = new PIXI.Text('Go!', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
 
         this.startButton = new StartButton();
         this.addChild(this.startButton);

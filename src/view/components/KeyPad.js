@@ -34,19 +34,20 @@ class KeyPad extends PIXI.Container {
      * @returns {Graphics}
      */
     createBox(posInRow){
-        const { gameWidth, gameHeight } = AppConfig.settings;
+        const { gameWidth } = AppConfig.settings;
 
         const box = new PIXI.Graphics();
         box.eventMode = 'dynamic';
         box.beginFill(0x00ff0);
         const w = 0.9 * gameWidth / 3
-        //box.drawRect( - w /2 , - 150, w, 150);
         box.drawRect( - 50, -50, 100, 100);
         box.cursor = "pointer";
-        box.alpha = 0.3;
-        // this.setToPosition(box, posInRow);
+        box.alpha = 0.07;
         this.addChild(box);
         box.on('pointerdown', () => {
+            this.gameModel.registerSetCartPos(posInRow);
+        });
+        box.on('pointermove', () => {
             this.gameModel.registerSetCartPos(posInRow);
         });
         return box

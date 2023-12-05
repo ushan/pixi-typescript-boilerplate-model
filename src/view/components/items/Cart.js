@@ -12,7 +12,7 @@ export class Cart extends SpriteCommon {
         this.itemsCont = new Container();
         
         this.anymateInCartStart = (clone) => {
-                        gsap.to(clone, {
+            gsap.to(clone, {
                 x: 0,
                 y: -800,
                 rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
@@ -64,7 +64,7 @@ export class Cart extends SpriteCommon {
 
     getTargetPoint() {
         const p = new Point();
-        p.x = Math.random() * 120 - 60;
+        p.x = Math.random() * 180 - 90;
         p.y = Math.random() * 140 - 70;
         return p;
     }

@@ -30,6 +30,7 @@ class GameScreen extends PIXI.Container {
         this.app = app;
         this.gameModel = gameModel;
         this.soundManager = new SoundManager();
+        this.bgImage = new SpriteCommon(ResourceList.BG);
         this.bg = new Background3D();
 
         this.items = [];
@@ -50,7 +51,9 @@ class GameScreen extends PIXI.Container {
         this.addElements = () => {           
             const { gameWidth, gameHeight } = AppConfig.settings;
 
+            // this.addChild(this.bgImage);
             this.addChild(this.bg);
+            // this.bg.alpha = 0.1;
             this.addChild(this.itemsCont);
             this.addChild(this.cart);
             this.cart.scale.set(0.5);
@@ -173,6 +176,9 @@ class GameScreen extends PIXI.Container {
             this.cartOver.y = gameHeight;;
 
             this.onCartLineUpdated();
+
+            this.bgImage.width = gameWidth;
+            this.bgImage.height = gameHeight;
 
         };
         

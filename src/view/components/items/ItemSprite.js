@@ -46,11 +46,11 @@ class ItemSprite extends Pseudo3DSprite {
         super.updatePosByPoint3D();
         const { zCartPosition } = AppConfig.settings3D;
 
-        const zMagnetPosition = 12;
+        const zMagnetPosition = 30;
         if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition && this.itemKind.magnetable) {
             const distInMagnet = zMagnetPosition - this.point3D.z;
             const distOfMagnet = zMagnetPosition - zCartPosition;
-            const f =   1 -  0.5 * (Math.pow (distInMagnet / distOfMagnet, 2));
+            const f =   1 -  0.5 * Math.abs((Math.pow (distInMagnet / distOfMagnet, 1/2)));
             this.point3D._x = this._axis3Dx * f;
             
         }
@@ -67,10 +67,15 @@ class ItemSprite extends Pseudo3DSprite {
                     y: 300,
                     rotation: Math.PI / 4,
                     onComplete: () => { 
-                        
                         this.gameScreen.moveToCart(this);
                         this.dispatchOutOfBounds();
                     },
+                    ease: "power2.out",
+                    duration: 0.3
+                });
+                gsap.to(this.scale, {
+                    x: 0.6,
+                    y: 0.6,
                     ease: "power2.out",
                     duration: 0.3
                 });

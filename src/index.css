@@ -15,15 +15,15 @@ canvas {
 }
 
 @font-face {
-    font-family: 'Chunk-a-Chip';
-    src: url('./assets/static/fonts/Chunk-a-Chip.ttf');
+    font-family: 'LithosProBlack';
+    src: url('./assets/static/fonts/LithosProBlack.ttf');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 #fontsCont {
-    font-family: 'Chunk-a-Chip';
+    font-family: 'LithosProBlack';
     font-size: 2pt;
     font-weight: bold;
     position: absolute;
