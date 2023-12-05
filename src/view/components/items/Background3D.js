@@ -2,8 +2,6 @@ import * as PIXI from 'pixi.js';
 import { AppConfig } from '../../../config/AppConfig';
 import Point3D from '../../../model/pseudo3ds/Point3D';
 
-// const { gameWidth, gameHeight } = AppConfig.settings;
-// const { worldSize, conveyorY, conveyorWidth, focalLength, horyzontPos} = AppConfig.settings3D;
 
 class Background3D extends PIXI.Graphics{
     constructor() {

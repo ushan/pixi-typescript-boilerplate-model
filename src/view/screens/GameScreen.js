@@ -51,17 +51,17 @@ class GameScreen extends PIXI.Container {
         this.addElements = () => {           
             const { gameWidth, gameHeight } = AppConfig.settings;
 
-            // this.addChild(this.bgImage);
+            this.addChild(this.bgImage);
             this.addChild(this.bg);
-            // this.bg.alpha = 0.1;
+            this.bg.alpha = 0.3;
             this.addChild(this.itemsCont);
             this.addChild(this.cart);
-            this.cart.scale.set(0.5);
+            this.cart.scale.set(1);
             this.cart.anchor.set(0.5, 1);
             this.cart.y = gameHeight;
             this.cart.x = gameWidth / 2;
             this.addChild(this.cartOver);
-            this.cartOver.scale.set(0.5);
+            this.cartOver.scale.set(1);
             this.cartOver.anchor.set(0.5, 1);
             this.cartOver.y = gameHeight;
             this.cartOver.x = gameWidth / 2;

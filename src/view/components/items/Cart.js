@@ -64,8 +64,8 @@ export class Cart extends SpriteCommon {
 
     getTargetPoint() {
         const p = new Point();
-        p.x = Math.random() * 180 - 90;
-        p.y = Math.random() * 140 - 70;
+        p.x = Math.random() * 120 - 50;
+        p.y = Math.random() * 110 - 55;
         return p;
     }
 

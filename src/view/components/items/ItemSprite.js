@@ -6,8 +6,7 @@ import gsap from "gsap";
 import ItemKind from '../../../model/items/ItemKind';
 import GameModel from '../../../model/GameModel';
 import GameScreen from '../../screens/GameScreen';
-// const { cartWidth } = AppConfig.gameSettings;
-const { worldSize, conveyorWidth, zCartPosition} = AppConfig.settings3D;
+
 
 
 class ItemSprite extends Pseudo3DSprite {

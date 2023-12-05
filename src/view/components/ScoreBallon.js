@@ -19,7 +19,7 @@ class ScoreBallon extends PIXI.Sprite {
                 scoreCaption = scores >= 0 ? "+" + scores : scores;
                 break;
             case  'time':
-                textColor = 0x4444ff;
+                textColor = 0xff6622;
                 scoreCaption = scores >= 0 ? "+" + scores + 's' : scores;
                 break;
             case 'speedUp':
@@ -35,7 +35,7 @@ class ScoreBallon extends PIXI.Sprite {
                 scoreCaption = scores >= 0 ? "+" + scores : scores;
         }
         this.scoresText = new Text(scoreCaption, {
-            fontFamily: 'Arial',
+            fontFamily: 'LithosProBlack',
             fontWeight: 'bold',
             fontSize: 32,
             fill: textColor,

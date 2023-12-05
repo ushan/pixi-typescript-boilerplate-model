@@ -8,8 +8,9 @@ ResourceList.GOOD_1 = `./assets/good_1.png`;
 ResourceList.GOOD_2 = `./assets/good_2.png`;
 ResourceList.GOOD_3 = `./assets/good_3.png`;
 ResourceList.GOOD_4 = `./assets/good_4.png`;
-ResourceList.GOOD_5 = `./assets/good_5.png`;
-ResourceList.GOOD_6 = `./assets/good_6.png`;
+// ResourceList.GOOD_5 = `./assets/good_5.png`;
+// ResourceList.GOOD_6 = `./assets/good_6.png`;
+ResourceList.BAD_1 = `./assets/bad_1.png`;
 ResourceList.KEY_LEFT = `./assets/key-left.png`;
 ResourceList.KEY_RIGHT = `./assets/key-right.png`;
 ResourceList.ITEM_MAGNET = `./assets/item-magnet.png`;
@@ -34,8 +35,9 @@ ResourceList.LIST = [
     ResourceList.GOOD_2,
     ResourceList.GOOD_3,
     ResourceList.GOOD_4,
-    ResourceList.GOOD_5,
-    ResourceList.GOOD_6,
+    ResourceList.BAD_1,
+    // ResourceList.GOOD_5,
+    // ResourceList.GOOD_6,
     ResourceList.KEY_LEFT,
     ResourceList.KEY_RIGHT,
     ResourceList.KEY_LEFT,
