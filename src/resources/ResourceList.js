@@ -18,6 +18,11 @@ ResourceList.ITEM_SPEEDUP = `./assets/item-speedup.png`;
 ResourceList.ITEM_TIMEPLUS = `./assets/item-timeplus.png`;
 ResourceList.ITEM_TIMEMINUS = `./assets/item-timeplus.png`;
 
+ResourceList.TIMER_BASE = `./assets/timer-base.png`;
+ResourceList.TIMER_PROGRESS_MIDDLE = `./assets/timer-progress-middle.png`;
+ResourceList.TIMER_PROGRESS_RIGHT = `./assets/timer-progress-right.png`;    
+ResourceList.TIMER_PROGRESS_ARROW = `./assets/timer-arrow.png`;    
+
 ResourceList.EFFECTS = `./assets/effects.json`;
 
 /* ResourceList.SND_CAUTCH = `./assets/sound/move.mp3`;
@@ -47,6 +52,10 @@ ResourceList.LIST = [
     ResourceList.ITEM_TIMEPLUS,
     ResourceList.ITEM_TIMEMINUS,
     ResourceList.EFFECTS,
+    ResourceList.TIMER_BASE,
+    ResourceList.TIMER_PROGRESS_MIDDLE,
+    ResourceList.TIMER_PROGRESS_RIGHT,
+    ResourceList.TIMER_PROGRESS_ARROW,
     /*     ResourceList.SND_CAUTCH,
     ResourceList.SND_FAIL,
     ResourceList.SND_SCORE, */

@@ -3,10 +3,6 @@ import { AnimatedSprite } from 'pixi.js';
 import { gsap } from 'gsap';
 import StartButton from './StartButton';
 import { AppConfig } from '../../config/AppConfig';
-import ResourceList from '../../resources/ResourceList';
-import ResourceService from '../../resources/ResourceService';
-
-// const { gameWidth, gameHeight } = AppConfig.settings;
 
 class Countdown extends PIXI.Container {
     constructor() {

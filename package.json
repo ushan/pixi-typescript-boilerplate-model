@@ -1,7 +1,7 @@
 {
-  "name": "webpack-starter-kit",
+  "name": "basket-run",
   "version": "1.0.0",
-  "description": "pixi-typescript-boilerplate",
+  "description": "basket run game",
   "scripts": {
     "clear": "rm -rf dist/* && rm -rf .parcel-cache/*",
     "start": "PORT=8080 parcel src/index.html",

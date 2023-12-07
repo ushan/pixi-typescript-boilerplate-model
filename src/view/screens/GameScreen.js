@@ -13,6 +13,7 @@ import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
 import { SoundManager } from '../../resources/SoundManager';
 import KeyPad from '../components/KeyPad';
+import TimerProgressBar from '../components/ui/TimerProgressBar';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;
@@ -43,6 +44,7 @@ class GameScreen extends PIXI.Container {
         this.keyPad = new KeyPad(gameModel);
         this.scoresPanel = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
+        this.timerProgressBar = new TimerProgressBar();
         this.countdown = new Countdown();
 
         this.initialSpeed = this.gameModel.speed * this.gameModel.speedUpFactor;
@@ -66,6 +68,7 @@ class GameScreen extends PIXI.Container {
             this.cartOver.y = gameHeight;
             this.cartOver.x = gameWidth / 2;
             this.addChild(this.scoresPanel);
+
             
 
             this.scoresText = new Text('0/0', {
@@ -88,11 +91,13 @@ class GameScreen extends PIXI.Container {
             this.addControls();
 
             this.scoresPanel.addChild(this.scoresText);
-            this.scoresPanel.addChild(this.progressBar);
+            // this.scoresPanel.addChild(this.progressBar);
+            this.scoresPanel.addChild(this.timerProgressBar);
             this.scoresPanel.addChild(this.timeLeftText);
             this.scoresPanel.x = 10;
-            this.scoresPanel.y = 10;
-            this.progressBar.y = 30;
+            // this.scoresPanel.y = 10;
+            this.timerProgressBar.y = 30;
+            this.timerProgressBar.x = 20;
             // this.timeLeftText.x = gameWidth - 100;
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
@@ -129,6 +134,7 @@ class GameScreen extends PIXI.Container {
             if (this.timeLeftText) {
                 this.timeLeftText.text = `${this.gameModel.timeLeft} s`
             }
+            this.timerProgressBar.setPercetageByTime(this.gameModel.timeLeft);
         };
 
         this.onGameStateUpdated = () => {

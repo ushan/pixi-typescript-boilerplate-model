@@ -29,7 +29,6 @@ export class Cart extends SpriteCommon {
                 y: clone.inCartPoint.y,
                 rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
                 ease: "power2.in",
-                // delay: itemJumpDuration,
                 delay: 0,
                 duration: itemDropDuration
             });
@@ -48,16 +47,13 @@ export class Cart extends SpriteCommon {
 
         let currentContainer = destinationContainer;
         while (currentContainer) {
-            // Apply the inverse of the current container's transformation to the reverseTransformMatrix
             reverseTransformMatrix = reverseTransformMatrix.append(currentContainer.transform.worldTransform.clone().invert());
             currentContainer = currentContainer.parent;
         }
 
         sourceMatrix.prepend(reverseTransformMatrix);
         clone.transform.setFromMatrix(sourceMatrix);
-// destinationContainer.addChild(clone);
         this.itemsCont.addChild(clone);
-// this.anymateInCartStart(clone);
         this.anymateInCartFinish(clone);
         this.removeExtraItems();
     }

@@ -44,7 +44,8 @@ class AppConfig {
         itemsExtraScale: 0.8,
         magnetItemsCount: 6,
         magnetMaxDuration: 6000, //we double duration of bugnet by timeout and itemscount
-        speedUpDuration : 4000
+        speedUpDuration: 4000,
+        timeMax: 180
     };
 
     /** 
