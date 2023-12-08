@@ -23,6 +23,14 @@ class ProgressBarWithIcon extends ProgressBarElastic{
     getDiskOverMargin(r, barHeight) {
         return r - Math.sqrt(r**2 - (barHeight / 2)**2);
     }
+
+    /**
+     * @access public
+     * @returns {x:number, y:number}
+     */
+    getIconCeter() {
+        return {x: this.iconHolder.x + this.iconHolder.width / 2, y:this.bg.height / 2}
+    }
 }
 
 export default ProgressBarWithIcon
