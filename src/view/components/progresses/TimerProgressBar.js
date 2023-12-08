@@ -36,7 +36,7 @@ class TimerProgressBar extends  PIXI.Container{
 
         this.addChild(this.arrow);
 
-        this.displayProgress()
+        this.displayProgress();
     }
 
     /**

@@ -4,7 +4,7 @@ import ProgressBarWithIcon from "./ProgressBarWithIcon";
 
 class TimeLeftProgressBar extends ProgressBarWithIcon {
     constructor() {
-        super();
+        super(ResourceList.PRGS_DISK_TIMER, 0xf0bd0f);
         this.arrow = new SpriteCommon(ResourceList.TIMER_PROGRESS_ARROW);
         const center = this.getIconCeter();
         this.arrow.x = center.x

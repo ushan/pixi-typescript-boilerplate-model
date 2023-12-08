@@ -4,14 +4,14 @@ import ResourceList from '../../../resources/ResourceList';
 import ResourceService from '../../../resources/ResourceService';
 import SpriteCommon from '../common/SpriteCommon';
 class ProgressBarCapsule extends PIXI.Container{
-    constructor(progressColor = 0xf0bd0f) {
+    constructor(progressColor = 0) {
         super();
+        this.progressColor = progressColor;
         this._visualProgress = 0.5;
 
         this._cWidth = 300; //component width
         // this._cHeigh = 50;
         this.flareMargin = 6;
-        this.progressColor = progressColor;
 
         this.bg = new NineSlicePlane(ResourceService.getTexture(ResourceList.PRGS_CAPSULE_BG), 2, 6, 16, 6);
         this.bg.width = this._cWidth;
@@ -71,7 +71,10 @@ class ProgressBarCapsule extends PIXI.Container{
     drawProgress() {
         const margin = 8;
         const maxW = this._cWidth - margin;
-        const w = maxW * this._visualProgress;
+        let prg = this._visualProgress;
+        if (prg > 1) prg = 1;
+        if (prg < 0) prg = 0;
+        const w = maxW * prg;
         this.bar.y = 6;
         this.bar.clear();
         this.bar.beginFill(this.progressColor);

@@ -2,8 +2,8 @@ import ProgressBarCapsule from "./ProgressBarCapsule";
 import gsap from "gsap";
 
 class ProgressBarElastic extends ProgressBarCapsule {
-    constructor() {
-        super();
+    constructor(progressColor) {
+        super(progressColor);
         this._progress = 0;
     }
 
