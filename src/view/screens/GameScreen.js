@@ -14,8 +14,7 @@ import ScoreBallon from '../components/ScoreBallon';
 import { SoundManager } from '../../resources/SoundManager';
 import KeyPad from '../components/KeyPad';
 import TimerProgressBar from '../components/ui/TimerProgressBar';
-import ProgressBarCapsule from '../components/ui/ProgressBarCapsule';
-import TimeLeftProgressBar from '../components/ui/ProgressBarCapluleWithIcon';
+import ProgressBarWithIcon from '../components/ui/ProgressBarWithIcon';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;
@@ -47,7 +46,7 @@ class GameScreen extends PIXI.Container {
         this.scoresPanel = new PIXI.Container;
         this.progressBar = new ProgressBar(120, 4);
         this.timerProgressBar = new TimerProgressBar();
-        this.progressBarCapsule = new TimeLeftProgressBar();
+        this.progressBarWithIcon = new ProgressBarWithIcon();
         this.countdown = new Countdown();
 
         this.initialSpeed = this.gameModel.speed * this.gameModel.speedUpFactor;
@@ -96,14 +95,15 @@ class GameScreen extends PIXI.Container {
             this.scoresPanel.addChild(this.scoresText);
             // this.scoresPanel.addChild(this.progressBar);
             this.scoresPanel.addChild(this.timerProgressBar);
-            this.scoresPanel.addChild(this.progressBarCapsule);
+            // this.scoresPanel.addChild(this.progressBarWithIcon);
+            this.addChild(this.progressBarWithIcon);
             this.scoresPanel.addChild(this.timeLeftText);
             this.scoresPanel.x = 10;
             // this.scoresPanel.y = 10;
             this.timerProgressBar.y = 30;
             this.timerProgressBar.x = 20;
-            this.progressBarCapsule.x = 20;
-            this.progressBarCapsule.y = 120;
+            this.progressBarWithIcon.x = 60;
+            this.progressBarWithIcon.y = 120;
             // this.timeLeftText.x = gameWidth - 100;
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
@@ -142,7 +142,7 @@ class GameScreen extends PIXI.Container {
             }
             this.timerProgressBar.setPercetageByTime(this.gameModel.timeLeft);
             const { timeMax } = AppConfig.gameSettings;
-            this.progressBarCapsule.progress = this.gameModel.timeLeft / timeMax;
+            this.progressBarWithIcon.progress = this.gameModel.timeLeft / timeMax;
         };
 
         this.onGameStateUpdated = () => {

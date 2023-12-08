@@ -1,7 +1,7 @@
 import ProgressBarCapsule from "./ProgressBarCapsule";
 import gsap from "gsap";
 
-class TimeLeftProgressBar extends ProgressBarCapsule {
+class ProgressBarElastic extends ProgressBarCapsule {
     constructor() {
         super();
         this._progress = 0;
@@ -41,4 +41,4 @@ class TimeLeftProgressBar extends ProgressBarCapsule {
 
 }
 
-export default TimeLeftProgressBar
+export default ProgressBarElastic
