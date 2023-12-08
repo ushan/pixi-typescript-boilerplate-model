@@ -23,6 +23,13 @@ ResourceList.TIMER_PROGRESS_MIDDLE = `./assets/timer-progress-middle.png`;
 ResourceList.TIMER_PROGRESS_RIGHT = `./assets/timer-progress-right.png`;    
 ResourceList.TIMER_PROGRESS_ARROW = `./assets/timer-arrow.png`;    
 
+ResourceList.PRGS_CAPSULE_BG = `./assets/progress/capsule-bg.png`;    
+ResourceList.PRGS_CAPSULE_FLARE = `./assets/progress/capsule-flare.png`;    
+ResourceList.PRGS_CAPSULE_SHADOW = `./assets/progress/capsule-shadow.png`;    
+ResourceList.PRGS_DISK_EXTRA_MAGNET = `./assets/progress/disk-extra-magnet.png`;    
+ResourceList.PRGS_DISK_EXTRA_SPEEDUP = `./assets/progress/disk-extra-speedup.png`;    
+ResourceList.PRGS_DISK_TIMER = `./assets/progress/disk-timer.png`;    
+
 ResourceList.EFFECTS = `./assets/effects.json`;
 
 /* ResourceList.SND_CAUTCH = `./assets/sound/move.mp3`;
@@ -56,6 +63,13 @@ ResourceList.LIST = [
     ResourceList.TIMER_PROGRESS_MIDDLE,
     ResourceList.TIMER_PROGRESS_RIGHT,
     ResourceList.TIMER_PROGRESS_ARROW,
+
+    ResourceList.PRGS_CAPSULE_BG,
+    ResourceList.PRGS_CAPSULE_FLARE,  
+    ResourceList.PRGS_CAPSULE_SHADOW,  
+    ResourceList.PRGS_DISK_EXTRA_MAGNET,  
+    ResourceList.PRGS_DISK_EXTRA_SPEEDUP,  
+    ResourceList.PRGS_DISK_TIMER,
     /*     ResourceList.SND_CAUTCH,
     ResourceList.SND_FAIL,
     ResourceList.SND_SCORE, */
