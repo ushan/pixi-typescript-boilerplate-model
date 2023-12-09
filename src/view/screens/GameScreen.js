@@ -43,7 +43,7 @@ class GameScreen extends PIXI.Container {
         this.itemsCont = new PIXI.Container;
 
         this.cart = new Cart();
-        this.cartOver = new CartOver();
+        this.cartOver = new CartOver(this.gameModel);
 
         this.scoreBallonsCont = new PIXI.Container;
         this.keyPad = new KeyPad(gameModel);
@@ -193,9 +193,6 @@ class GameScreen extends PIXI.Container {
                 if (isOn) {
                     this.speedUpProgress.alpha = 1;
                     this.speedUpProgress.visualProgress = 1;
-                    this.speedUpProgress.progress = 1;
-                    this.speedUpProgress.animDuration = AppConfig.gameSettings.speedUpDuration / 1000;
-                    this.speedUpProgress.progress = 0;
                 } else {
                     this.speedUpProgress.alpha = 0.6;
                     
@@ -205,11 +202,6 @@ class GameScreen extends PIXI.Container {
                 if (isOn) {
                     this.magnetProgress.alpha = 1;
                     this.magnetProgress.visualProgress = 1;
-                    this.magnetProgress.progress = 1;
-                    this.magnetProgress.clearAnimation();
-                    this.magnetProgress.animDuration = 3;
-                    // this.magnetProgress.animDuration = AppConfig.gameSettings.magnetMaxDuration / 1000;
-                    // this.magnetProgress.progress = 0;
                 } else {
                     this.magnetProgress.alpha = 0.6;
                     this.magnetProgress.visualProgress = 0;
@@ -278,15 +270,11 @@ class GameScreen extends PIXI.Container {
             // const speed = this.blockSpace3Dz * (delta / )
             this.items.forEach(c => { c.point3D.z -= speed * this.gameModel.speedUpFactor; });
 
-            const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
-            if (this.gameModel.isMagnet) {
-                this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
-            }
-            if (this.gameModel.speedUpFactor > 1) {
-                this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
-            }
+            if (this.cartOver) this.cartOver.animate();
 
+            this.updateExtras();
         });
+
         window.addEventListener('keydown', (e) => {
             if (e.code === 'ArrowRight') {
                 this.gameModel.registerMoveCart(false);
@@ -303,7 +291,13 @@ class GameScreen extends PIXI.Container {
     };
 
     updateExtras(item) {
-        // if (this.gameModel.isMagnet)
+        const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
+        if (this.gameModel.isMagnet) {
+            this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
+        }
+        if (this.gameModel.speedUpFactor > 1) {
+            this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
+        }
     };
 
     animate (delta = 0) {

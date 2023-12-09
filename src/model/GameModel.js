@@ -89,7 +89,7 @@ class GameModel {
         this.createItemKinds();
     }
     
-    createItemModelsDebug() {
+/*     createItemModelsDebug() {
         const arr = [];
         let itemScores = 1;
         ResourceList.GOODS_LIST.forEach(resource => {
@@ -99,7 +99,7 @@ class GameModel {
             arr.push(itemModel);
         });
         return arr;
-    }
+    } */
 
     createItemKinds() {   
         const scorePlusItem1 = new ItemKind(EItemsID.PLUS10, ResourceList.GOOD_1, EItemType.SCORES, 10, 0, "good", true);

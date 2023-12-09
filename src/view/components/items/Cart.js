@@ -1,3 +1,4 @@
+import * as PIXI from 'pixi.js';
 import SpriteCommon from "../common/SpriteCommon";
 import ResourceList from "../../../resources/ResourceList";
 import { Container, Matrix, Point } from "pixi.js";
@@ -5,6 +6,8 @@ import gsap from "gsap";
 import { PixiPlugin } from "gsap/PixiPlugin";
 import ClonedItemSprite from "./ClonedItemSprite";
 import { AppConfig } from "../../../config/AppConfig";
+import EItemsID from '../../../model/EItemsID';
+
 const { itemJumpDuration, itemDropDuration, displayItemsInCart } = AppConfig.animationSettings;
 export class Cart extends SpriteCommon {
     constructor() {
@@ -72,7 +75,49 @@ export class Cart extends SpriteCommon {
     }
 }
 export class CartOver extends SpriteCommon {
-    constructor() {
+    constructor(gameModel) {
         super(ResourceList.CART_OVER);
+        this.gameModel = gameModel;
+        
+        this.magnetIcon = new SpriteCommon(ResourceList.ITEM_MAGNET);
+        this.speedUpIcon = new SpriteCommon(ResourceList.ITEM_SPEEDUP);
+        this.addChild(this.magnetIcon);
+        this.addChild(this.speedUpIcon);
+
+        this.magnetIcon.blendMode = PIXI.BLEND_MODES.ADD;
+        this.speedUpIcon.blendMode = PIXI.BLEND_MODES.ADD;
+
+        this.magnetIcon.anchor.set(0.5, 0.5);
+        this.speedUpIcon.anchor.set(0.5, 0.5);
+
+        this.magnetIcon.y = - 100;
+        this.speedUpIcon.y = - 100;
+        this.speedUpIcon.visible = false;
+        this.magnetIcon.visible = false;
+
+        this.t = 0;
+
+        this.gameModel.extraStatusUpdated.add((extraID, isOn) => {        
+            if (extraID === EItemsID.SPEED_UP){
+                this.speedUpIcon.visible = isOn;
+            }
+            if (extraID === EItemsID.MAGNET){
+                this.magnetIcon.visible = isOn;
+            }
+        });
     }
+
+    animate() {
+        this.t += 0.1;
+        this.magnetIcon.x =  30 * Math.cos(this.t) * Math.sin(this.t);
+        this.magnetIcon.y =  20 * Math.sin(this.t) - 100;
+
+        this.speedUpIcon.x =  30 * Math.cos(this.t + Math.PI) * Math.sin(this.t);
+        this.speedUpIcon.y =  20 * Math.sin(this.t + Math.PI) - 100;
+
+
+    }
+
+
+    
 }
