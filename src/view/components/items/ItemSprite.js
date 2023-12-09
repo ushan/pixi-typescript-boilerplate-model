@@ -17,7 +17,7 @@ class ItemSprite extends Pseudo3DSprite {
      * @param { GameScreen } gameScreen 
      */
     constructor(posInRow, itemKind, gameModel, gameScreen) {
-        super(gameScreen, itemKind.resource);
+        super(gameScreen, ItemSprite.getResourse(itemKind.resource));
         ItemSprite.count ++;
         this.posInRow = posInRow;
         this.itemKind = itemKind;
@@ -101,6 +101,20 @@ class ItemSprite extends Pseudo3DSprite {
     // update3DPoseByPosInRow() {
         // this.point3D.x = this.get3DXByPosInRow(this.posInRow);
     // }
+
+    /**
+     * @access private
+     * @param {(string | Array.<string>)} data 
+     * @returns {string}
+     */
+    static getResourse(data) {
+        if (Array.isArray(data)) {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            return data[randomIndex];
+        } else {
+            return data
+        }
+    }
 
     /**
      * @access protected

@@ -102,8 +102,10 @@ class GameModel {
     } */
 
     createItemKinds() {   
-        const scorePlusItem1 = new ItemKind(EItemsID.PLUS10, ResourceList.GOOD_1, EItemType.SCORES, 10, 0, "good", true);
-        const scorePlusItem2 = new ItemKind(EItemsID.PLUS20, ResourceList.GOOD_2, EItemType.SCORES, 20, 0, "good", true);
+        const scorePlusItem1 = new ItemKind(EItemsID.PLUS10, ResourceList.PRODUCTS_10_LIST, 
+            EItemType.SCORES, 10, 0, "good", true);
+        const scorePlusItem2 = new ItemKind(EItemsID.PLUS20, ResourceList.PRODUCTS_10_LIST, 
+            EItemType.SCORES, 20, 0, "good", true);
         const scoreMinusItem = new ItemKind(EItemsID.MINUS10, ResourceList.BAD_1, EItemType.SCORES, -10, 0, "bad", false);
         const secondsMinusItem = new ItemKind(EItemsID.MINUS_N_SECONDS, ResourceList.ITEM_TIMEMINUS, EItemType.TIME, 0, -10, "bad", false);
         const secondsPlusItem = new ItemKind(EItemsID.PLUS_N_SECONDS, ResourceList.ITEM_TIMEPLUS, EItemType.TIME, 0, 10, "good", false);

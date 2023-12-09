@@ -24,7 +24,7 @@ class AppConfig {
      */
     static settings3D = {
         focalLength: 10,
-        scaleZoom: 16,
+        scaleZoom: 26,
         horyzontPos: 0.2,
         animationSped: 1 * 5,
         worldSize: 1000,

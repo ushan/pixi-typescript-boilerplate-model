@@ -3,7 +3,7 @@ class ItemKind {
     /**
      * 
      * @param {string} id 
-     * @param {string} resource 
+     * @param {(string | Array<string>)} resource 
      * @param {('scores' | 'time' | 'magnet' | 'speedUp')} itemType 
      * @param {number} scores 
      * @param {number} time 
