@@ -2,8 +2,35 @@ import ProgressBarCapsule from "./ProgressBarCapsule";
 import gsap from "gsap";
 
 class ProgressBarElastic extends ProgressBarCapsule {
-    constructor(progressColor) {
+    /**
+     * 
+     * @param {number} progressColor - The color of the progress bar
+     * @param {("elastic" | "linear" | "none")} easeType - The type of animation changing the progress bar
+     * @param {number} minimalAnimatedStep - The minimal difference of value when the progress is animated
+     * @param {number} animDuration - The duration of animation
+     */
+    constructor(progressColor, animType, minimalAnimatedStep, animDuration = 1) {
         super(progressColor);
+        this.animType = animType;
+        this.minimalAnimatedStep = minimalAnimatedStep;
+        this.ease = "none";
+        this.animDuration = animDuration;
+
+        switch (animType) {
+            case "elastic":
+                this.ease = "elastic.out(1,0.2)";
+            break;
+            case "linear":
+                this.ease = "none";
+            break;
+            case "none":
+                this.ease = "none";
+            break;
+            default:
+                this.ease = "none";
+
+        }
+
         this._progress = 0;
     }
 
@@ -28,11 +55,16 @@ class ProgressBarElastic extends ProgressBarCapsule {
         if (Math.abs(value - this._progress) < 0.05) {
             this.visualProgress = value;
         } else {
-            gsap.to(this, {
-                visualProgress: value,
-                ease: "elastic.out(1,0.2)",
-                duration: 1
-            });
+            if (this.animType !== "none"){
+                gsap.to(this, {
+                    visualProgress: value,
+                    ease: this.ease,
+                    duration: this.animDuration
+                });
+            } else {
+                this.visualProgress = value;
+            }
+
         }
         this._progress = value;
         // this.drawComponent();

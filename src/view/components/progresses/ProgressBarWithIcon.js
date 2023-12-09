@@ -3,8 +3,8 @@ import SpriteCommon from "../common/SpriteCommon";
 import ProgressBarElastic from "./ProgressBarElastic";
 
 class ProgressBarWithIcon extends ProgressBarElastic{
-    constructor(iconTextureID, progressColor){
-        super(progressColor);
+    constructor(iconTextureID, progressColor, animType, minimalAnimatedStep, animDuration){
+        super(progressColor, animType, minimalAnimatedStep, animDuration);
         this.iconHolder = new SpriteCommon(iconTextureID);
         const disckOverMargin = this.getDiskOverMargin(this.iconHolder.height / 2, this.bg.height);
         this.iconHolder.alpha = 1;

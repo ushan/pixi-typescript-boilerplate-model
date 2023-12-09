@@ -289,6 +289,7 @@ class GameModel {
             this.magnetCount ++;
             if (this.magnetCount > magnetItemsCount){
                 this.isMagnet = false;
+                this.extraStatusUpdated.dispatch(EItemsID.MAGNET, false);
                 this.magnetCount = 0;
             }
         }
@@ -333,10 +334,10 @@ class GameModel {
                 this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
                 if (this.magnetTimeOut) {
                     clearTimeout(this.magnetTimeOut);
-                    this.extraStatusUpdated.dispatch(EItemsID.SPEED_UP, false);
                 }
                 this.magnetTimeOut = setTimeout(() => {
                     this.isMagnet = false;
+                    this.extraStatusUpdated.dispatch(EItemsID.MAGNET, false);
                 }, magnetMaxDuration);
                 this.magnetTimeLeft = Math.round(magnetMaxDuration / 1000);
                 this.extraStatusUpdated.dispatch(EItemsID.MAGNET, true);

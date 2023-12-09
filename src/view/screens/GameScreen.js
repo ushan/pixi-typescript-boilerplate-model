@@ -156,8 +156,8 @@ class GameScreen extends PIXI.Container {
             this.timerProgressBar.setPercetageByTime(this.gameModel.timeLeft);
             const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
             this.timeLeftProgressBar.progress = this.gameModel.timeLeft / timeMax;
-            this.magnetProgress.progress = this.gameModel.magnetTimeLeft * 1000 / magnetMaxDuration;
-            this.speedUpProgress.progress = this.gameModel.speedUpTimeLeft * 1000 / speedUpDuration;
+            // this.magnetProgress.progress = this.gameModel.magnetTimeLeft * 1000 / magnetMaxDuration;
+            // this.speedUpProgress.progress = this.gameModel.speedUpTimeLeft * 1000 / speedUpDuration;
         };
 
         this.onGameStateUpdated = () => {
@@ -190,15 +190,25 @@ class GameScreen extends PIXI.Container {
             if (extraID === EItemsID.SPEED_UP){
                 if (isOn) {
                     this.speedUpProgress.alpha = 1;
+                    this.speedUpProgress.visualProgress = 1;
+                    this.speedUpProgress.progress = 1;
+                    this.speedUpProgress.animDuration = AppConfig.gameSettings.speedUpDuration / 1000;
+                    this.speedUpProgress.progress = 0;
                 } else {
                     this.speedUpProgress.alpha = 0.6;
+                    
                 }
             }
             if (extraID === EItemsID.MAGNET){
                 if (isOn) {
                     this.magnetProgress.alpha = 1;
+                    this.magnetProgress.visualProgress = 1;
+                    this.magnetProgress.progress = 1;
+                    this.magnetProgress.animDuration = AppConfig.gameSettings.magnetMaxDuration / 1000;
+                    this.magnetProgress.progress = 0;
                 } else {
                     this.magnetProgress.alpha = 0.6;
+                    this.magnetProgress.visualProgress = 0;
                 }
             }
         };
