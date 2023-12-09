@@ -43,7 +43,7 @@ class ProgressBarElastic extends ProgressBarCapsule {
 
     /**
      * @access public
-     * @param {number} value
+     * @param {number} value - this param we need for dispalying animated changing of progress time. If 
      * @returns {}
      */
     set progress(value) {
@@ -56,7 +56,7 @@ class ProgressBarElastic extends ProgressBarCapsule {
             this.visualProgress = value;
         } else {
             if (this.animType !== "none"){
-                gsap.to(this, {
+                this.gsapAnimation = gsap.to(this, {
                     visualProgress: value,
                     ease: this.ease,
                     duration: this.animDuration
@@ -69,6 +69,10 @@ class ProgressBarElastic extends ProgressBarCapsule {
         this._progress = value;
         // this.drawComponent();
 
+    }
+
+    clearAnimation() {
+        if (this.gsapAnimation) this.gsapAnimation.kill();
     }
 
 }

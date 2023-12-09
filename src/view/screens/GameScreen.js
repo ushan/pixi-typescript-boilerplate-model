@@ -158,6 +158,8 @@ class GameScreen extends PIXI.Container {
             this.timeLeftProgressBar.progress = this.gameModel.timeLeft / timeMax;
             // this.magnetProgress.progress = this.gameModel.magnetTimeLeft * 1000 / magnetMaxDuration;
             // this.speedUpProgress.progress = this.gameModel.speedUpTimeLeft * 1000 / speedUpDuration;
+            this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
+            this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
         };
 
         this.onGameStateUpdated = () => {
@@ -204,8 +206,10 @@ class GameScreen extends PIXI.Container {
                     this.magnetProgress.alpha = 1;
                     this.magnetProgress.visualProgress = 1;
                     this.magnetProgress.progress = 1;
-                    this.magnetProgress.animDuration = AppConfig.gameSettings.magnetMaxDuration / 1000;
-                    this.magnetProgress.progress = 0;
+                    this.magnetProgress.clearAnimation();
+                    this.magnetProgress.animDuration = 3;
+                    // this.magnetProgress.animDuration = AppConfig.gameSettings.magnetMaxDuration / 1000;
+                    // this.magnetProgress.progress = 0;
                 } else {
                     this.magnetProgress.alpha = 0.6;
                     this.magnetProgress.visualProgress = 0;
@@ -269,9 +273,19 @@ class GameScreen extends PIXI.Container {
         this.app.ticker.add((delta) => {
             if (this.gameModel.gameState !== EGameStates.playing) return
             this.t += delta;
+            this.gameModel.updateLastMSTime(this.app.ticker.lastTime);
             const speed = this.blockSpace3Dz * (this.app.ticker.deltaMS / (this.gameModel.speed * 1000));
             // const speed = this.blockSpace3Dz * (delta / )
             this.items.forEach(c => { c.point3D.z -= speed * this.gameModel.speedUpFactor; });
+
+            const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
+            if (this.gameModel.isMagnet) {
+                this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
+            }
+            if (this.gameModel.speedUpFactor > 1) {
+                this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
+            }
+
         });
         window.addEventListener('keydown', (e) => {
             if (e.code === 'ArrowRight') {

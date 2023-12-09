@@ -10,9 +10,7 @@ import EItemsID from "./EItemsID";
 
 export const EGameStates = Object.freeze({"stop":1, "playing":2});
 
-const { animationSpeed} = AppConfig.settings3D;
 const { magnetItemsCount} = AppConfig.settings;
-const { magnetMaxDuration, speedUpDuration} = AppConfig.gameSettings;
 
 class GameModel {
     static _instance;
@@ -37,8 +35,11 @@ class GameModel {
         this._scores = 0;
         this._timeLeft = 120;
         this.timeSpent = 0;
-        this.magnetTimeLeft = 0;
-        this.speedUpTimeLeft = 0;
+        this.lastTimeMS = 0;
+        this.magnetTimeLeftMS = 0;
+        this.speedUpTimeLeftMS = 0;
+        this.lastMagnetTimeMS = 0;
+        this.lastSpeedUpTimeMS = 0;
         this._cartLine = 0;
         this.goodProductsCount = 0;
         this.init();
@@ -135,11 +136,12 @@ class GameModel {
     update() {
     }
 
+    /**
+     * we do not need to update some params every frame so we update them each the second
+     */
     updateTime() {
         this.timeSpent ++;
         this.updateTimeLevel();
-        // this.updateTimeLevel();
-        // if (this.timeSpent % 30 === 0) this.updateTimeLevel();
         this.updateTimeLeft();
     }
 
@@ -148,8 +150,10 @@ class GameModel {
         if (this.timeLeft <= 0) {
             this.stopGame();
         }
-        if (this.speedUpTimeLeft > 0) this.speedUpTimeLeft --;
-        if (this.magnetTimeLeft > 0) this.magnetTimeLeft --;
+
+        //We switched to ms and everyframe update
+        // if (this.speedUpTimeLeft > 0) this.speedUpTimeLeft --;
+        // if (this.magnetTimeLeft > 0) this.magnetTimeLeft --;
     }
 
     updateTimeLevel() {
@@ -285,6 +289,8 @@ class GameModel {
      * @param {ItemSprite} item 
      */
     addCautchItem(item){
+        const { magnetMaxDuration, speedUpDuration} = AppConfig.gameSettings;
+
         if (this.isMagnet) { //N items are cautch with  magnet
             this.magnetCount ++;
             if (this.magnetCount > magnetItemsCount){
@@ -326,7 +332,8 @@ class GameModel {
                     this.speedUpFactor = 1;
                     this.extraStatusUpdated.dispatch(EItemsID.SPEED_UP, false);
                 }, speedUpDuration);
-                this.speedUpTimeLeft = Math.round(speedUpDuration / 1000);
+                this.speedUpTimeLeftMS = speedUpDuration;
+                this.lastSpeedUpTimeMS = this.lastTimeMS;
                 this.extraStatusUpdated.dispatch(EItemsID.SPEED_UP, true);
             }
             if (item.itemKind.id === EItemsID.MAGNET) {
@@ -339,10 +346,19 @@ class GameModel {
                     this.isMagnet = false;
                     this.extraStatusUpdated.dispatch(EItemsID.MAGNET, false);
                 }, magnetMaxDuration);
-                this.magnetTimeLeft = Math.round(magnetMaxDuration / 1000);
+                this.magnetTimeLeftMS = magnetMaxDuration;
+                this.lastMagnetTimeMS = this.lastTimeMS;
                 this.extraStatusUpdated.dispatch(EItemsID.MAGNET, true);
             }
         }
+    }
+
+    updateExtrasTime() {
+        const { magnetMaxDuration, speedUpDuration} = AppConfig.gameSettings;
+        const magnetTimeSpentMS = this.lastTimeMS - this.lastMagnetTimeMS;
+        this.magnetTimeLeftMS = magnetMaxDuration - magnetTimeSpentMS;
+        const speedUpTimeSpentMS = this.lastTimeMS - this.lastSpeedUpTimeMS
+        this.speedUpTimeLeftMS = speedUpDuration - speedUpTimeSpentMS;
     }
       
 
@@ -408,9 +424,20 @@ class GameModel {
      * @access public
      * @param {(-1 | 0 | 1)} toLeft //The direction of changing the cart line
      */
-        registerSetCartPos(pos) {
-            this.cartLine = pos;
-        }
+    registerSetCartPos(pos) {
+        this.cartLine = pos;
+    }
+
+    /**
+     * 
+     * @param {number} value - the lasttime value from PIXI ticker. Some timer doesn't make sens 
+     * to be updated every frame some params we update each the second some each the frame. 
+     * These params are updated every frame
+     */
+    updateLastMSTime(value) {
+        this.lastTimeMS = value;
+        this.updateExtrasTime();
+    }
 
 
 }
