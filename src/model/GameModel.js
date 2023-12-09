@@ -26,6 +26,7 @@ class GameModel {
         this.cartLineUpdated = new MiniSignal();
         this.speedUpdated = new MiniSignal();
         this.extraCoutch = new MiniSignal();
+        this.extraStatusUpdated = new MiniSignal();
         this.itemKinds = this.createItemKinds();
         this.gameState = EGameStates.stop;
         this._speed = 1.6;
@@ -36,6 +37,8 @@ class GameModel {
         this._scores = 0;
         this._timeLeft = 120;
         this.timeSpent = 0;
+        this.magnetTimeLeft = 0;
+        this.speedUpTimeLeft = 0;
         this._cartLine = 0;
         this.goodProductsCount = 0;
         this.init();
@@ -145,6 +148,8 @@ class GameModel {
         if (this.timeLeft <= 0) {
             this.stopGame();
         }
+        if (this.speedUpTimeLeft > 0) this.speedUpTimeLeft --;
+        if (this.magnetTimeLeft > 0) this.magnetTimeLeft --;
     }
 
     updateTimeLevel() {
@@ -318,17 +323,23 @@ class GameModel {
                 }
                 this.speedUpTimeOut = setTimeout(() => {
                     this.speedUpFactor = 1;
+                    this.extraStatusUpdated.dispatch(EItemsID.SPEED_UP, false);
                 }, speedUpDuration);
+                this.speedUpTimeLeft = Math.round(speedUpDuration / 1000);
+                this.extraStatusUpdated.dispatch(EItemsID.SPEED_UP, true);
             }
             if (item.itemKind.id === EItemsID.MAGNET) {
                 this.isMagnet = true;
                 this.magnetCount = 0; //we double duration of bugnet by timeout and itemscount
                 if (this.magnetTimeOut) {
                     clearTimeout(this.magnetTimeOut);
+                    this.extraStatusUpdated.dispatch(EItemsID.SPEED_UP, false);
                 }
                 this.magnetTimeOut = setTimeout(() => {
                     this.isMagnet = false;
                 }, magnetMaxDuration);
+                this.magnetTimeLeft = Math.round(magnetMaxDuration / 1000);
+                this.extraStatusUpdated.dispatch(EItemsID.MAGNET, true);
             }
         }
     }

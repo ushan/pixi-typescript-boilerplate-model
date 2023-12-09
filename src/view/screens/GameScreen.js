@@ -18,6 +18,7 @@ import ProgressBarWithIcon from '../components/progresses/ProgressBarWithIcon';
 import TimeLeftProgressBar from '../components/progresses/TimeLeftProgressBar';
 import MagnetProgress from '../components/progresses/MagnetProgress';
 import SpeedUpProgress from '../components/progresses/SpeedUpProgress';
+import EItemsID from '../../model/EItemsID';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;
@@ -94,14 +95,11 @@ class GameScreen extends PIXI.Container {
                 align: 'center'
             });
             this.claculateParams();
-            // this.startSpeed = this.
 
             this.addControls();
 
             this.scoresPanel.addChild(this.scoresText);
-            // this.scoresPanel.addChild(this.progressBar);
             this.scoresPanel.addChild(this.timerProgressBar);
-            // this.scoresPanel.addChild(this.progressBarWithIcon);
             this.addChild(this.timeLeftProgressBar);
             this.addChild(this.magnetProgress);
             this.addChild(this.speedUpProgress);
@@ -115,8 +113,10 @@ class GameScreen extends PIXI.Container {
             this.timeLeftProgressBar.y = 120;
             this.magnetProgress.x = 60;
             this.magnetProgress.y = 190;
-            this.magnetProgress.x = 60;
-            this.magnetProgress.y = 210;
+            this.speedUpProgress.x = 60;
+            this.speedUpProgress.y = 260;
+            this.speedUpProgress.alpha = 0.6;
+            this.magnetProgress.alpha = 0.6;
             // this.timeLeftText.x = gameWidth - 100;
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
@@ -154,9 +154,10 @@ class GameScreen extends PIXI.Container {
                 this.timeLeftText.text = `${this.gameModel.timeLeft} s`
             }
             this.timerProgressBar.setPercetageByTime(this.gameModel.timeLeft);
-            const { timeMax } = AppConfig.gameSettings;
+            const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
             this.timeLeftProgressBar.progress = this.gameModel.timeLeft / timeMax;
-            // this.magnetProgress.progress = Math.random();
+            this.magnetProgress.progress = this.gameModel.magnetTimeLeft * 1000 / magnetMaxDuration;
+            this.speedUpProgress.progress = this.gameModel.speedUpTimeLeft * 1000 / speedUpDuration;
         };
 
         this.onGameStateUpdated = () => {
@@ -179,9 +180,26 @@ class GameScreen extends PIXI.Container {
             gsap.to(this.cartOver, { x: trgX, duration: 0.3 })
         };
 
-        this.onExtraCoutch = (item) => {
-            if (item.itemKind.id === "speedUp" || item.itemKind.id === "magnet"){
+        this.onExtraCoutch = (item) => {           
+            if (item.itemKind.id === EItemsID.SPEED_UP|| item.itemKind.id === EItemsID.MAGNET){
                 this.addScoreBallon(item, item.itemKind.id);
+            }
+        };
+
+        this.onExtraStatusUpdated = (extraID, isOn) => {           
+            if (extraID === EItemsID.SPEED_UP){
+                if (isOn) {
+                    this.speedUpProgress.alpha = 1;
+                } else {
+                    this.speedUpProgress.alpha = 0.6;
+                }
+            }
+            if (extraID === EItemsID.MAGNET){
+                if (isOn) {
+                    this.magnetProgress.alpha = 1;
+                } else {
+                    this.magnetProgress.alpha = 0.6;
+                }
             }
         };
 
@@ -195,7 +213,6 @@ class GameScreen extends PIXI.Container {
             this.items.forEach((item) => {
                 item.updatePosByPoint3D();
             });
-            // this.countdown.position.set(app.screen.width / 2, app.screen.height / 2);
             this.countdown.position.set(gameWidth / 2, gameHeight / 2);
 
             this.timeLeftText.x = gameWidth - 90;
@@ -219,6 +236,7 @@ class GameScreen extends PIXI.Container {
         this.gameModel.gameStateUpdated.add(this.onGameStateUpdated);
         this.gameModel.cartLineUpdated.add(this.onCartLineUpdated);
         this.gameModel.extraCoutch.add(this.onExtraCoutch);
+        this.gameModel.extraStatusUpdated.add(this.onExtraStatusUpdated);
         this.gameModel.speedUpdated.add(this.onSpeedUpdated);
 
         AppConfig.sizeUpdated.add(this.onResize);
@@ -258,6 +276,10 @@ class GameScreen extends PIXI.Container {
 
     moveToCart(item) {
         this.cart.cloneItem(item);
+    };
+
+    updateExtras(item) {
+        // if (this.gameModel.isMagnet)
     };
 
     animate (delta = 0) {
