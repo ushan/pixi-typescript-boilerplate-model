@@ -56,7 +56,6 @@ class ProgressBarCapsule extends PIXI.Container{
         // if (value === this._cWidth) return
         this._cWidth = value;
         this.drawComponent();
-
     }
 
     drawComponent() {

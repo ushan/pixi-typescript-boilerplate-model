@@ -28,8 +28,11 @@ class PanelInfo extends PIXI.Container {
         this.updateTimeLeft = (item, timeIncrement) => {
             const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
             this.timeLeftProgressBar.progress = this.gameModel.timeLeft / timeMax;
+            this.timeLeftProgressBar.label.text = this.gameModel.timeLeft;
+            this.timeLeftProgressBar.resizeLabel();
             this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
             this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
+
         };
 
         this.onGameStateUpdated = () => {
@@ -83,6 +86,10 @@ class PanelInfo extends PIXI.Container {
         this.addChildren();
 
         this.updateExtras();
+
+        this.updateTimeLeft();
+
+        // this.onResize();
 
  
     }

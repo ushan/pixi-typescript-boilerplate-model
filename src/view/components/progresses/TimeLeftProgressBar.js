@@ -1,3 +1,4 @@
+import { Text } from 'pixi.js';
 import ResourceList from "../../../resources/ResourceList";
 import SpriteCommon from "../common/SpriteCommon";
 import ProgressBarWithIcon from "./ProgressBarWithIcon";
@@ -14,11 +15,38 @@ class TimeLeftProgressBar extends ProgressBarWithIcon {
         const xAnchor =  - this.iconHolder.x
         // this.anchor.set(-0.45, 0);
         this.addChild(this.arrow);
+
+        this.label = new Text('0', {
+            fontFamily: 'LithosProBlack',
+            fontSize: 48,
+            fill: 0x000000,
+            letterSpacing: -5,
+            align: 'left'
+        });
+        this.addChild(this.label);
+        this.resizeLabel();
     }
 
     drawProgress() {
         super.drawProgress();
         if (this.arrow) this.arrow.rotation = Math.PI * 2 * this._visualProgress;
+    }
+
+    /**
+     * @access public
+     * @param {number} value 
+     * @returns {}
+     */
+    setComponentWidth(value){
+        super.setComponentWidth(value);
+
+    }
+
+    /**
+     * @access public
+     */
+    resizeLabel() {
+        if (this.label) this.label.x = this.bg.width - this.label.width - 10;
     }
 }
 
