@@ -36,6 +36,9 @@ ResourceList.PRGS_DISK_EXTRA_MAGNET = `./assets/progress/disk-extra-magnet.png`;
 ResourceList.PRGS_DISK_EXTRA_SPEEDUP = `./assets/progress/disk-extra-speedup.png`;    
 ResourceList.PRGS_DISK_TIMER = `./assets/progress/disk-timer.png`;  
 
+ResourceList.MSC_INFOBOX_BG = `./assets/misc/infobox-bg.png`;  
+ResourceList.MSC_COIN = `./assets/misc/coin.png`;  
+
 //10 points
 ResourceList.PRD_ABUELITA = `./assets/products/abuelita.png`;
 ResourceList.PRD_BACHOCO = `./assets/products/bachoco.png`;
@@ -107,6 +110,9 @@ ResourceList.LIST = [
     ResourceList.PRGS_DISK_EXTRA_MAGNET,  
     ResourceList.PRGS_DISK_EXTRA_SPEEDUP,  
     ResourceList.PRGS_DISK_TIMER,
+
+    ResourceList.MSC_INFOBOX_BG,  
+    ResourceList.MSC_COIN,
 
     //Products
     ResourceList.PRD_ABUELITA,

@@ -7,19 +7,13 @@ import gsap from "gsap";
 import { AppConfig } from '../../config/AppConfig';
 import ItemSprite from '../components/items/ItemSprite';
 import { Cart, CartOver } from '../components/items/Cart';
-import ProgressBar from '../components/ProgressBar';
 import Background3D from '../components/items/Background3D';
 import Countdown from '../components/CountDown';
 import ScoreBallon from '../components/ScoreBallon';
 import { SoundManager } from '../../resources/SoundManager';
 import KeyPad from '../components/KeyPad';
-import TimerProgressBar from '../components/progresses/TimerProgressBar';
-import ProgressBarWithIcon from '../components/progresses/ProgressBarWithIcon';
-import TimeLeftProgressBar from '../components/progresses/TimeLeftProgressBar';
-import MagnetProgress from '../components/progresses/MagnetProgress';
-import SpeedUpProgress from '../components/progresses/SpeedUpProgress';
 import EItemsID from '../../model/EItemsID';
-import PanelInfo from '../components/PanelInfo';
+import PanelInfo from '../components/info/PanelInfo';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;

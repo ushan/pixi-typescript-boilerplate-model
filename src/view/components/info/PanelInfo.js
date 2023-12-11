@@ -1,10 +1,11 @@
 import * as PIXI from 'pixi.js';
-import ProgressBar from './ProgressBar';
-import TimeLeftProgressBar from './progresses/TimeLeftProgressBar';
-import MagnetProgress from './progresses/MagnetProgress';
-import SpeedUpProgress from './progresses/SpeedUpProgress';
-import { AppConfig } from '../../config/AppConfig';
-import EItemsID from '../../model/EItemsID';
+import ProgressBar from '../ProgressBar';
+import TimeLeftProgressBar from '../progresses/TimeLeftProgressBar';
+import MagnetProgress from '../progresses/MagnetProgress';
+import SpeedUpProgress from '../progresses/SpeedUpProgress';
+import { AppConfig } from '../../../config/AppConfig';
+import EItemsID from '../../../model/EItemsID';
+import ScoreInfo from './ScoreInfo';
 
 class PanelInfo extends PIXI.Container {
     constructor(gameModel) {
@@ -15,11 +16,13 @@ class PanelInfo extends PIXI.Container {
         this.timeLeftProgressBar = new TimeLeftProgressBar();
         this.magnetProgress = new MagnetProgress();
         this.speedUpProgress = new SpeedUpProgress();
+        this.scoreInfo = new ScoreInfo();
 
         
 
         this.updateScores = (item, scores) => {
             const { levelMaxScores } = AppConfig.gameSettings;
+            this.scoreInfo.label.text = this.gameModel.scores;
         };
 
         this.updateTimeLeft = (item, timeIncrement) => {
@@ -85,14 +88,20 @@ class PanelInfo extends PIXI.Container {
     }
 
     addChildren() {
+        const { gameWidth, gameHeight  } = AppConfig.settings;
 
         this.addChild(this.timeLeftProgressBar);
         this.addChild(this.magnetProgress);
         this.addChild(this.speedUpProgress);
+        this.addChild(this.scoreInfo);
         this.magnetProgress.progress = 0;
 
         this.timeLeftProgressBar.x = 0;
         this.timeLeftProgressBar.y = 0;
+
+        // this.scoreInfo.width = 150;
+        // this.scoreInfo = gameWidth - this.scoreInfo.width - 20;
+        this.scoreInfo.x = 200;
 
         this.magnetProgress.x = 60;
         this.magnetProgress.y = 190;
