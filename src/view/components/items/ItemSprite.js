@@ -48,8 +48,10 @@ class ItemSprite extends Pseudo3DSprite {
         const zMagnetPosition = 30;
         if (this.gameModel.isMagnet && this.point3D.z < zMagnetPosition && this.itemKind.magnetable) {
             const distInMagnet = zMagnetPosition - this.point3D.z;
-            const distOfMagnet = zMagnetPosition - zCartPosition;
-            const f =   1 -  0.5 * Math.abs((Math.pow (distInMagnet / distOfMagnet, 1/2)));
+            // const distOfMagnet = zMagnetPosition - zCartPosition;
+            const distOfMagnet = zMagnetPosition - zCartPosition + 15;
+            // const f =   1 -  0.5 * Math.abs((Math.pow (distInMagnet / distOfMagnet, 1/2)));
+            const f =   1 -  (distInMagnet / distOfMagnet);
             this.point3D._x = this._axis3Dx * f;
             
         }

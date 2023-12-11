@@ -11,6 +11,12 @@ class ProgressBarWithIcon extends ProgressBarElastic{
         this.iconHolder.y =  - (this.iconHolder.height - this.bg.height) / 2;
         this.iconHolder.x =  - (this.iconHolder.width) + disckOverMargin;
         this.addChild(this.iconHolder);
+        
+
+    }
+
+
+    setTopLeft(topX, topY) {
 
     }
 

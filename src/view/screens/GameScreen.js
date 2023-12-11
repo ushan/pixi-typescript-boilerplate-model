@@ -19,6 +19,7 @@ import TimeLeftProgressBar from '../components/progresses/TimeLeftProgressBar';
 import MagnetProgress from '../components/progresses/MagnetProgress';
 import SpeedUpProgress from '../components/progresses/SpeedUpProgress';
 import EItemsID from '../../model/EItemsID';
+import PanelInfo from '../components/PanelInfo';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;
@@ -48,11 +49,8 @@ class GameScreen extends PIXI.Container {
         this.scoreBallonsCont = new PIXI.Container;
         this.keyPad = new KeyPad(gameModel);
         this.scoresPanel = new PIXI.Container;
-        this.progressBar = new ProgressBar(120, 4);
-        this.timerProgressBar = new TimerProgressBar();
-        this.timeLeftProgressBar = new TimeLeftProgressBar();
-        this.magnetProgress = new MagnetProgress();
-        this.speedUpProgress = new SpeedUpProgress();
+        this.panelInfo = new PanelInfo(gameModel);
+
         this.countdown = new Countdown();
         
 
@@ -76,9 +74,7 @@ class GameScreen extends PIXI.Container {
             this.cartOver.anchor.set(0.5, 1);
             this.cartOver.y = gameHeight;
             this.cartOver.x = gameWidth / 2;
-            this.addChild(this.scoresPanel);
-
-            
+            this.addChild(this.panelInfo);
 
             this.scoresText = new Text('0/0', {
                 fontFamily: 'Arial',
@@ -98,26 +94,13 @@ class GameScreen extends PIXI.Container {
 
             this.addControls();
 
-            this.scoresPanel.addChild(this.scoresText);
-            this.scoresPanel.addChild(this.timerProgressBar);
-            this.addChild(this.timeLeftProgressBar);
-            this.addChild(this.magnetProgress);
-            this.addChild(this.speedUpProgress);
-            this.magnetProgress.progress = 0;
-            this.scoresPanel.addChild(this.timeLeftText);
-            this.scoresPanel.x = 10;
-            // this.scoresPanel.y = 10;
-            this.timerProgressBar.y = 30;
-            this.timerProgressBar.x = 50;
-            this.timeLeftProgressBar.x = 80;
-            this.timeLeftProgressBar.y = 120;
-            this.magnetProgress.x = 60;
-            this.magnetProgress.y = 190;
-            this.speedUpProgress.x = 60;
-            this.speedUpProgress.y = 260;
-            this.speedUpProgress.alpha = 0.6;
-            this.magnetProgress.alpha = 0.6;
-            // this.timeLeftText.x = gameWidth - 100;
+            this.addChild(this.scoresText);
+            // this.scoresPanel.addChild(this.timerProgressBar);
+            this.addChild(this.timeLeftText);
+
+            this.panelInfo.x = 100;
+            this.panelInfo.y = 100;
+
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
             this.updateTimeLeft();
@@ -143,8 +126,6 @@ class GameScreen extends PIXI.Container {
             this.addScoreBallon(item, 'scores', scores);
             if (this.scoresText) {
                 this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
-                this.progressBar.progress = this.gameModel.scores / levelMaxScores;
-                this.scoresText.x = (this.progressBar.width - this.scoresText.width) / 2;
             }
         };
 
@@ -153,13 +134,6 @@ class GameScreen extends PIXI.Container {
             if (this.timeLeftText) {
                 this.timeLeftText.text = `${this.gameModel.timeLeft} s`
             }
-            this.timerProgressBar.setPercetageByTime(this.gameModel.timeLeft);
-            const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
-            this.timeLeftProgressBar.progress = this.gameModel.timeLeft / timeMax;
-            // this.magnetProgress.progress = this.gameModel.magnetTimeLeft * 1000 / magnetMaxDuration;
-            // this.speedUpProgress.progress = this.gameModel.speedUpTimeLeft * 1000 / speedUpDuration;
-            this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
-            this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
         };
 
         this.onGameStateUpdated = () => {
@@ -189,24 +163,7 @@ class GameScreen extends PIXI.Container {
         };
 
         this.onExtraStatusUpdated = (extraID, isOn) => {           
-            if (extraID === EItemsID.SPEED_UP){
-                if (isOn) {
-                    this.speedUpProgress.alpha = 1;
-                    this.speedUpProgress.visualProgress = 1;
-                } else {
-                    this.speedUpProgress.alpha = 0.6;
-                    
-                }
-            }
-            if (extraID === EItemsID.MAGNET){
-                if (isOn) {
-                    this.magnetProgress.alpha = 1;
-                    this.magnetProgress.visualProgress = 1;
-                } else {
-                    this.magnetProgress.alpha = 0.6;
-                    this.magnetProgress.visualProgress = 0;
-                }
-            }
+
         };
 
         this.onSpeedUpdated = (item) => {
@@ -230,7 +187,6 @@ class GameScreen extends PIXI.Container {
 
             this.bgImage.width = gameWidth;
             this.bgImage.height = gameHeight;
-            this.timeLeftProgressBar.setComponentWidth(gameWidth / 2);
 
         };
         
@@ -271,8 +227,6 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => { c.point3D.z -= speed * this.gameModel.speedUpFactor; });
 
             if (this.cartOver) this.cartOver.animate();
-
-            this.updateExtras();
         });
 
         window.addEventListener('keydown', (e) => {
@@ -288,16 +242,6 @@ class GameScreen extends PIXI.Container {
 
     moveToCart(item) {
         this.cart.cloneItem(item);
-    };
-
-    updateExtras(item) {
-        const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
-        if (this.gameModel.isMagnet) {
-            this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
-        }
-        if (this.gameModel.speedUpFactor > 1) {
-            this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
-        }
     };
 
     animate (delta = 0) {
