@@ -70,30 +70,13 @@ class GameScreen extends PIXI.Container {
             this.cartOver.x = gameWidth / 2;
             this.addChild(this.panelInfo);
 
-            this.scoresText = new Text('0/0', {
-                fontFamily: 'Arial',
-                fontWeight: 'bold',
-                fontSize: 24,
-                fill: 0x9f1212,
-                align: 'center'
-            });
-            this.timeLeftText = new Text('0s', {
-                fontFamily: 'Arial',
-                fontWeight: 'bold',
-                fontSize: 24,
-                fill: 0xeeeeee,
-                align: 'center'
-            });
             this.claculateParams();
 
             this.addControls();
 
-            this.addChild(this.scoresText);
-            // this.scoresPanel.addChild(this.timerProgressBar);
-            this.addChild(this.timeLeftText);
 
-            this.panelInfo.x = 100;
-            this.panelInfo.y = 100;
+            this.panelInfo.x = 10;
+            this.panelInfo.y = 20;
 
             this.addChild(this.scoreBallonsCont);
             this.updateScores();
@@ -116,18 +99,11 @@ class GameScreen extends PIXI.Container {
 
         this.updateScores = (item, scores) => {
             const { levelMaxScores } = AppConfig.gameSettings;
-
             this.addScoreBallon(item, 'scores', scores);
-            if (this.scoresText) {
-                this.scoresText.text = `${this.gameModel.scores} / ${levelMaxScores}`;
-            }
         };
 
         this.updateTimeLeft = (item, timeIncrement) => {
             if (timeIncrement > 0) this.addScoreBallon(item, 'time', timeIncrement);
-            if (this.timeLeftText) {
-                this.timeLeftText.text = `${this.gameModel.timeLeft} s`
-            }
         };
 
         this.onGameStateUpdated = () => {
@@ -171,8 +147,6 @@ class GameScreen extends PIXI.Container {
                 item.updatePosByPoint3D();
             });
             this.countdown.position.set(gameWidth / 2, gameHeight / 2);
-
-            this.timeLeftText.x = gameWidth - 90;
 
             this.cart.y = gameHeight;;
             this.cartOver.y = gameHeight;;

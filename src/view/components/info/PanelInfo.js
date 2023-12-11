@@ -11,7 +11,7 @@ class PanelInfo extends PIXI.Container {
     constructor(gameModel) {
         super();
         this.gameModel = gameModel;
-        this.progressBar = new ProgressBar(120, 4);
+        // this.progressBar = new ProgressBar(120, 4);
         // this.timerProgressBar = new TimerProgressBar();
         this.timeLeftProgressBar = new TimeLeftProgressBar();
         this.magnetProgress = new MagnetProgress();
@@ -54,7 +54,7 @@ class PanelInfo extends PIXI.Container {
                     this.speedUpProgress.alpha = 1;
                     this.speedUpProgress.visualProgress = 1;
                 } else {
-                    this.speedUpProgress.alpha = 0.6;
+                    this.speedUpProgress.alpha = 0;
                     
                 }
             }
@@ -63,7 +63,7 @@ class PanelInfo extends PIXI.Container {
                     this.magnetProgress.alpha = 1;
                     this.magnetProgress.visualProgress = 1;
                 } else {
-                    this.magnetProgress.alpha = 0.6;
+                    this.magnetProgress.alpha = 0;
                     this.magnetProgress.visualProgress = 0;
                 }
             }
@@ -71,7 +71,9 @@ class PanelInfo extends PIXI.Container {
 
         this.onResize = (item) => {
             const { gameWidth, gameHeight } = AppConfig.settings;
-            this.timeLeftProgressBar.setComponentWidth(gameWidth / 2);
+            this.timeLeftProgressBar.setComponentWidth(gameWidth * 1);
+            this.scoreInfo.setComponentWidth(gameWidth * 0.5);
+            this.scoreInfo.x = gameWidth - this.scoreInfo.width - 26;
 
         };
 
@@ -89,13 +91,14 @@ class PanelInfo extends PIXI.Container {
 
         this.updateTimeLeft();
 
-        // this.onResize();
+        this.onResize();
 
  
     }
 
     addChildren() {
         const { gameWidth, gameHeight  } = AppConfig.settings;
+        const pad = 5;
 
         this.addChild(this.timeLeftProgressBar);
         this.addChild(this.magnetProgress);
@@ -103,21 +106,23 @@ class PanelInfo extends PIXI.Container {
         this.addChild(this.scoreInfo);
         this.magnetProgress.progress = 0;
 
-        this.timeLeftProgressBar.x = 0;
+        this.timeLeftProgressBar.x = 50;
         this.timeLeftProgressBar.y = 0;
 
         // this.scoreInfo.width = 150;
         // this.scoreInfo = gameWidth - this.scoreInfo.width - 20;
-        this.scoreInfo.x = 200;
+        this.scoreInfo.x = this.timeLeftProgressBar.x + this.timeLeftProgressBar.width + pad;
 
-        this.magnetProgress.x = 60;
-        this.magnetProgress.y = 190;
+        this.speedUpProgress.x = this.timeLeftProgressBar.x - 20;
+        this.speedUpProgress.y = this.timeLeftProgressBar.y + this.timeLeftProgressBar.height + pad - 5;
 
-        this.speedUpProgress.x = 60;
-        this.speedUpProgress.y = 260;
+        this.magnetProgress.x = this.speedUpProgress.x;
+        this.magnetProgress.y = this.speedUpProgress.y + this.speedUpProgress.height + pad;
 
-        this.speedUpProgress.alpha = 0.6;
-        this.magnetProgress.alpha = 0.6;
+
+
+        this.speedUpProgress.alpha = 0;
+        this.magnetProgress.alpha = 0;
         // this.timeLeftText.x = gameWidth - 100;
     }
 

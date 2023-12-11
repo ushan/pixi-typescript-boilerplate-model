@@ -37,8 +37,8 @@ class InfoBox extends PIXI.Container {
      * @access public
      * @param {number} value sets Scale with kkeping 9 cells corner not transformed
      */
-    setWidth(value) {
-        this.bg = value;
+    setComponentWidth(value) {
+        this.bg.width = value;
     }
 }
 
