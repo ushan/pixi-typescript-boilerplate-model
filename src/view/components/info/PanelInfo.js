@@ -6,10 +6,13 @@ import SpeedUpProgress from '../progresses/SpeedUpProgress';
 import { AppConfig } from '../../../config/AppConfig';
 import EItemsID from '../../../model/EItemsID';
 import ScoreInfo from './ScoreInfo';
+import gsap from "gsap";
 
 class PanelInfo extends PIXI.Container {
     constructor(gameModel) {
         super();
+        this._magnetIsOn = false;
+        this._speedUpIsOn = false;
         this.gameModel = gameModel;
         // this.progressBar = new ProgressBar(120, 4);
         // this.timerProgressBar = new TimerProgressBar();
@@ -50,24 +53,14 @@ class PanelInfo extends PIXI.Container {
 
         this.onExtraStatusUpdated = (extraID, isOn) => {           
             if (extraID === EItemsID.SPEED_UP){
-                if (isOn) {
-                    this.speedUpProgress.alpha = 1;
-                    this.speedUpProgress.visualProgress = 1;
-                } else {
-                    this.speedUpProgress.alpha = 0;
-                    
-                }
+                this.speedUpIsOn = isOn;
             }
             if (extraID === EItemsID.MAGNET){
-                if (isOn) {
-                    this.magnetProgress.alpha = 1;
-                    this.magnetProgress.visualProgress = 1;
-                } else {
-                    this.magnetProgress.alpha = 0;
-                    this.magnetProgress.visualProgress = 0;
-                }
+                this.magnetIsOn = isOn
             }
         };
+
+        
 
         this.onResize = (item) => {
             const { gameWidth, gameHeight } = AppConfig.settings;
@@ -119,11 +112,7 @@ class PanelInfo extends PIXI.Container {
         this.magnetProgress.x = this.speedUpProgress.x;
         this.magnetProgress.y = this.speedUpProgress.y + this.speedUpProgress.height + pad;
 
-
-
-        this.speedUpProgress.alpha = 0;
-        this.magnetProgress.alpha = 0;
-        // this.timeLeftText.x = gameWidth - 100;
+        this.initPwerUpVision();
     }
 
     updateExtras(item) {
@@ -135,6 +124,58 @@ class PanelInfo extends PIXI.Container {
             this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
         }
     };
+
+    get magnetIsOn() { return this._magnetIsOn; }
+    set magnetIsOn(value) {
+        if (value === this._magnetIsOn) return
+        this._magnetIsOn = value;
+        if (value) {
+            this.magnetProgress.alpha = 0;
+            this.magnetProgress.visible = true;
+            this.magnetProgress.visualProgress = 1;
+            gsap.to(this.magnetProgress, {
+                alpha: 1,
+                duration: 0.3
+            });
+        } else {
+            gsap.to(this.magnetProgress, {
+                alpha: 0,
+                duration: 0.3,
+                onComplete: () => this.magnetProgress.visible = false,
+            });
+        }
+        
+    }
+
+    initPwerUpVision() {
+        this.speedUpIsOn = false;
+        this.magnetIsOn = false;
+        this.magnetProgress.alpha = 0;
+        this.magnetProgress.visualProgress = 1;
+        this.speedUpProgress.alpha = 0;
+        this.speedUpProgress.visualProgress = 1;
+    }
+
+    get speedUpIsOn() { return this._speedUpIsOn; }
+    set speedUpIsOn(value) {
+        if (value === this._speedUpIsOn) return
+        this._speedUpIsOn = value; 
+        if (value) {
+            this.speedUpProgress.alpha = 0;
+            this.speedUpProgress.visible = true;
+            this.speedUpProgress.visualProgress = 1;
+            gsap.to(this.speedUpProgress, {
+                alpha: 1,
+                duration: 0.3
+            });
+        } else {
+            gsap.to(this.speedUpProgress, {
+                alpha: 0,
+                duration: 0.3,
+                onComplete: () => this.speedUpProgress.visible = false,
+            });
+        }
+    }
 }
 
 export default PanelInfo

@@ -195,6 +195,7 @@ class GameScreen extends PIXI.Container {
             this.items.forEach(c => { c.point3D.z -= speed * this.gameModel.speedUpFactor; });
 
             if (this.cartOver) this.cartOver.animate();
+            this.panelInfo.updateExtras();
         });
 
         window.addEventListener('keydown', (e) => {

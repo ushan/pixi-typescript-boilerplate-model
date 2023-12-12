@@ -38,6 +38,9 @@ ResourceList.PRGS_DISK_TIMER = `./assets/progress/disk-timer.png`;
 
 ResourceList.MSC_INFOBOX_BG = `./assets/misc/infobox-bg.png`;  
 ResourceList.MSC_COIN = `./assets/misc/coin.png`;  
+ResourceList.MSC_BTN_MUTE = `./assets/misc/btn_mute`;  
+ResourceList.MSC_BTN_UNMUTE = `./assets/misc/btn_unmute`;  
+ResourceList.MSC_CLOSE = `./assets/misc/btn_close`;  
 
 //10 points
 ResourceList.PRD_ABUELITA = `./assets/products/abuelita.png`;
@@ -113,6 +116,9 @@ ResourceList.LIST = [
 
     ResourceList.MSC_INFOBOX_BG,  
     ResourceList.MSC_COIN,
+    ResourceList.MSC_BTN_MUTE,
+    ResourceList.MSC_BTN_UNMUTE,
+    ResourceList.MSC_CLOSE,
 
     //Products
     ResourceList.PRD_ABUELITA,

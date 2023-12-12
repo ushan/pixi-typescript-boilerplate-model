@@ -11,7 +11,7 @@ class TimeLeftProgressBar extends ProgressBarWithIcon {
         const center = this.getIconCeter();
         this.arrow.x = center.x
         this.arrow.y = center.y;
-        // this.arrow.anchor.set(0.15, 0.5);
+        this.arrow.anchor.set(0.15, 0.5);
         const xAnchor =  - this.iconHolder.x
         // this.anchor.set(-0.45, 0);
         this.addChild(this.arrow);
@@ -39,6 +39,7 @@ class TimeLeftProgressBar extends ProgressBarWithIcon {
      */
     setComponentWidth(value){
         super.setComponentWidth(value);
+        this.resizeLabel();
 
     }
 
