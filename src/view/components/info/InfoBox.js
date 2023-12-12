@@ -24,7 +24,7 @@ class InfoBox extends PIXI.Container {
         this.addChild(this.label);
         // this.bg.scale.set(0.5, 0.5);
         this.scale.set(0.5, 0.5);
-        this.bg.width = 500;
+        // this.bg.width = 500;
         this.icon.anchor.set(0.5, 0.5);
         this.icon.y = this.bg.height / 2;
         this.icon.x =  this.bg.height / 2;
@@ -35,7 +35,7 @@ class InfoBox extends PIXI.Container {
 
     /**
      * @access public
-     * @param {number} value sets Scale with kkeping 9 cells corner not transformed
+     * @param {number} value sets Scale with keeping 9 cells corner not transformed
      */
     setComponentWidth(value) {
         this.bg.width = value;

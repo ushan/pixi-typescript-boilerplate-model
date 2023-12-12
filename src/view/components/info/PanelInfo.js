@@ -24,7 +24,8 @@ class PanelInfo extends PIXI.Container {
         this.magnetProgress = new MagnetProgress();
         this.speedUpProgress = new SpeedUpProgress();
         this.scoreInfo = new ScoreInfo();
-
+        this.btnMute = new SpriteCommon(ResourceList.MSC_BTN_MUTE);
+        this.btnClose = new SpriteCommon(ResourceList.MSC_BTN_CLOSE);
         
 
         this.updateScores = (item, scores) => {
@@ -72,8 +73,16 @@ class PanelInfo extends PIXI.Container {
             this.topBannerAd.x = gameWidth / 2;
             this.topBannerAd.y = 115;
             this.timeLeftProgressBar.setComponentWidth(gameWidth * 1);
-            this.scoreInfo.setComponentWidth(gameWidth * 0.5);
-            this.scoreInfo.x = gameWidth - this.scoreInfo.width - 26;
+
+            this.btnClose.x = gameWidth - this.btnClose.width + 5;
+            this.btnMute.x = gameWidth - this.btnMute.width + 5;
+
+            this.scoreInfo.setComponentWidth(gameWidth * 0.3);
+            this.scoreInfo.x = this.btnClose.x - this.btnClose.width - 10 - this.scoreInfo.width;
+
+            this.scoreInfo.setComponentWidth(gameWidth * 0.3);
+
+
 
         };
 
@@ -86,13 +95,11 @@ class PanelInfo extends PIXI.Container {
         AppConfig.sizeUpdated.add(this.onResize);
 
         this.addChildren();
-
         this.updateExtras();
-
         this.updateTimeLeft();
-
         this.onResize();
 
+        this.addButtons();
  
     }
 
@@ -115,8 +122,8 @@ class PanelInfo extends PIXI.Container {
         this.timeLeftProgressBar.y = 0;
 
         // this.scoreInfo.width = 150;
-        // this.scoreInfo = gameWidth - this.scoreInfo.width - 20;
-        this.scoreInfo.x = this.timeLeftProgressBar.x + this.timeLeftProgressBar.width + pad;
+        this.scoreInfo.x = gameWidth - this.scoreInfo.width - 100;
+        // this.scoreInfo.x = this.timeLeftProgressBar.x + this.timeLeftProgressBar.width + pad;
 
         this.speedUpProgress.x = this.timeLeftProgressBar.x - 20;
         this.speedUpProgress.y = this.timeLeftProgressBar.y + this.timeLeftProgressBar.height + pad - 5;
@@ -125,6 +132,18 @@ class PanelInfo extends PIXI.Container {
         this.magnetProgress.y = this.speedUpProgress.y + this.speedUpProgress.height + pad;
 
         this.initPwerUpVision();
+        this.addButtons();
+    }
+
+    addButtons() {
+        this.addChild(this.btnClose);
+        this.addChild(this.btnMute);
+
+        this.btnClose.anchor.set(1, 0);
+        this.btnMute.anchor.set(1, 0);
+
+        this.btnClose.y = this.scoreInfo.y;
+        this.btnMute.y = this.btnClose.y + this.btnClose.height + 10
     }
 
     updateExtras(item) {

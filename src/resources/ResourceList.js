@@ -40,7 +40,7 @@ ResourceList.MSC_INFOBOX_BG = `./assets/misc/infobox-bg.png`;
 ResourceList.MSC_COIN = `./assets/misc/coin.png`;  
 ResourceList.MSC_BTN_MUTE = `./assets/misc/btn_mute.png`;  
 ResourceList.MSC_BTN_UNMUTE = `./assets/misc/btn_unmute.png`;  
-ResourceList.MSC_CLOSE = `./assets/misc/btn_close.png`;  
+ResourceList.MSC_BTN_CLOSE = `./assets/misc/btn_close.png`;  
 ResourceList.MSC_TOP_BANNER = `./assets/misc/top-banner.png`;  
 ResourceList.MSC_TOP_BANNER_AD_1 = `./assets/misc/top-banner-ad1.png`;  
 
@@ -120,7 +120,7 @@ ResourceList.LIST = [
     ResourceList.MSC_COIN,
     ResourceList.MSC_BTN_MUTE,
     ResourceList.MSC_BTN_UNMUTE,
-    ResourceList.MSC_CLOSE,
+    ResourceList.MSC_BTN_CLOSE,
     ResourceList.MSC_TOP_BANNER,
     ResourceList.MSC_TOP_BANNER_AD_1,
 
