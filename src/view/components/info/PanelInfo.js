@@ -7,6 +7,8 @@ import { AppConfig } from '../../../config/AppConfig';
 import EItemsID from '../../../model/EItemsID';
 import ScoreInfo from './ScoreInfo';
 import gsap from "gsap";
+import SpriteCommon from '../common/SpriteCommon';
+import ResourceList from '../../../resources/ResourceList';
 
 class PanelInfo extends PIXI.Container {
     constructor(gameModel) {
@@ -14,6 +16,8 @@ class PanelInfo extends PIXI.Container {
         this._magnetIsOn = false;
         this._speedUpIsOn = false;
         this.gameModel = gameModel;
+        this.topBanner = new SpriteCommon(ResourceList.MSC_TOP_BANNER);
+        this.topBannerAd = new SpriteCommon(ResourceList.MSC_TOP_BANNER_AD_1);
         // this.progressBar = new ProgressBar(120, 4);
         // this.timerProgressBar = new TimerProgressBar();
         this.timeLeftProgressBar = new TimeLeftProgressBar();
@@ -64,6 +68,9 @@ class PanelInfo extends PIXI.Container {
 
         this.onResize = (item) => {
             const { gameWidth, gameHeight } = AppConfig.settings;
+            this.topBanner.x = gameWidth / 2;
+            this.topBannerAd.x = gameWidth / 2;
+            this.topBannerAd.y = 115;
             this.timeLeftProgressBar.setComponentWidth(gameWidth * 1);
             this.scoreInfo.setComponentWidth(gameWidth * 0.5);
             this.scoreInfo.x = gameWidth - this.scoreInfo.width - 26;
@@ -91,6 +98,11 @@ class PanelInfo extends PIXI.Container {
 
     addChildren() {
         const { gameWidth, gameHeight  } = AppConfig.settings;
+        this.addChild(this.topBanner);
+        this.topBanner.anchor.set(0.5, 0);
+        this.addChild(this.topBannerAd);
+        this.topBannerAd.anchor.set(0.5, 0.5);
+
         const pad = 5;
 
         this.addChild(this.timeLeftProgressBar);
