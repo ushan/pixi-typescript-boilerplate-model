@@ -43,6 +43,7 @@ ResourceList.MSC_BTN_UNMUTE = `./assets/misc/btn_unmute.png`;
 ResourceList.MSC_BTN_CLOSE = `./assets/misc/btn_close.png`;  
 ResourceList.MSC_TOP_BANNER = `./assets/misc/top-banner.png`;  
 ResourceList.MSC_TOP_BANNER_AD_1 = `./assets/misc/top-banner-ad1.png`;  
+ResourceList.MSC_MIST = `./assets/misc/mist.png`;  
 
 ResourceList.COUNTDOWN_1 = `./assets/countdown/count1.png`;  
 ResourceList.COUNTDOWN_2 = `./assets/countdown/count2.png`;  
@@ -129,6 +130,7 @@ ResourceList.LIST = [
     ResourceList.MSC_BTN_CLOSE,
     ResourceList.MSC_TOP_BANNER,
     ResourceList.MSC_TOP_BANNER_AD_1,
+    ResourceList.MSC_MIST,
 
     ResourceList.COUNTDOWN_1,
     ResourceList.COUNTDOWN_2,

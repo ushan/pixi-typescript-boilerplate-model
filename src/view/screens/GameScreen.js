@@ -36,6 +36,11 @@ class GameScreen extends PIXI.Container {
 
         this.items = [];
         this.itemsCont = new PIXI.Container;
+        this.mist = new SpriteCommon(ResourceList.MSC_MIST);
+        this.mist.anchor.set(0.5, 0.1);
+        this.mist.scale.set(1.3, 1);
+        this.mist.alpha = 0.6;
+
 
         this.cart = new Cart();
         this.cartOver = new CartOver(this.gameModel);
@@ -58,6 +63,7 @@ class GameScreen extends PIXI.Container {
             this.addChild(this.bg);
             this.bg.alpha = 0.3;
             this.addChild(this.itemsCont);
+            this.addChild(this.mist);
             this.addChild(this.cart);
             this.cart.scale.set(1);
             this.cart.anchor.set(0.5, 1);
@@ -142,10 +148,14 @@ class GameScreen extends PIXI.Container {
 
         this.onResize = (item) => {
             const { gameWidth, gameHeight } = AppConfig.settings;
+            const { horyzontPos} = AppConfig.settings3D;
 
             this.items.forEach((item) => {
                 item.updatePosByPoint3D();
             });
+
+            this.mist.x = gameWidth / 2;
+            this.mist.y = gameHeight * horyzontPos;
             this.countdown.position.set(gameWidth / 2, gameHeight / 2);
 
             this.cart.y = gameHeight;;
