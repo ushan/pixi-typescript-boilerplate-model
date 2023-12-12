@@ -77,14 +77,13 @@ class PanelInfo extends PIXI.Container {
             this.topBannerAd.x = gameWidth / 2;
             this.topBannerAd.y = 115;
             this.timeLeftProgressBar.setComponentWidth(gameWidth / 2);
-
+            this.scoreInfo.setComponentWidth(300);
             this.btnClose.x = gameWidth - this.btnClose.width + 5;
             this.btnMuteCont.x = gameWidth - this.btnMute.width + 5;
 
-            this.scoreInfo.setComponentWidth(gameWidth * 0.5);
             this.scoreInfo.x = this.btnClose.x - this.btnClose.width - 10 - this.scoreInfo.width;
 
-            this.scoreInfo.setComponentWidth(gameWidth * 0.3);
+            
 
 
 

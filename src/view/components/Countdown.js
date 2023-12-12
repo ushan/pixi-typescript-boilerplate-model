@@ -3,6 +3,8 @@ import { AnimatedSprite } from 'pixi.js';
 import { gsap } from 'gsap';
 import StartButton from './StartButton';
 import { AppConfig } from '../../config/AppConfig';
+import SpriteCommon from './common/SpriteCommon';
+import ResourceList from '../../resources/ResourceList';
 
 class Countdown extends PIXI.Container {
     constructor() {
@@ -19,11 +21,18 @@ class Countdown extends PIXI.Container {
         
         this.addChild(this.bg);
         this.redrawBG();
-
+/* 
         this.text3 = new PIXI.Text('3', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
         this.text2 = new PIXI.Text('2', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
         this.text1 = new PIXI.Text('1', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
-        this.text0 = new PIXI.Text('Go!', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF });
+        this.text0 = new PIXI.Text('Go!', { fontSize: 148, fontFamily:'LithosProBlack', fill: 0xFFFFFF }); */
+
+        
+        this.text3 = new SpriteCommon(ResourceList.COUNTDOWN_3);
+        this.text2 = new SpriteCommon(ResourceList.COUNTDOWN_2);
+        this.text1 = new SpriteCommon(ResourceList.COUNTDOWN_1);
+        this.text0 = new SpriteCommon(ResourceList.COUNTDOWN_GO);
+
 
         this.startButton = new StartButton();
         this.addChild(this.startButton);

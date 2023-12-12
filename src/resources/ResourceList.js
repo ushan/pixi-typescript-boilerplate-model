@@ -44,6 +44,12 @@ ResourceList.MSC_BTN_CLOSE = `./assets/misc/btn_close.png`;
 ResourceList.MSC_TOP_BANNER = `./assets/misc/top-banner.png`;  
 ResourceList.MSC_TOP_BANNER_AD_1 = `./assets/misc/top-banner-ad1.png`;  
 
+ResourceList.COUNTDOWN_1 = `./assets/countdown/count1.png`;  
+ResourceList.COUNTDOWN_2 = `./assets/countdown/count2.png`;  
+ResourceList.COUNTDOWN_3 = `./assets/countdown/count3.png`;  
+ResourceList.COUNTDOWN_GO = `./assets/countdown/count-go.png`;  
+
+
 //10 points
 ResourceList.PRD_ABUELITA = `./assets/products/abuelita.png`;
 ResourceList.PRD_BACHOCO = `./assets/products/bachoco.png`;
@@ -123,6 +129,11 @@ ResourceList.LIST = [
     ResourceList.MSC_BTN_CLOSE,
     ResourceList.MSC_TOP_BANNER,
     ResourceList.MSC_TOP_BANNER_AD_1,
+
+    ResourceList.COUNTDOWN_1,
+    ResourceList.COUNTDOWN_2,
+    ResourceList.COUNTDOWN_3,
+    ResourceList.COUNTDOWN_GO,
 
     //Products
     ResourceList.PRD_ABUELITA,
