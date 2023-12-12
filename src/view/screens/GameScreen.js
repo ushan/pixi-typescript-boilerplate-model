@@ -43,7 +43,7 @@ class GameScreen extends PIXI.Container {
         this.scoreBallonsCont = new PIXI.Container;
         this.keyPad = new KeyPad(gameModel);
         this.scoresPanel = new PIXI.Container;
-        this.panelInfo = new PanelInfo(gameModel);
+        this.panelInfo = new PanelInfo(gameModel, this);
 
         this.countdown = new Countdown();
         

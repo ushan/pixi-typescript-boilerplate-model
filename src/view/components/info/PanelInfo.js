@@ -11,11 +11,12 @@ import SpriteCommon from '../common/SpriteCommon';
 import ResourceList from '../../../resources/ResourceList';
 
 class PanelInfo extends PIXI.Container {
-    constructor(gameModel) {
+    constructor(gameModel, gameScreen) {
         super();
         this._magnetIsOn = false;
         this._speedUpIsOn = false;
         this.gameModel = gameModel;
+        this.gameScreen = gameScreen;
         this.topBanner = new SpriteCommon(ResourceList.MSC_TOP_BANNER);
         this.topBannerAd = new SpriteCommon(ResourceList.MSC_TOP_BANNER_AD_1);
         // this.progressBar = new ProgressBar(120, 4);
@@ -24,8 +25,11 @@ class PanelInfo extends PIXI.Container {
         this.magnetProgress = new MagnetProgress();
         this.speedUpProgress = new SpeedUpProgress();
         this.scoreInfo = new ScoreInfo();
+        this.btnMuteCont = new PIXI.Container();
         this.btnMute = new SpriteCommon(ResourceList.MSC_BTN_MUTE);
+        this.btnUnMute = new SpriteCommon(ResourceList.MSC_BTN_UNMUTE);
         this.btnClose = new SpriteCommon(ResourceList.MSC_BTN_CLOSE);
+
         
 
         this.updateScores = (item, scores) => {
@@ -72,12 +76,12 @@ class PanelInfo extends PIXI.Container {
             this.topBanner.x = gameWidth / 2;
             this.topBannerAd.x = gameWidth / 2;
             this.topBannerAd.y = 115;
-            this.timeLeftProgressBar.setComponentWidth(gameWidth * 1);
+            this.timeLeftProgressBar.setComponentWidth(gameWidth / 2);
 
             this.btnClose.x = gameWidth - this.btnClose.width + 5;
-            this.btnMute.x = gameWidth - this.btnMute.width + 5;
+            this.btnMuteCont.x = gameWidth - this.btnMute.width + 5;
 
-            this.scoreInfo.setComponentWidth(gameWidth * 0.3);
+            this.scoreInfo.setComponentWidth(gameWidth * 0.5);
             this.scoreInfo.x = this.btnClose.x - this.btnClose.width - 10 - this.scoreInfo.width;
 
             this.scoreInfo.setComponentWidth(gameWidth * 0.3);
@@ -107,6 +111,7 @@ class PanelInfo extends PIXI.Container {
         const { gameWidth, gameHeight  } = AppConfig.settings;
         this.addChild(this.topBanner);
         this.topBanner.anchor.set(0.5, 0);
+
         this.addChild(this.topBannerAd);
         this.topBannerAd.anchor.set(0.5, 0.5);
 
@@ -132,19 +137,51 @@ class PanelInfo extends PIXI.Container {
         this.magnetProgress.y = this.speedUpProgress.y + this.speedUpProgress.height + pad;
 
         this.initPwerUpVision();
-        this.addButtons();
     }
 
     addButtons() {
         this.addChild(this.btnClose);
-        this.addChild(this.btnMute);
+        this.addChild(this.btnMuteCont);
+        this.btnMuteCont.addChild(this.btnMute);
+        this.btnMuteCont.addChild(this.btnUnMute);
 
         this.btnClose.anchor.set(1, 0);
         this.btnMute.anchor.set(1, 0);
+        this.btnUnMute.anchor.set(1, 0);
+        this.btnUnMute.alpha = 0.5;
 
         this.btnClose.y = this.scoreInfo.y;
-        this.btnMute.y = this.btnClose.y + this.btnClose.height + 10
+        this.btnMuteCont.y = this.btnClose.y + this.btnClose.height + 10;
+
+        this.btnClose.eventMode = "dynamic";
+        this.btnMuteCont.eventMode = "dynamic";
+
+        this.btnClose.cursor = "pointer";
+        this.btnMuteCont.cursor = "pointer";
+
+
+         this.btnClose.on('pointerdown', () => {
+            console.log("close app");
+        }); 
+        
+        this.btnMuteCont.on('pointerdown', () => {
+            this.gameScreen.soundManager.isSoundOn = !this.gameScreen.soundManager.isSoundOn;
+            this.switchBtnMuteStatus();
+        });
+
     }
+
+    switchBtnMuteStatus(isSoundOn) {
+        if (this.gameScreen.soundManager.isSoundOn) {
+            this.btnMute.visible = true;
+            this.btnUnMute.visible = false;
+        } else {
+            this.btnMute.visible = false;
+            this.btnUnMute.visible = true;
+        }
+    }
+
+
 
     updateExtras(item) {
         const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
