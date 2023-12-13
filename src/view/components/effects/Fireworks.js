@@ -8,7 +8,7 @@ class Fireworks extends PIXI.ParticleContainer  {
         super();
         // this.particles = new Array();
         this.frameCounter = 0;
-
+        this.addOnEachFrame = 1;
 
         this.addParticle();
         this.addParticle();
@@ -17,9 +17,18 @@ class Fireworks extends PIXI.ParticleContainer  {
 
     update() {
         this.frameCounter ++;
-        if (this.frameCounter % 1 === 0) {
-            this.addParticle();
+        if (this.addOnEachFrame > 1){
+            if (this.frameCounter % this.addOnEachFrame === 0) {
+                this.addParticle();
+            }
+        } else {
+            const n = 1 / this.addOnEachFrame;
+            for (let i = 0; i < n; i++) {
+                this.addParticle();
+                
+            }
         }
+
 
         for (const p of this.children) {
             if (p instanceof Particle){
