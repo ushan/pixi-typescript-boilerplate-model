@@ -56,6 +56,12 @@ class AppConfig {
         itemDropDuration: 0.2,
         displayItemsInCart: 30
     };
+
+    /** 
+     * @readonly
+     */
+        static particleSettings = {
+        };
 }
 
 export { AppConfig };

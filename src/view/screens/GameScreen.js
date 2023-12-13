@@ -14,6 +14,7 @@ import { SoundManager } from '../../resources/SoundManager';
 import KeyPad from '../components/KeyPad';
 import EItemsID from '../../model/EItemsID';
 import PanelInfo from '../components/info/PanelInfo';
+import Fireworks from '../components/effects/Fireworks';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;
@@ -51,6 +52,8 @@ class GameScreen extends PIXI.Container {
         this.panelInfo = new PanelInfo(gameModel, this);
 
         this.countdown = new Countdown();
+
+
         
 
         this.initialSpeed = this.gameModel.speed * this.gameModel.speedUpFactor;
@@ -96,6 +99,7 @@ class GameScreen extends PIXI.Container {
             this.countdown.on('countdownComplete', () => {
                 this.start();
             });
+
 
             this.onResize();
   
