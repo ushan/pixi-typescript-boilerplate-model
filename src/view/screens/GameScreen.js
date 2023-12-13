@@ -66,7 +66,7 @@ class GameScreen extends PIXI.Container {
 
             this.addChild(this.bgImage);
             this.addChild(this.bg);
-            this.bg.alpha = 0.3;
+            this.bg.alpha = 0.9;
             this.addChild(this.itemsCont);
             this.addChild(this.mist);
             this.addChild(this.cart);

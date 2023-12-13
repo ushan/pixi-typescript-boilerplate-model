@@ -1,9 +1,14 @@
+import * as PIXI from 'pixi.js';
+import { AppConfig } from "../../config/AppConfig";
 import Point3D from "../../model/pseudo3ds/Point3D";
 
 class Utils3D {
 
     
     static updateConveyorCorners() {
+        const { gameWidth, gameHeight } = AppConfig.settings;
+        const { worldSize, conveyorY, conveyorWidth, focalLength, horyzontPos} = AppConfig.settings3D;
+
         const w = gameWidth;
         const h = gameHeight;
         const centrX = w / 2;
@@ -34,6 +39,20 @@ class Utils3D {
         bottomRight.x = centrX + bottomRight3D.x / (bottomRight3D.z + focalLength);
         bottomRight.y = h * horyzontPos + bottomRight3D.y / (bottomRight3D.z + focalLength);
 
+        const result = { topLeft: topLeft, topRight: topRight, 
+            bottomLeft: bottomLeft, bottomRight: bottomRight}
+        
+        return result
+
 
     }
+
+    static get3DXByPosInRow(pos) {
+        const {worldSize, conveyorWidth} = AppConfig.settings3D;
+
+        const f = 0.5 + pos * 0.35;
+        return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
+    } 
 }
+
+export default Utils3D
