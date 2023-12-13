@@ -50,6 +50,8 @@ class GameScreen extends PIXI.Container {
         this.keyPad = new KeyPad(gameModel);
         this.scoresPanel = new PIXI.Container;
         this.panelInfo = new PanelInfo(gameModel, this);
+        this.fireworks = new Fireworks();
+        
 
         this.countdown = new Countdown();
 
@@ -78,6 +80,7 @@ class GameScreen extends PIXI.Container {
             this.cartOver.y = gameHeight;
             this.cartOver.x = gameWidth / 2;
             this.addChild(this.panelInfo);
+            this.addChild(this.fireworks);
 
             this.claculateParams();
 
@@ -143,7 +146,20 @@ class GameScreen extends PIXI.Container {
         };
 
         this.onExtraStatusUpdated = (extraID, isOn) => {           
-
+            if (extraID === EItemsID.SPEED_UP){
+                if (isOn) {
+                    this.fireworks.addEmmiter(this.cart, 0, -100);
+                } else {
+                    this.fireworks.removeEmmiter(this.cart);
+                }
+            }
+            if (extraID === EItemsID.MAGNET){
+                if (isOn) {
+                    this.fireworks.addEmmiter(this.cart, 0, -100);
+                } else {
+                    this.fireworks.removeEmmiter(this.cart);
+                }
+            }
         };
 
         this.onSpeedUpdated = (item) => {
@@ -210,6 +226,7 @@ class GameScreen extends PIXI.Container {
 
             if (this.cartOver) this.cartOver.animate();
             this.panelInfo.updateExtras();
+            this.fireworks.update();
         });
 
         window.addEventListener('keydown', (e) => {
@@ -221,7 +238,7 @@ class GameScreen extends PIXI.Container {
         });
         this.reRunAddRowInterval();
 
-    }
+        }
 
     moveToCart(item) {
         this.cart.cloneItem(item);
@@ -349,6 +366,7 @@ class GameScreen extends PIXI.Container {
 
         if (item === undefined) return
         let point = item ? {x:item.x, y:item.y} : {x:gameWidth / 2, y:gameHeight / 2};
+        this.fireworks.setImmiterPos(point.x, point.y);
         const scoreBallon = new ScoreBallon(type, value, point);
         this.scoreBallonsCont.addChild(scoreBallon);
         scoreBallon.on('finish', () => {

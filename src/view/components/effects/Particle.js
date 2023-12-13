@@ -8,8 +8,16 @@ class Particle extends SpriteCommon{
      * @param {number} speedAbs - absolute aspeed
      * @param {number} lifeTime - life in frames
      */
-    constructor(resurceName, angle, speedAbs, rSpeed, lifeTime = 200){
+    constructor(    resurceName,
+                    posX,
+                    posY,
+                    angle, 
+                    speedAbs, 
+                    rSpeed, 
+                    lifeTime = 200){
         super(resurceName);
+        this.x = posX;
+        this.y = posY;
         this.lifeTime = lifeTime;
         this.gX = 0;
         this.gY = 0.2;

@@ -7,6 +7,8 @@ class SpriteCommon extends PIXI.Sprite {
         this.resourceName = resourceName;
         this.defaultX = 0;
         this.defaultY = 0;
+        this.emitterDisplaceX = 0;
+        this.emitterDisplaceY = 0;
         this.eventMode = 'dynamic';
         this.texture = ResourceService.getTexture(resourceName);
     }

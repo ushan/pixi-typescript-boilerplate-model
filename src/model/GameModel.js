@@ -88,18 +88,6 @@ class GameModel {
     init() {
         this.createItemKinds();
     }
-    
-/*     createItemModelsDebug() {
-        const arr = [];
-        let itemScores = 1;
-        ResourceList.GOODS_LIST.forEach(resource => {
-            const itemModel = new ItemKind(resource);
-            itemModel.scores = itemScores;
-            itemScores *= 2;
-            arr.push(itemModel);
-        });
-        return arr;
-    } */
 
     createItemKinds() {   
         const scorePlusItem1 = new ItemKind(EItemsID.PLUS10, ResourceList.PRODUCTS_10_LIST, 

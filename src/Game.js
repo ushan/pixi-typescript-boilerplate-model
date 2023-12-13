@@ -21,7 +21,7 @@ class Game extends PIXI.Container {
             requestAnimationFrame(this.animate);
             this.app.renderer.render(this.app.stage);
             this.gameScreen?.animate(delta);
-            this.fireworks?.update();
+
 
         };
     }
@@ -29,13 +29,7 @@ class Game extends PIXI.Container {
     startGame() {
         this.cleanUp();
         this.gameScreen = new GameScreen(this.app, this.gameModel);
-        this.fireworks = new Fireworks();
         this.addChild(this.gameScreen);
-        this.addChild(this.fireworks);
-        const { gameWidth, gameHeight } = AppConfig.settings;
-        this.fireworks.position.set(gameWidth / 2, gameHeight / 2);
-
-
     };
 
     cleanUp() {
