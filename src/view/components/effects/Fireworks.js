@@ -50,8 +50,10 @@ class Fireworks extends PIXI.ParticleContainer  {
      * @param {number} displaceY 
      */
     addEmmiter(emitter, displaceX, displaceY) {
+        
         emitter.emitterDisplaceX = displaceX;
         emitter.emitterDisplaceY = displaceY;
+        if (this.emitters.indexOf(emitter) >  -1) return
         emitter.on('stopEmitting', () => {
             this.removeEmmiter(emitter);
         });
@@ -63,10 +65,11 @@ class Fireworks extends PIXI.ParticleContainer  {
      * @param {Sprite} emitter 
      */
     removeEmmiter(emitter) {
-        const index = this.emitters.indexOf(emitter, 0);
+/*         const index = this.emitters.indexOf(emitter);
         if (index > -1) {
             this.emitters.splice(index, 1);
-        }
+        } */
+        this.emitters = this.emitters.filter(item => item !== emitter);
     }
 
     addParticleToEmitters() {

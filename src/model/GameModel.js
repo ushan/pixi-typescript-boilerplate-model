@@ -94,8 +94,8 @@ class GameModel {
             EItemType.SCORES, 10, 0, "good", true);
         const scorePlusItem2 = new ItemKind(EItemsID.PLUS20, ResourceList.PRODUCTS_10_LIST, 
             EItemType.SCORES, 20, 0, "good", true);
-        const scoreMinusItem = new ItemKind(EItemsID.MINUS10, ResourceList.BAD_1, EItemType.SCORES, -10, 0, "bad", false);
-        const secondsMinusItem = new ItemKind(EItemsID.MINUS_N_SECONDS, ResourceList.ITEM_TIMEMINUS, EItemType.TIME, 0, -10, "bad", false);
+        const scoreMinusItem = new ItemKind(EItemsID.MINUS_N_POINTS, ResourceList.BAD_1, EItemType.SCORES, -50, 0, "bad", false);
+        const secondsMinusItem = new ItemKind(EItemsID.MINUS_N_SECONDS, ResourceList.ITEM_TIMEMINUS, EItemType.TIME, 0, -20, "bad", false);
         const secondsPlusItem = new ItemKind(EItemsID.PLUS_N_SECONDS, ResourceList.ITEM_TIMEPLUS, EItemType.TIME, 0, 10, "good", false);
         const magnetItem = new ItemKind(EItemsID.MAGNET, ResourceList.ITEM_MAGNET, EItemType.MAGNET, 0, 0, "good", false);
         const speedUpItem = new ItemKind(EItemsID.SPEED_UP, ResourceList.ITEM_SPEEDUP, EItemType.SPEED_UP, 0, 0, "good", false);
