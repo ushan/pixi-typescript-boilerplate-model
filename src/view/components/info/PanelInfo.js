@@ -9,6 +9,7 @@ import ScoreInfo from './ScoreInfo';
 import gsap from "gsap";
 import SpriteCommon from '../common/SpriteCommon';
 import ResourceList from '../../../resources/ResourceList';
+import { EGameStates } from '../../../model/GameModel';
 
 class PanelInfo extends PIXI.Container {
     constructor(gameModel, gameScreen) {
@@ -49,10 +50,10 @@ class PanelInfo extends PIXI.Container {
 
         this.onGameStateUpdated = () => {
             if (this.gameModel.gameState === EGameStates.playing){
-
+                this.btnClose.alpha = 1;
             } 
             if (this.gameModel.gameState === EGameStates.stop) {
-
+                this.btnClose.alpha = 0.5;
             };
         };
 
@@ -82,11 +83,6 @@ class PanelInfo extends PIXI.Container {
             this.btnMuteCont.x = gameWidth - this.btnMute.width + 5;
 
             this.scoreInfo.x = this.btnClose.x - this.btnClose.width - 10 - this.scoreInfo.width;
-
-            
-
-
-
         };
 
 
@@ -94,6 +90,7 @@ class PanelInfo extends PIXI.Container {
         this.gameModel.timeLeftUpdated.add(this.updateTimeLeft);
         this.gameModel.extraCoutch.add(this.onExtraCoutch);
         this.gameModel.extraStatusUpdated.add(this.onExtraStatusUpdated);
+        this.gameModel.gameStateUpdated.add(this.onGameStateUpdated);
 
         AppConfig.sizeUpdated.add(this.onResize);
 
@@ -159,8 +156,13 @@ class PanelInfo extends PIXI.Container {
         this.btnMuteCont.cursor = "pointer";
 
 
-         this.btnClose.on('pointerdown', () => {
+        this.btnClose.on('pointerdown', () => {
             console.log("close app");
+            if (this.gameModel.gameState === EGameStates.playing){
+                this.gameModel.stopGame();
+            } else if (this.gameModel.gameState === EGameStates.stop) {
+                this.gameModel.startGame();
+            };
         }); 
         
         this.btnMuteCont.on('pointerdown', () => {
