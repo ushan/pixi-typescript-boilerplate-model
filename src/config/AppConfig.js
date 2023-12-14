@@ -53,7 +53,7 @@ class AppConfig {
      */
     static animationSettings = {
         itemJumpDuration: 0.3,
-        itemDropDuration: 0.2,
+        itemDropDuration: 0.3,
         displayItemsInCart: 30
     };
 

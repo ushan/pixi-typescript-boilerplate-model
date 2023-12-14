@@ -27,7 +27,7 @@ export class Cart extends SpriteCommon {
         };
 
         this.anymateInCartFinish = (clone) => {
-                        gsap.to(clone, {
+                gsap.to(clone, {
                 x: clone.inCartPoint.x,
                 y: clone.inCartPoint.y,
                 rotation: Math.random() * Math.PI / 2 - Math.PI / 4,
@@ -35,7 +35,15 @@ export class Cart extends SpriteCommon {
                 delay: 0,
                 duration: itemDropDuration
             });
+            gsap.to(clone.scale, {
+                x: 0.9,
+                y: 0.9,
+                // ease: "power2.out",
+                duration: 0.3
+            }); 
+            
         };
+
         gsap.registerPlugin(PixiPlugin);
         this.addChild(this.itemsCont);
     }
@@ -63,8 +71,8 @@ export class Cart extends SpriteCommon {
 
     getTargetPoint() {
         const p = new Point();
-        p.x = Math.random() * 120 - 50;
-        p.y = Math.random() * 110 - 55;
+        p.x = Math.random() * 90 - 45;
+        p.y = Math.random() * 50 - 70;
         return p;
     }
 
@@ -109,11 +117,15 @@ export class CartOver extends SpriteCommon {
 
     animate() {
         this.t += 0.1;
-        this.magnetIcon.x =  30 * Math.cos(this.t) * Math.sin(this.t);
-        this.magnetIcon.y =  20 * Math.sin(this.t) - 100;
+        this.magnetIcon.x =  8 * Math.cos(this.t) * Math.sin(this.t);
+        this.magnetIcon.y =  6 * Math.sin(this.t) - 100;
+        const sc = 1 +  Math.sin(this.t) / 20;
+        this.magnetIcon.scale.set(sc, sc);
 
-        this.speedUpIcon.x =  30 * Math.cos(this.t + Math.PI) * Math.sin(this.t);
-        this.speedUpIcon.y =  20 * Math.sin(this.t + Math.PI) - 100;
+        this.speedUpIcon.x =  8 * Math.cos(this.t + Math.PI) * Math.sin(this.t);
+        this.speedUpIcon.y =  8 * Math.sin(this.t + Math.PI) - 100;
+
+        this.speedUpIcon.scale.set(sc, sc);
 
 
     }

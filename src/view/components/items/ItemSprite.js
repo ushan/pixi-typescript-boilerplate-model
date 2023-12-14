@@ -74,12 +74,13 @@ class ItemSprite extends Pseudo3DSprite {
                     ease: "power2.out",
                     duration: 0.3
                 });
-                gsap.to(this.scale, {
+/*                 gsap.to(this.scale, {
                     x: 0.6,
                     y: 0.6,
                     ease: "power2.out",
                     duration: 0.3
-                });
+                }); 
+                */
             }
             else {
 
