@@ -22,9 +22,17 @@ class Pseudo3DSprite extends SpriteCommon {
         const w = gameWidth;
         const h = gameHeight;
         const centrX = w / 2;
-        this.x = centrX + this.point3D.x / (this.point3D.z + focalLength);
+/*         this.x = centrX + this.point3D.x / (this.point3D.z + focalLength);
+        this.y = h * horyzontPos + this.point3D.y / (this.point3D.z + focalLength);
+        const sc = itemsExtraScale * scaleZoom * 1 / (this.point3D.z + focalLength); */
+
+        const cameraOffsetX = 0;
+
+        this.x = centrX + (this.point3D.x - cameraOffsetX) / (this.point3D.z + focalLength);
         this.y = h * horyzontPos + this.point3D.y / (this.point3D.z + focalLength);
         const sc = itemsExtraScale * scaleZoom * 1 / (this.point3D.z + focalLength);
+
+
         this.scale.set(sc, sc);
 
         if (this.point3D.z < -20 && this.outOfBoundsCallback) {

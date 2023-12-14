@@ -18,15 +18,16 @@ const app = new PIXI.Application(options);
 
 window['globalThis']['__PIXI_APP__'] = app;
 
-
+const onResize = () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+    AppConfig.updateSize(window.innerWidth, window.innerHeight);
+}
 
 const init = () => {
-    window.addEventListener('resize', () => {
-        app.renderer.resize(window.innerWidth, window.innerHeight);
-        AppConfig.updateSize(window.innerWidth, window.innerHeight);
-      });
+    window.addEventListener('resize', onResize);
     const game = new Game(app);
     app.stage.addChild(game);
+    onResize();
 };
 
 init();
