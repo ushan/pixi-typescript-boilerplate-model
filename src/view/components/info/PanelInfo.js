@@ -23,10 +23,11 @@ class PanelInfo extends PIXI.Container {
         this.topBannerAd = new SpriteCommon(ResourceList.MSC_TOP_BANNER_AD_1);
         // this.progressBar = new ProgressBar(120, 4);
         // this.timerProgressBar = new TimerProgressBar();
-        this.timeLeftProgressBar = new TimeLeftInfoBox();
+        this.timeLeftInfoBox = new TimeLeftInfoBox();
         this.magnetProgress = new MagnetProgress();
         this.speedUpProgress = new SpeedUpProgress();
         this.scoreInfo = new ScoreInfo();
+        // this.scoreInfo.resizeLabel();
         this.btnMuteCont = new PIXI.Container();
         this.btnMute = new SpriteCommon(ResourceList.MSC_BTN_MUTE);
         this.btnUnMute = new SpriteCommon(ResourceList.MSC_BTN_UNMUTE);
@@ -37,13 +38,13 @@ class PanelInfo extends PIXI.Container {
         this.updateScores = (item, scores) => {
             const { levelMaxScores } = AppConfig.gameSettings;
             this.scoreInfo.label.text = this.gameModel.scores;
+            this.scoreInfo.resizeLabel();
         };
 
         this.updateTimeLeft = (item, timeIncrement) => {
             const { timeMax, magnetMaxDuration, speedUpDuration  } = AppConfig.gameSettings;
-            this.timeLeftProgressBar.progress = this.gameModel.timeLeft / timeMax;
-            this.timeLeftProgressBar.label.text = this.gameModel.timeLeft;
-            this.timeLeftProgressBar.resizeLabel();
+            this.timeLeftInfoBox.label.text = this.gameModel.timeLeft;
+            this.timeLeftInfoBox.resizeLabel();
             this.magnetProgress.visualProgress = this.gameModel.magnetTimeLeftMS / magnetMaxDuration;
             this.speedUpProgress.visualProgress = this.gameModel.speedUpTimeLeftMS / speedUpDuration;
 
@@ -78,12 +79,28 @@ class PanelInfo extends PIXI.Container {
             this.topBanner.x = gameWidth / 2;
             this.topBannerAd.x = gameWidth / 2;
             this.topBannerAd.y = 115;
-            this.timeLeftProgressBar.setComponentWidth(gameWidth / 2);
-            this.scoreInfo.setComponentWidth(300);
+            let timeLeftSize = gameWidth / 4;
+            if (timeLeftSize < 230) timeLeftSize = 230;
+            this.timeLeftInfoBox.setComponentWidth(timeLeftSize);
+            let scoreInfoSize = gameWidth / 4;
+            if (scoreInfoSize < 230) scoreInfoSize = 230;
+            this.scoreInfo.setComponentWidth(scoreInfoSize);
+            
+
+            let magnetSize = gameWidth / 4 < 180 ? 180 : gameWidth / 2;
+            this.magnetProgress.setComponentWidth(magnetSize);
+
+            let speedUpSize = gameWidth / 4 < 180 ? 180 : gameWidth / 2;
+            this.speedUpProgress.setComponentWidth(speedUpSize);
+
+
+
             this.btnClose.x = gameWidth - this.btnClose.width + 5;
             this.btnMuteCont.x = gameWidth - this.btnMute.width + 5;
 
-            this.scoreInfo.x = this.btnClose.x - this.btnClose.width - 10 - this.scoreInfo.width;
+            // this.scoreInfo.x = this.btnClose.x - this.btnClose.width - 10 - this.scoreInfo.width;
+            this.scoreInfo.x = this.timeLeftInfoBox.x + this.timeLeftInfoBox.width - 20;
+            this.scoreInfo.resizeLabel();
         };
 
 
@@ -114,21 +131,19 @@ class PanelInfo extends PIXI.Container {
 
         const pad = 5;
 
-        this.addChild(this.timeLeftProgressBar);
+        this.addChild(this.timeLeftInfoBox);
         this.addChild(this.magnetProgress);
         this.addChild(this.speedUpProgress);
         this.addChild(this.scoreInfo);
         this.magnetProgress.progress = 0;
 
-        this.timeLeftProgressBar.x = 50;
-        this.timeLeftProgressBar.y = 0;
+        this.timeLeftInfoBox.x = 10 - this.timeLeftInfoBox.getIconOverhang();
+        this.timeLeftInfoBox.y = 0;
 
-        // this.scoreInfo.width = 150;
         this.scoreInfo.x = gameWidth - this.scoreInfo.width - 100;
-        // this.scoreInfo.x = this.timeLeftProgressBar.x + this.timeLeftProgressBar.width + pad;
 
-        this.speedUpProgress.x = this.timeLeftProgressBar.x - 20;
-        this.speedUpProgress.y = this.timeLeftProgressBar.y + this.timeLeftProgressBar.height + pad - 5;
+        this.speedUpProgress.x = this.timeLeftInfoBox.x - 20;
+        this.speedUpProgress.y = this.timeLeftInfoBox.y + this.timeLeftInfoBox.height + pad - 5;
 
         this.magnetProgress.x = this.speedUpProgress.x;
         this.magnetProgress.y = this.speedUpProgress.y + this.speedUpProgress.height + pad;
