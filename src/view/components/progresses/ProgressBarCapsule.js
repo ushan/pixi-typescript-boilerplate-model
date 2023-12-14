@@ -36,7 +36,7 @@ class ProgressBarCapsule extends PIXI.Container{
      * @param {number} value - we need this param for the cases when use animated changing of progress bar. 
      *        It displays the current visual state of the progress where `progress` param is a target for `visualProgress`
      * 
-     * @returns {}
+     * @return {}
      */
     set visualProgress(value) {
         if (this._visualProgress === value) return

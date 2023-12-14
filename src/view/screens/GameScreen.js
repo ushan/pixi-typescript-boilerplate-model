@@ -15,6 +15,7 @@ import KeyPad from '../components/KeyPad';
 import EItemsID from '../../model/EItemsID';
 import PanelInfo from '../components/info/PanelInfo';
 import Fireworks from '../components/effects/Fireworks';
+import Utils3D from '../utils/Utils3D';
 
 
 // const { gameWidth, gameHeight } = AppConfig.settings;
@@ -338,12 +339,7 @@ class GameScreen extends PIXI.Container {
         this.addChild(this.keyPad);
     }
 
-    get3DXByPosInRow(pos) {
-        const {worldSize, conveyorWidth} = AppConfig.settings3D;
-
-        const f = 0.5 + pos * 0.35;
-        return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
-    } 
+    get3DXByPosInRow(pos) {return Utils3D.get3DXByPosInRow(pos)} 
 
     getRandomInt(min, max) {
         min = Math.ceil(min);
