@@ -39,7 +39,7 @@ export class Cart extends SpriteCommon {
                 x: 0.9,
                 y: 0.9,
                 // ease: "power2.out",
-                duration: 0.3
+                duration: itemDropDuration
             }); 
             
         };

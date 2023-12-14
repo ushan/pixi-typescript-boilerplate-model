@@ -42,7 +42,7 @@ class KeyPad extends PIXI.Container {
         const w = 0.9 * gameWidth / 3
         box.drawRect( - 50, -50, 100, 100);
         box.cursor = "pointer";
-        box.alpha = 0.07;
+        box.alpha = 0.0;
         this.addChild(box);
         box.on('pointerdown', () => {
             this.gameModel.registerSetCartPos(posInRow);

@@ -31,7 +31,7 @@ class AppConfig {
         worldSize: 1000,
         conveyorY: 12,
         conveyorWidth: 6,
-        zCartPosition: 4,
+        zCartPosition: 8,
         zDeep:100
     };
 
@@ -53,7 +53,7 @@ class AppConfig {
      */
     static animationSettings = {
         itemJumpDuration: 0.3,
-        itemDropDuration: 0.3,
+        itemDropDuration: 0.6,
         displayItemsInCart: 30
     };
 
