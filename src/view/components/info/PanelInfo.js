@@ -10,6 +10,7 @@ import gsap from "gsap";
 import SpriteCommon from '../common/SpriteCommon';
 import ResourceList from '../../../resources/ResourceList';
 import { EGameStates } from '../../../model/GameModel';
+import TimeLeftInfoBox from './TimeLeftInfoBox';
 
 class PanelInfo extends PIXI.Container {
     constructor(gameModel, gameScreen) {
@@ -22,7 +23,7 @@ class PanelInfo extends PIXI.Container {
         this.topBannerAd = new SpriteCommon(ResourceList.MSC_TOP_BANNER_AD_1);
         // this.progressBar = new ProgressBar(120, 4);
         // this.timerProgressBar = new TimerProgressBar();
-        this.timeLeftProgressBar = new TimeLeftProgressBar();
+        this.timeLeftProgressBar = new TimeLeftInfoBox();
         this.magnetProgress = new MagnetProgress();
         this.speedUpProgress = new SpeedUpProgress();
         this.scoreInfo = new ScoreInfo();

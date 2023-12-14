@@ -1,8 +1,10 @@
+import ResourceList from "../../../resources/ResourceList";
 import InfoBox from "./InfoBox";
+import InfoBoxWithIcon from "./InfoBoxWithIcon";
 
-class ScoreInfo extends InfoBox {
+class ScoreInfo extends InfoBoxWithIcon {
     constructor() {
-        super();
+        super(ResourceList.MSC_COIN);
     }
 }
 

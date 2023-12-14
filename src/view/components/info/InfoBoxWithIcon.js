@@ -1,24 +1,25 @@
 import ResourceList from "../../../resources/ResourceList";
 import SpriteCommon from "../common/SpriteCommon";
-import ProgressBarElastic from "./ProgressBarElastic";
+import InfoBox from "./InfoBox";
 
-class ProgressBarWithIcon extends ProgressBarElastic{
-    constructor(iconTextureID, progressColor, animType, minimalAnimatedStep, animDuration){
-        super(progressColor, animType, minimalAnimatedStep, animDuration);
+class InfoBoxWithIcon extends InfoBox {
+    constructor(iconTextureID) {
+        super();
+
+/*         this.iconHolder = new SpriteCommon(iconTextureID);
+        this.addChild(this.iconHolder);
+
+        this.iconHolder.anchor.set(0.5, 0.5);
+        this.iconHolder.y = this.bg.height / 2;
+        this.iconHolder.x =  this.bg.height / 2; */
+
+
         this.iconHolder = new SpriteCommon(iconTextureID);
         const disckOverMargin = this.getDiskOverMargin(this.iconHolder.height / 2, this.bg.height);
         this.iconHolder.alpha = 1;
         this.iconHolder.y =  - (this.iconHolder.height - this.bg.height) / 2;
-        this.iconHolder.x =  - (this.iconHolder.width) + disckOverMargin;
+        this.iconHolder.x =  - (this.iconHolder.width) + disckOverMargin + this.cornerRadius;
         this.addChild(this.iconHolder);
-        
-        
-
-    }
-
-
-    setTopLeft(topX, topY) {
-
     }
 
     /**
@@ -27,7 +28,7 @@ class ProgressBarWithIcon extends ProgressBarElastic{
      * @param {number} a 
      * @returns {number}
      */
-    getDiskOverMargin(r, barHeight) {
+       getDiskOverMargin(r, barHeight) {
         return r - Math.sqrt(r**2 - (barHeight / 2)**2);
     }
 
@@ -40,4 +41,4 @@ class ProgressBarWithIcon extends ProgressBarElastic{
     }
 }
 
-export default ProgressBarWithIcon
+export default InfoBoxWithIcon
