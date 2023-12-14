@@ -23,14 +23,15 @@ class AppConfig {
      * @readonly
      */
     static settings3D = {
+        itemsExtraScale: 1.2,
         focalLength: 10,
         scaleZoom: 26,
         horyzontPos: 0.2,
         animationSped: 1 * 5,
         worldSize: 1000,
-        conveyorY: 6,
+        conveyorY: 12,
         conveyorWidth: 6,
-        zCartPosition: 0,
+        zCartPosition: 4,
         zDeep:100
     };
 
@@ -41,7 +42,6 @@ class AppConfig {
         levelMaxScores: 500,
         cartWidth: 50,
         newItemDelay: 1 * 1000,
-        itemsExtraScale: 0.8,
         magnetItemsCount: 6,
         magnetMaxDuration: 6000, //we double duration of bugnet by timeout and itemscount
         speedUpDuration: 4000,

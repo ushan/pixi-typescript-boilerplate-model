@@ -7,7 +7,7 @@ class Utils3D {
     
     static updateConveyorCorners() {
         const { gameWidth, gameHeight } = AppConfig.settings;
-        const { worldSize, conveyorY, conveyorWidth, focalLength, horyzontPos} = AppConfig.settings3D;
+        const { worldSize, conveyorY, conveyorWidth, focalLength, horyzontPos, zDeep} = AppConfig.settings3D;
 
         const w = gameWidth;
         const h = gameHeight;
@@ -15,8 +15,8 @@ class Utils3D {
 
         const marginFactor = 1.2
         
-        const topLeft3D = new Point3D(null, - marginFactor * worldSize * conveyorWidth / 2, conveyorY * worldSize, 100);
-        const topRight3D = new Point3D(null, marginFactor * worldSize * conveyorWidth / 2, conveyorY * worldSize, 100);
+        const topLeft3D = new Point3D(null, - marginFactor * worldSize * conveyorWidth / 2, conveyorY * worldSize, zDeep);
+        const topRight3D = new Point3D(null, marginFactor * worldSize * conveyorWidth / 2, conveyorY * worldSize, zDeep);
         const bottomLeft3D = topLeft3D.clone();
         bottomLeft3D.z = - 2;
         const bottomRight3D = topRight3D.clone();
@@ -50,7 +50,7 @@ class Utils3D {
     static get3DXByPosInRow(pos) {
         const {worldSize, conveyorWidth} = AppConfig.settings3D;
 
-        const f = 0.5 + pos * 0.35;
+        const f = 0.5 + pos * 0.45;
         return f * conveyorWidth * worldSize - worldSize * conveyorWidth / 2;
     } 
 }

@@ -16,13 +16,14 @@ class Pseudo3DSprite extends SpriteCommon {
             return;
 
         const { gameWidth, gameHeight } = AppConfig.settings;
-        const { focalLength, scaleZoom, horyzontPos } = AppConfig.settings3D;
-        const { itemsExtraScale } = AppConfig.gameSettings;
+        const { focalLength, scaleZoom, horyzontPos, itemsExtraScale } = AppConfig.settings3D;
 
         const w = gameWidth;
         const h = gameHeight;
         const centrX = w / 2;
-/*         this.x = centrX + this.point3D.x / (this.point3D.z + focalLength);
+
+/*      //without camera offset   
+        this.x = centrX + this.point3D.x / (this.point3D.z + focalLength);
         this.y = h * horyzontPos + this.point3D.y / (this.point3D.z + focalLength);
         const sc = itemsExtraScale * scaleZoom * 1 / (this.point3D.z + focalLength); */
 
