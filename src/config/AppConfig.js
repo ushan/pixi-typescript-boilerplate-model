@@ -44,7 +44,7 @@ class AppConfig {
         newItemDelay: 1 * 1000,
         magnetItemsCount: 6,
         magnetMaxDuration: 6000, //we double duration of bugnet by timeout and itemscount
-        speedUpDuration: 4000,
+        speedUpDuration: 5000,
         timeMax: 180
     };
 
