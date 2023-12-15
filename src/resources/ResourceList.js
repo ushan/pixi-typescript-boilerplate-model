@@ -111,7 +111,7 @@ ResourceList.LIST = [
     ResourceList.ITEM_SPEEDUP,
     ResourceList.ITEM_TIMEPLUS,
     ResourceList.ITEM_TIMEMINUS,
-    ResourceList.EFFECTS,
+    // ResourceList.EFFECTS,
     ResourceList.TIMER_BASE,
     ResourceList.TIMER_PROGRESS_MIDDLE,
     ResourceList.TIMER_PROGRESS_RIGHT,
