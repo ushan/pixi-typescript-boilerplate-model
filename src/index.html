@@ -1,16 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+</body>
+</html>
+
+<html lang="en" class="blue">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Pixi + Typescript + Webpack</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+
+    <link rel="stylesheet" href="./assets/style/style.css" />
     <link rel="stylesheet" href="index.css"/>
+
+    <style>/*for js generated styles*/</style>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-N36WBX8');
+    </script>
+    <!-- End Google Tag Manager -->
+    <script>
+      function sendData(name, data) {
+        const message = {
+          visits: { name, data },
+        };
+        window.parent.postMessage(message, '*');
+      }
+    </script>
 </head>
 <body>
-    
-<script type="module" src="index.js"></script>
+<div class="spinner-container">
+    <div class="spinner-loading"></div>
+    <div class="spinner-loading-1">
+        <img src="assets/images/loading-medal.svg" />
+        <h3 id="loading_title" class="font-size-h3" style="color: #FFFFFF"></h3>
+    </div>
+</div>
+<div class="wrapper" style="opacity: 0">
+    <div class="wrapper-inner">
+        <header>
+            <div class="game-action-button">
+                <div id="mute" class="mute">
+                    <img src="assets/images/mute.svg" alt="mute" on-click="mute" />
+                </div>
+                <div id="home" class="home">
+                    <img src="assets/images/home.svg" alt="home" on-click="home" />
+                </div>
+            </div>
+            <div class="inputs" style="display: none">
+                <div class="score"></div>
+                <div class="time" id="time"></div>
+            </div>
+            <div class="header-content-container">
+                <div class="score" id="highscoreScore">
+                    <div class="content">
+                        <h3 class="font-size-h3 score-board"></h3>
+                    </div>
+                </div>
+                <div class="game-timer" id="game-timer">
+                    <div class="content">
+                        <h3 class="font-size-h3 score-board"></h3>
+                    </div>
+                </div>
+            </div>
+            <img src="assets/images/logo.svg" class="logo" id="logo" alt="logo" />
+        </header>
+
+        <div id="game-container"></div>
+
+        <div class="bottom-panel" style="display: none">
+            <div class="bottom-panel-container">
+                <p class="top-bar" id="commentSection">KEEP ON GOING</p>
+                <p class="bottom-bar" data-num-of-gifts></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="sponsors">
+        <a id="banner"></a>
+    </div>
+</div>
+
+<div class="bg">
+</div>
+
+
 <div id="fontsCont">.</div>
 
+<audio class="match"></audio>
+<audio class="move"></audio>
+<audio class="lightning"></audio>
+<audio class="fire"></audio>
+<audio class="paint"></audio>
 
+
+<!-- <script src="bundle.js"></script> -->
+<script type="module" src="index.js"></script>
+<noscript>
+    <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N36WBX8"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden">
+
+    </iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>
+  const banner = document.querySelector('#banner');
+  banner.onclick = () => {
+    sendData('webEvent_game_click_banner');
+    // window.open(
+    //   '',
+    //   '_blank',
+    // );
+  };
+</script>
 </body>
 </html>
