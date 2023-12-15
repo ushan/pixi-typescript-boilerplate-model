@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+		* {
+			margin: 0;
+			padding: 0;
+			border: none;
+			outline: none;
+		}
+
+		body {
+			background-color: #5e0e0e;
+		}
+
+		iframe {
+			display: block;
+			position: fixed;
+			width: calc(100% - 10vmin);
+			height: calc(100% - 20vmin);
+			left: 5vmin;
+			bottom: 15vmin;
+			box-shadow: 1vmin 1vmin 5vmin 2vmin rgba(0, 0, 0, 0.4);
+			border: 1vmin solid white;
+			border-radius: 5vmin;
+			box-sizing: border-box;
+		}
+
+		#test-button {
+			display: inline;
+			border: 0;
+			outline: 0;
+			padding: 0 2vmin;
+			height: 8vmin;
+			line-height: 4vmin;
+			font-size: 4vmin;
+			position: fixed;
+			bottom: 3vmin;
+			left: 50%;
+			border-radius: 1vmin;
+			transform: translateX(-50%);
+		}
+  </style>
+</head>
+<body>
+<iframe src="http://localhost:1235/"></iframe>
+<button id="test-button">Click to test</button>
+
+<script>
+	const iframeElement = document.querySelector('iframe');
+	const buttonElement = document.querySelector('#test-button');
+
+	function handleActions() {
+
+	}
+
+	function sendMessage() {
+		const gameInfo = {
+			eventName: {
+				customerId: 1,
+				availableGames: 1,
+				period: 'male',
+				sponsors: false
+			}
+		};
+
+		iframeElement.contentWindow.postMessage(gameInfo, '*');
+	}
+
+	window.addEventListener('message', event => {
+		if (event?.data?.eventName?.action) {
+			handleActions(event.data.eventName.action);
+		}
+
+		if (event?.data?.eventName === "all-loaded") {
+			sendMessage();
+		}
+	});
+
+	buttonElement.addEventListener('pointerup', (event) => {
+
+    // iframeElement.contentWindow.postMessage({eventName: 'show-preloader-animation'}, '*');
+
+
+    iframeElement.contentWindow.postMessage({
+      eventName: 'game-registered',
+      tutorial: false
+    }, '*');
+
+		const message = {
+			eventName: 'prize',
+			powerUps: [{name: 'x2time'}]
+		};
+
+		iframeElement.contentWindow.postMessage(message, '*');
+
+		// iframeElement.contentWindow.postMessage({eventName: 'play-again'}, '*');
+		// iframeElement.contentWindow.postMessage({eventName: 'closed-refuse'}, '*');
+	});
+
+</script>
+</body>
+</html>
